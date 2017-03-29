@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+
+<title>Créer un compte - Banque en Ligne</title>
+
+</head>
+
+<body>
+
+
+<form name="Créer Compte" action='CreerCompte.jsp' method='POST' enctype="multipart/form-data" onSubmit="return verifform1()">
+
+   Nom :<br>
+  <input type="text" name="username"required><br>
+  
+   Prénom :<br>
+  <input type="text" name="usersurname" required><br>
+  
+   Date de naissance :<br>
+  <input type="text" name="userdob"required><br>
+  
+   Adresse mail :<br>
+  <input type="text" name="usermail"required><br>
+  
+  Confirmer adresse mail :<br>
+  <input type="text" name="usermailConf"required><br>
+  
+    Mot de passe :<br>
+  <input type="text" name="pwd"required><br>
+  
+   Confirmer mot de passe :<br>
+  <input type="text" name="pwdConf"required><br>
+  
+  <input type="submit" value="Submit">
+
+</form>
+
+</body>
+</html>
