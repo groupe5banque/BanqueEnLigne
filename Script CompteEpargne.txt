@@ -1,11 +1,22 @@
-CREATE TABLE `banqueenligne`.`compteepargne` (
-
-  `idCompteEpargne` INT NOT NULL AUTO_INCREMENT,
+ CREATE TABLE `banqueenligne`.`compteepargne` (
  
- `soldeCompteEpargne` DECIMAL NULL,
+ `idCompteEpargne` INT NOT NULL AUTO_INCREMENT,
+
+  `soldeCompteEpargne` DECIMAL NULL,
 
   `RIB` VARCHAR(45) NULL,
+ 
+ `idClient` INT NOT NULL,
 
-  `idClient` INT NULL,
+  PRIMARY KEY (`idCompteEpargne`),
+ 
+ INDEX `idClient_idx` (`idClient` ASC),
+ 
+ CONSTRAINT `idClient2`
+   
+ FOREIGN KEY (`idClient`)
 
-  PRIMARY KEY (`idCompteEpargne`));
+ REFERENCES `banqueenligne`.`client` (`idClient`)
+ 
+   ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
