@@ -1,0 +1,11 @@
+CREATE TABLE `banqueenligne`.`compteepargne` (
+
+  `idCompteEpargne` INT NOT NULL AUTO_INCREMENT,
+ 
+ `soldeCompteEpargne` DECIMAL NULL,
+
+  `RIB` VARCHAR(45) NULL,
+
+  `idClient` INT NULL,
+
+  PRIMARY KEY (`idCompteEpargne`));
