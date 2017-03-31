@@ -3,21 +3,21 @@ public class CompteTitre {
 
 	private int idComtpeTitre;
 	private double soldCompteTitre;
-	private String RIB;
+	private int idRIB;
 	private int idClient;
 	
 	/**Constructor
 	 * 
 	 * @param idComtpeTitre
 	 * @param soldCompteTitre
-	 * @param RIB
+	 * @param idRIB
 	 * @param idClient
 	 */
-	public CompteTitre(int idComtpeTitre, double soldCompteTitre, String RIB, int idClient )
+	public CompteTitre(int idComtpeTitre, double soldCompteTitre, int idRIB, int idClient )
 	{
 		this.idComtpeTitre = idComtpeTitre;
 		this.soldCompteTitre = soldCompteTitre;
-		this.RIB = RIB;
+		this.idRIB = idRIB;
 		this.idClient = idClient;		
 	}
 
@@ -37,12 +37,12 @@ public class CompteTitre {
 		this.soldCompteTitre = soldCompteTitre;
 	}
 
-	public String getRIB() {
-		return RIB;
+	public int getIdRIB() {
+		return idRIB;
 	}
 
-	public void setRIB(String rIB) {
-		RIB = rIB;
+	public void setRIB(int idRIB) {
+		idRIB = idRIB;
 	}
 
 	public int getIdClient() {

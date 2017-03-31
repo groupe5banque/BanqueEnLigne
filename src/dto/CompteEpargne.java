@@ -5,20 +5,20 @@ public class CompteEpargne {
 	private int idCompteEpargne;
 	private double soldCompteEpargne;
 	private int idClient;
-	private String RIB;
+	private int idRIB;
 
 	/**constructor
 	 * 
 	 * @param idCompteEpargne
 	 * @param soldCompteEpargne
-	 * @param RIB
+	 * @param idRIB
 	 * @param idClient
 	 */
-	public CompteEpargne(int idCompteEpargne,double soldCompteEpargne,String RIB,int idClient)
+	public CompteEpargne(int idCompteEpargne,double soldCompteEpargne,int idRIB,int idClient)
 	{
 		this.idCompteEpargne = idCompteEpargne;
 		this.soldCompteEpargne = soldCompteEpargne;
-		this.RIB = RIB;
+		this.idRIB = idRIB;
 		this.idClient = idClient;
 	}
 
@@ -46,12 +46,12 @@ public class CompteEpargne {
 		this.idClient = idClient;
 	}
 
-	public String getRIB() {
-		return RIB;
+	public int getIdRIB() {
+		return idRIB;
 	}
 
-	public void setRIB(String rIB) {
-		RIB = rIB;
+	public void setRIB(int idRIB) {
+		idRIB = idRIB;
 	}
 	
 	
