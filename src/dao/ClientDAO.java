@@ -35,31 +35,30 @@ import java.util.Date;
  * @author Prisca - Hornela
  * @version 1.2
  * */
-public class ClientDAO {
+public class ClientDAO extends DAO{
 
 	/**
 	 * Param鑤res de connexion � la base de donn閑s oracle URL, LOGIN et PASS
 	 * sont des constantes
 	 */
-	
+	/**
 	final static String URL = "jdbc:mysql://localhost:3306/banqueenligne";
 	final static String LOGIN = "root";  //exemple BDD1
 	final static String PASS = "root";   //exemple BDD1
-
-	
+    **/
 	/**
 	 * Constructeur de la classe
 	 * 
 	 */
 	public ClientDAO() {
 		// chargement du pilote de bases de donn閑s
-		
-		try {
+		super();
+		/**try {
 			 Class.forName( "com.mysql.jdbc.Driver" );
 		} catch (ClassNotFoundException e) {
 			System.err
 					.println("Impossible de charger le pilote de BDD, ne pas oublier d'importer le fichier .jar dans le projet");
-		}
+		}**/
 
 	}
 
