@@ -1,2 +1,0 @@
-# BanqueEnLigne
-Sprint1

@@ -12,7 +12,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
-
+import java.sql.Timestamp;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,14 +30,14 @@ import java.util.List;
 import java.util.Date;
 
 /**
- * DAO pour établir la connection
+ * DAO pour Ã©tablir la connection
  * @author AdeleSONG
  *
  */
 public class DAO {
 
 	/**
-	 * Param鑤res de connexion � la base de donn閑s oracle URL, LOGIN et PASS
+	 * Paramé‘¤res de connexion ï¿½ la base de donné–‘s oracle URL, LOGIN et PASS
 	 * sont des constantes
 	 */
 	
@@ -51,7 +51,9 @@ public class DAO {
 	 * 
 	 */
 	public DAO() {
-		// chargement du pilote de bases de donn閑s
+		
+		
+		// chargement du pilote de bases de donné–‘s
 		
 		try {
 			 Class.forName( "com.mysql.jdbc.Driver" );
@@ -59,6 +61,58 @@ public class DAO {
 			System.err
 					.println("Impossible de charger le pilote de BDD, ne pas oublier d'importer le fichier .jar dans le projet");
 		}
+
+	}
+	
+	
+	public ArrayList<News> getNews() {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		ArrayList<News>	news = new ArrayList<News>();	
+		
+		// connexion a la base de donnees
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT * FROM news ORDER BY id DESC LIMIT 0, 5");
+			
+
+			// on execute la requete
+			// rs contient un pointeur situé juste avant la première ligne
+			// retournée
+			rs = ps.executeQuery();
+			// passe à la première (et unique) ligne retournée
+			if (rs.next())
+				news.add(new News(rs.getString("titre"), rs.getString("contenu"), rs.getTimestamp("timestamp"),rs.getInt("idimgNews")));
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du ResultSet, du PreparedStatement et de la Connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		
+		
+	
+			
+		return news;
 
 	}
 }

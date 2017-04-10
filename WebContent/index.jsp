@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
     <%@ page import="dao.*" %>
     <%@ page import="dto.*" %>
+    <%@ page import="java.util.ArrayList" %>
+ 	<%@ page import="javax.mail.MessagingException"%>
 
-<% //ClientDAO dao= new ClientDAO();
-//Client c1= new Client(); %>
     
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,7 +29,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <!-- Theme CSS -->
-    <link href="css/agency.min.css" rel="stylesheet">
+    <link href="css/agency.css" rel="stylesheet">
 
 </head>
 
@@ -132,6 +132,7 @@
     </section>
 
     <!-- ACTUALITES Section -->
+    <!-- ACTUALITES Section -->
     <section id="portfolio" class="bg-light-gray">
         <div class="container">
             <div class="row">
@@ -139,8 +140,8 @@
                     <h2 class="section-heading">Actualités</h2>
                     <h3 class="section-subheading1 text-muted">Vous trouverez dans cette section toute l'actualité concernant notre banque</h3>
                 </div>
-            </div>
-			<br>
+                
+<br>
             <div class="row">
                 <div class="col-md-4 col-sm-6 portfolio-item">
                     <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
@@ -186,6 +187,10 @@
                 </div>
             </div>
         </div>
+        
+        
+    
+		
     </section>
 
     <!-- SOUSCRIPTION Section -->
@@ -252,7 +257,7 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+     <!-- Contact Section -->
     <section id="contact">
         <div class="container">
             <div class="row">
@@ -263,39 +268,98 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <form name="sentMessage" id="contactForm" novalidate>
-                        <div class="row">
+                
+                <%!	String message = null;
+	String status = null; %>
+           
+           <%  		
+	if (request.getParameter("sendContact") != null) {
+		JavaEmail javaEmail = new JavaEmail();
+		javaEmail.setMailServerProperties();
+		String emailSubject = "Formulaire de contact de la plateforme Banque S8-5";
+		String emailBody = "";
+		if (request.getParameter("name") != null) {
+			emailBody = "Sender Name: " + request.getParameter("name")
+					+ "<br>";
+		}
+		if (request.getParameter("email") != null) {
+			emailBody = emailBody + "Sender Email: "
+					+ request.getParameter("email") + "<br>";
+		}
+		if (request.getParameter("phone") != null) {
+			emailBody = emailBody + "Sender Phone: "
+					+ request.getParameter("phone") + "<br>";
+		}
+		if (request.getParameter("message") != null) {
+			emailBody = emailBody + "Message: " + request.getParameter("message")
+					+ "<br>";
+		}
+		javaEmail.createEmailMessage(emailSubject, emailBody);
+		try {
+			javaEmail.sendEmail();
+			status = "success";
+			message = "Email sent Successfully!";
+		} catch (MessagingException me) {
+			status = "error";
+			message = "Error in Sending Email!";
+		}
+	}
+%>
+
+                    <form action="" method="POST" id="" novalidate="novalidate">
+                    
+					                   <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
-                                    <p class="help-block text-danger"></p>
+						<input type="text" id="pp-name"  class="form-control" name="name"
+							placeholder="enter your name here" title="Please enter your name"
+							class="required" aria-required="true" required>
+							 <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Your Email *" id="email" required data-validation-required-message="Please enter your email address.">
-                                    <p class="help-block text-danger"></p>
+					
+						<input type="email" class="form-control" id="pp-email" name="email"
+							placeholder="enter your email address here"
+							title="Please enter your email address" class="required email"
+							aria-required="true" required>
+							
+					<p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required data-validation-required-message="Please enter your phone number.">
-                                    <p class="help-block text-danger"></p>
+                                
+						<input type="tel" id="pp-phone" name="phone"
+							placeholder="enter your phone number here"
+							 class="form-control" title="Please enter your phone number" class="required phone"
+							aria-required="true" required>
+							
+					<p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <textarea class="form-control" placeholder="Your Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
-                                    <p class="help-block text-danger"></p>
+                                
+						<textarea id="about-project" name="message"
+							 class="form-control" placeholder="enter your message here"></textarea>
+					 <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
-                                <button type="submit" class="btn btn-xl">Envoyer</button>
+                                
+                              
+                              <button type="submit" name="sendContact"  class="btn btn-xl" href="#Resultat2" data-toggle="modal"> Envoyer </button> 
                             </div>
                         </div>
+					
+
+					
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
 
     <footer>
         <div class="container">
@@ -311,7 +375,7 @@
     </footer>
 
     <!-- ACTUALITES -->
-    <!-- Use the modals below to showcase details about your portfolio projects! -->
+    
 
     <!-- ACTUALITE 1 -->
     <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
@@ -327,19 +391,27 @@
                     <div class="row">
                         <div class="col-lg-8 col-lg-offset-2">
                             <div class="modal-body">
-                                <!-- Project Details Go Here -->
-                                <h2>Banque en ligne</h2>
-                                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-responsive img-centered" src="img/portfolio/treehouse-preview.png" alt="">
-                                <p>Lorem ipsum dolor sit amet consectetur.. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                <p>
-                                    <strong>Lorem ipsum dolor sit amet consectetur.</strong>Lorem ipsum dolor sit amet consectetur.</p>
-                                <ul class="list-inline">
-                                    <li>Lorem ipsum dolor sit amet consectetur.</li>
-                                    <li>Lorem ipsum dolor sit amet consectetur.</li>
-                                    <li>Lorem ipsum dolor sit amet consectetur.</li>
-                                </ul>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer news</button>
+                                <!-- Details Go Here -->
+                               
+                                
+                                <% DAO dao=new DAO(); 
+                                
+                                  ArrayList<News> news = dao.getNews();
+                    		
+                    			for(News nw: news) { %>
+                    			
+                    			  <h2> <%=nw.getTitreNews()%></h2>
+                    				
+                    			<p class="item-intro text-muted"> <%=nw.gettimestampNews()%> </p>
+                    			
+                                <img class="img-responsive img-centered" src="" alt="">
+                                
+                                 <p> <%=nw.getContenuNews()%></p>
+                                 
+                    			<%	}
+                                  
+                                  %>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer</button>
                             </div>
                         </div>
                     </div>
@@ -367,7 +439,7 @@
                                 <img class="img-responsive img-centered" src="img/portfolio/treehouse-preview.png" alt="">
                                 <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.</p>
                                 <p>Lorem ipsum dolor sit amet consectetur.</p>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer news</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer</button>
                             </div>
                         </div>
                     </div>
@@ -396,7 +468,7 @@
                                 <img class="img-responsive img-centered" src="img/portfolio/treehouse-preview.png" alt="">
                                 <p>Lorem ipsum dolor sit amet consectetur. This is bright and spacious design perfect for people or startup companies looking to showcase their apps or other projects.</p>
                                 <p>Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.</p>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer news</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer</button>
                             </div>
                         </div>
                     </div>
@@ -404,6 +476,82 @@
             </div>
         </div>
     </div>
+
+
+                <%!	String rep = null;
+					String stat = null; %>
+           
+           <%  		
+	if (request.getParameter("sendNew") != null) {
+		
+		MailSend mailSend = new MailSend();
+		mailSend.setMailServerProperties();
+		
+		String emailSubject = "Confirmation de creation d'un nouveau compte en ligne sur la plateforme Banque S8-5";
+		String emailBody = " Bonjour nous vous confirmons la creation d'un compte bancaire sur le site officiel de la Banque en Ligne S8-5 . \n\n Vos informations personnelles enregistrees sont les suivantes:";
+		
+		if (request.getParameter("nom") != null) {
+			emailBody = "Nom: " + request.getParameter("nom")
+					+ "<br>";
+		}
+		if (request.getParameter("surname") != null) {
+			emailBody =  emailBody +"Prenom: " + request.getParameter("surname")
+					+ "<br>";
+		}
+		if (request.getParameter("Civilite") != null) {
+			emailBody =  emailBody +"Civilite: " + request.getParameter("Civilite")
+					+ "<br>";
+		}
+		if (request.getParameter("mail") != null) {
+			emailBody = emailBody + " Email: "
+					+ request.getParameter("mail") + "<br>";
+		}
+		if (request.getParameter("birthday") != null) {
+			emailBody =  emailBody +"Date de naissance: " + request.getParameter("birthday")
+					+ "<br>";
+		}
+		if (request.getParameter("nationalite") != null) {
+			emailBody =  emailBody +"Nationalite: " + request.getParameter("nationalite")
+					+ "<br>";
+		}
+		if (request.getParameter("type_compte") != null) {
+			emailBody =  emailBody +"Type de compte:"  + request.getParameter("type_compte")
+					+ "<br>";
+		}
+		if (request.getParameter("phone") != null) {
+			emailBody = emailBody + "Telephone: "
+					+ request.getParameter("phone") + "<br>";
+		}
+		if (request.getParameter("adresse") != null) {
+			emailBody = emailBody + "Adresse: " + request.getParameter("adresse")
+					+ "<br>";
+		}
+		if (request.getParameter("code_postal") != null) {
+			emailBody = "Code Postal: " + request.getParameter("code_postal")
+					+ "<br>";
+		}
+		if (request.getParameter("ville") != null) {
+			emailBody =  emailBody + "Ville: " + request.getParameter("ville")
+					+ "<br>";
+		}
+		if (request.getParameter("pays") != null) {
+			emailBody =  emailBody +"Pays: " + request.getParameter("pays")
+					+ "<br>";
+		}
+		
+		emailBody = "<br> En cas d'erreur, connectez sur notre site et modifier les informations correspondantes. Le lien vers notre site est le suivant: <a href='#connexion'> </a>";
+		mailSend.createEmailMessage(emailSubject, emailBody, request.getParameter("mail"));
+		
+		try {
+			mailSend.sendEmail();
+			stat = "success";
+			rep = "Email sent Successfully!";
+		} catch (MessagingException me) {
+			stat = "error";
+			rep = "Error in Sending Email!";
+		}
+	}
+%>
 
 	<!-- SOUSCRIPTION --> <!-- ATTENTION AU JSP ICI FORMULAIRE A MODIFIER--> 
 		<div class="portfolio-modal modal fade" id="souscription" tabindex="-1" role="dialog" aria-hidden="true">
@@ -422,73 +570,547 @@
 								<h3 class="section-subheading1 text-muted"> Les champs suivants vous permettront de vous enregistrer et d'accéder à toutes les fonctionnalités de notre banque.</h3>
 							</div> 
 						</div>
-						<div class="row">
-							<div class="col-lg-12">
-								<form name="sentMessage" method="post" action="Home" id="contactForm" >
-									<div class="row">
-										<div class="col-md-4"></div>
-										<div class="col-md-4">
+						
+								<form name="" method="post" action="Home" id="" class="well form-horizontal">
+								
+  <div class="form-group">
+  <label class="col-md-4 control-label">Nom </label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  <input  placeholder="Votre nom" name="name"  class="form-control"  type="text" required data-validation-required-message="Please enter ">
+  <p> </p>
+    </div>
+  </div>
+</div>
 											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Nom *"  name="name" required data-validation-required-message="Please enter ">
-												<p class="help-block text-danger"></p>
+  <label class="col-md-4 control-label" >Prénom</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  <input name="surname" placeholder="Votre prénom" class="form-control"  type="text" required data-validation-required-message="Please enter ">
+  <p> </p>
+    </div>
+  </div>
+</div>
+											<div class="form-group"> 
+  <label class="col-md-4 control-label">Civilité</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+    <select name="Civilite" class="form-control selectpicker" >
+												<option value= "monsieur" selected> M </option>
+												<option value= "madame"> Mme </option>
+												<option value= "mademoiselle"> Mlle </option>
+												</select>
+												
 											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Prénom*"  name="surname" required data-validation-required-message="Please enter">
-												<p class="help-block text-danger"></p>
 											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Civilite*"  name="civilite" required data-validation-required-message="Please enter ">  
-												<p class="help-block text-danger"></p>
 											</div>
-											<div class="form-group">
-												<input type="email" class="form-control" placeholder="Email*" name="mail" required data-validation-required-message="Please enter ">
-												<p class="help-block text-danger"></p>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Date de naissance*" name="birthday" required data-validation-required-message="Please enter ">
-												<p class="help-block text-danger"></p>
-											</div>
-											<div class="form-group">
-												<input type="password" class="form-control" placeholder="Mot de passe *" name="mdp" required data-validation-required-message="Please enter "> <!-- ATTENTION AU JSP ICI FORMULAIRE A MODIFIER -->  
-												<p class="help-block text-danger"></p>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="nationalite *" name="nationalite" required data-validation-required-message="Please enter ">
-												<p class="help-block text-danger"></p>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Type de compte*" name="type_compte" required data-validation-required-message="Please enter .">
-												<p class="help-block text-danger"></p>
-											</div>
-											<div class="form-group">
-												<input type="tel" class="form-control" placeholder="Téléphone*" name="phone" required data-validation-required-message="Please enter "> <!-- ATTENTION AU JSP ICI FORMULAIRE A MODIFIER -->  
-												<p class="help-block text-danger"></p>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Adresse*" name="adresse" required data-validation-required-message="Please enter ">
-												<p class="help-block text-danger"></p>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Code Postal *" name="code_postal" required data-validation-required-message="Please enter ">
-												<p class="help-block text-danger"></p>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Ville *" name="ville" required data-validation-required-message="Please enter "> <!-- ATTENTION AU JSP ICI FORMULAIRE A MODIFIER -->  
-												<p class="help-block text-danger"></p>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Pays *" name="pays" required data-validation-required-message="Please enter"> <!-- ATTENTION AU JSP ICI FORMULAIRE A MODIFIER -->  
-												<p class="help-block text-danger"></p>
-											</div>
-										</div>
-										<div class="col-md-4"></div>
-										<div class="clearfix"></div>
-										<div class="col-lg-12 text-center">
-											<div id="success"></div>
-											<button type="submit" class="btn btn-xl" value="ok">Souscrire</button>
-										</div>
+	<!-- Text input-->
+       								<div class="form-group">
+  											<label class="col-md-4 control-label">E-Mail</label>  
+    										<div class="col-md-4 inputGroupContainer">
+													    <div class="input-group">
+													        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+													  <input name="mail" id="mail" placeholder="E-Mail Address" class="form-control"  type="email" required data-validation-required-message="Entrez votre adresse mail svp ">
+													    </div>
+  											</div>
 									</div>
-																				<button type="submit" class="btn btn-xl" value="ok">Souscrire</button>
+
+											<div class="form-group">
+  <label class="col-md-4 control-label">Date de naissance</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+  <input name="birthday" placeholder="Date de naissance" class="form-control"  type="date" required data-validation-required-message="Please enter ">
+    </div>
+  </div>
+</div>
+											<div class="form-group">
+  <label class="col-md-4 control-label">Mot de passe</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+  <input name="mdp" placeholder="Mot de passe" class="form-control"  type="password" required data-validation-required-message="Please enter ">
+    </div>
+  </div>
+</div>
+											<div class="form-group"> 
+  <label class="col-md-4 control-label">Pays d'origine</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+    <select name="nationalite" class="form-control selectpicker" >
+<option name="Afghanistan">Afghanistan </option>	
+ <option name="Albanie"> Albanie	</option>
+<option name="Algérie">Algérie	</option>
+<option value="Allemagne">Allemagne	</option>
+<option value="Andorre">Andorre	 </option>
+<option value="Angola">Angola	</option>
+<option value="Antigua-et-Barbuda">Antigua-et-Barbuda	</option>
+<option value="Arabie Saoudite">Arabie Saoudite	 </option>
+<option value="Argentine">Argentine	</option>
+<option value="Armenie">Arménie	</option>
+<option value="Australie">Australie</option>	
+<option value="Autriche">Autriche	</option>
+<option value="Azerbaidjan">Azerbaïdjan	</option>
+<option value="Bahamas">Bahamas	</option>
+<option value="Bahrein">Bahreïn	</option>
+<option value="Bangladesh">Bangladesh	</option>
+<option value="Barbade">Barbade	</option>
+<option value="Belgique">Belgique </option>
+<option value="Belize">Belize	</option>
+<option value="Benin">Bénin	</option>
+<option value="Bhoutan">Bhoutan	 </option>
+<option value="Bielorussie">Biélorussie	</option>
+<option value="Birmanie">Birmanie	</option>
+<option value="Bolivie">Bolivie	</option>
+<option value="Bosnie-Herzegovine">Bosnie-Herzégovine	</option>
+<option value="Botswana">Botswana	</option>
+<option value="Bresil">Brésil	</option>
+<option value="Brunei">Brunei	</option>
+<option value="Bulgarie">Bulgarie	</option>
+<option value="Burkina Faso">Burkina Faso </option>	
+<option value="Buundi">Burundi	 </option>
+<option value="Cambodge">Cambodge	</option>
+<option value="Cameroun">Cameroun	</option>
+<option value="Canada">Canada	</option>
+<option value="Cap vert">Cap-Vert	</option>
+<option value="Chili">Chili	</option>
+<option value="Chine">Chine	</option>
+<option value="Chypre">Chypre	</option>
+<option value="Colombie">Colombie </option>
+<option value="Corée du Nord">Corée du Nord	</option>
+<option value="Corée du  sud">Corée du Sud	</option>
+<option value="Costa Rica">Costa Rica	</option>
+<option value="Côte d’Ivoire">Côte d’Ivoire	 </option>
+<option value="Croatie">Croatie	</option>
+<option value="Cuba">Cuba	 </option>
+<option value="Danemark">Danemark	</option>
+<option value="Djibouti">Djibouti	</option>
+<option value="Dominique">Dominique	</option>
+<option value="Égypte">Égypte	</option>
+<option value="Émirats arabes unis">Émirats arabes unis	</option>
+<option value="Équateur">Équateur	</option>
+<option value="Érythrée">Érythrée	</option>
+<option value="Espagne">Espagne	</option>
+<option value="Estonie">Estonie	</option>
+<option value="États-Unis">États-Unis	</option>
+<option value="Éthiopie">Éthiopie</option>	
+<option value="Fidji">Fidji	</option>
+<option value="Finlande">Finlande	</option>
+<option value="France"  selected>France	</option>
+<option value="Gabon">Gabon	</option>
+<option value="Gambie"> Gambie	</option>
+<option value="Géorgie"> Géorgie	</option>
+<option value="Ghana"> Ghana	</option>
+<option value="Grèce">Grèce	</option>
+<option value="Grenade">Grenade	 </option>
+<option value="Guatemala">Guatemala	</option>
+<option value="Guinée Conakry">Guinée	Conakry </option>
+<option value="Guinée équatoriale">Guinée équatoriale	</option>
+<option value="Guinée-Bissau">Guinée-Bissau	</option>
+<option value="Guyana">Guyana	</option>
+<option value="Haïti">Haïti	</option>
+<option value="Honduras">Honduras	</option>
+<option value="Hongrie">Hongrie	</option>
+<option value="Îles Cook">Îles Cook	</option>
+<option value="Îles Marshall">Îles Marshall	</option>
+<option value="Inde">Inde	</option>
+<option value="Indonésie">Indonésie</option>
+<option value="Irak">Irak	</option>
+<option value="Iran">Iran	</option>
+<option value="Irlande">Irlande	</option>
+<option value="Islande">Islande	</option>
+<option value="Israël">Israël	</option>
+<option value="Italie">Italie	</option>
+<option value="Jamaïque">Jamaïque </option>	
+<option value="Japon">Japon	</option>
+<option value="Jordanie">Jordanie	</option>
+<option value="Kazakhstan">Kazakhstan	</option>
+<option value="Kenya">Kenya	</option>
+<option value="Kirghizistan">Kirghizistan</option>	
+<option value="Kiribati">Kiribati	</option>
+<option value="Kosovo">Kosovo	</option>
+<option value="koweit">Koweït	</option>
+<option value="Laos">Laos	</option>
+<option value="Lesotho">Lesotho	</option>
+<option value="Lettonie">Lettonie	</option>
+<option value="Liban">Liban	</option>
+<option value="Liberia">Liberia	</option>
+<option value="Libye">Libye	</option>
+<option value="Liechtenstein">Liechtenstein </option>	
+<option value="Lituanie">Lituanie	</option>
+<option value="Luxembourg">Luxembourg	</option>
+<option value="Macédoine">Macédoine	</option>
+<option value="Madagascar">Madagascar	</option>
+<option value="Malaisie">Malaisie	</option>
+<option value="Malawi">Malawi	</option>
+<option value="Maldives">Maldives	</option>
+<option value="Mali">Mali	</option>
+<option value="Malte">Malte	</option>
+<option value="Maroc">Maroc	</option>
+<option value="Maurice">Maurice	</option>
+<option value="Mauritanie">Mauritanie	</option>
+<option value="Mexique">Mexique	 </option>
+<option value="Micronésie">Micronésie	</option>
+<option value="Moldavie">Moldavie	</option>
+<option value="Monaco">Monaco	</option>
+<option value="Mongolie">Mongolie	</option>
+<option value="Monténégro">Monténégro	</option>
+<option value="Mozambique">Mozambique	</option>
+<option value="Namibie">Namibie	</option>
+<option value="Nauru">Nauru	</option>
+<option value="Népal">Népal	</option>
+<option value="Nicaragua">Nicaragua </option>
+<option value="Niger">Niger	</option>
+<option value="Nigeria">Nigeria	</option>
+<option value="Niue">Niue	</option>
+<option value="Norvège">Norvège	</option>
+<option value="Nouvelle-Zélande">Nouvelle-Zélande	</option>
+<option value="Oman">Oman	</option>
+<option value="Ouganda">Ouganda </option>
+<option value="Ouzbékistan">Ouzbékistan	</option>
+<option value="Pakistan">Pakistan</option>
+<option value="Palaos">Palaos	</option>
+<option value="Palestine">Palestine	</option>
+<option value="Panama">Panama	</option>
+<option value="Papouasie-Nouvelle-Guinée">Papouasie-Nouvelle-Guinée	</option>
+<option value="Paraguay">Paraguay	</option>
+<option value="Pays-Bas">Pays-Bas	</option>
+<option value="Pérou">Pérou	</option>
+<option value="Pologne">Pologne	</option>
+<option value="Portugal">Portugal	</option>
+<option value="Qatar">Qatar	</option>
+<option value="République centrafricaine">République centrafricaine	</option>
+<option value="République démocratique du Congo">République démocratique du Congo	</option>
+<option value="République Dominicaine">République Dominicaine	</option>
+<option value="République du Congo">République du Congo	</option>
+<option value="République tchèque">République tchèque	</option>
+<option value="Roumanie">Roumanie	</option>
+<option value="Royaume-Uni">Royaume-Uni </option>
+<option value="Russie">Russie	</option>
+<option value="Rwanda">Rwanda	</option>
+<option value="Saint-Kitts-et-Nevis">Saint-Kitts-et-Nevis	 </option>
+<option value="Saint-Vincent-et-les-Grenadines">Saint-Vincent-et-les-Grenadines	</option>
+<option value="Sainte-Lucie">Sainte-Lucie	</option>
+<option value="Salomon">Salomon	 </option>
+<option value="Salvador">Salvador	</option>
+<option value="Samoa">Samoa	</option>
+<option value="São Tomé-et-Principe">São Tomé-et-Principe	</option>
+<option value="Sénégal">Sénégal	</option>
+<option value="Serbie">Serbie	</option>
+<option value="Seychelles">Seychelles	</option>
+<option value="Sierra Leone">Sierra Leone	</option>
+<option value="Singapour">Singapour	</option>
+<option value="Slovaquie">Slovaquie	</option>
+<option value="Slovénie">Slovénie	</option>
+<option value="Somalie">Somalie	</option>
+<option value="Soudan">Soudan	</option>
+<option value="Soudan du Sud">Soudan du Sud	</option>
+<option value="Sri Lanka">Sri Lanka </option>
+<option value="Suède">Suède	</option>
+<option value="Suisse">Suisse	</option>
+<option value="Surivalue">Surivalue	</option>
+<option value="Swaziland">Swaziland</option>
+<option value="Syrie">Syrie	 </option>
+<option value="Tadjikistan">Tadjikistan	</option>
+<option value="Tanzanie">Tanzanie	</option>
+<option value="Tchad">Tchad	</option>
+<option value="Thaïlande">Thaïlande	</option>
+<option value="Timor oriental">Timor oriental	</option>
+<option value="Togo">Togo	</option>
+<option value="Tonga">Tonga	</option>
+<option value="Trinité-et-Tobago">Trinité-et-Tobago	</option>
+<option value="Tunisie">Tunisie	</option>
+<option value="Turkménistan">Turkménistan	</option>
+<option value="Turquie">Turquie</option>
+<option value="Tuvalu">Tuvalu	</option>
+<option value="Uruguay">Uruguay	</option>
+<option value="Vatican">Vatican	</option>
+<option value="Venezuela">Venezuela	</option>
+<option value="Viêt Nam">Viêt Nam   </option>
+<option value="Yémen">Yémen	</option>
+<option value="Zambie">Zambie	</option>
+<option value="Zimbabwe">Zimbabwe	</option>
+</select>
+</div>
+
+												
+											</div>
+											</div>
+											<div class="form-group"> 
+  <label class="col-md-4 control-label">Type de compte</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+    <select name="type_compte" class="form-control selectpicker" >
+												<option value= "Compte individuel"> Compte individuel </option>
+												<option value= "compte joint"> Compte joint </option>
+												</select>
+												</div>
+												
+											</div>
+											</div>
+											<div class="form-group"> 
+  <label class="col-md-4 control-label">Pays de résidence</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+    <select name="pays" class="form-control selectpicker" > <!-- ATTENTION AU JSP ICI FORMULAIRE A MODIFIER -->  
+<option name="Afghanistan">Afghanistan </option>	
+ <option name="Albanie"> Albanie	</option>
+<option name="Algérie">Algérie	</option>
+<option value="Allemagne">Allemagne	</option>
+<option value="Andorre">Andorre	 </option>
+<option value="Angola">Angola	</option>
+<option value="Antigua-et-Barbuda">Antigua-et-Barbuda	</option>
+<option value="Arabie Saoudite">Arabie Saoudite	 </option>
+<option value="Argentine">Argentine	</option>
+<option value="Armenie">Arménie	</option>
+<option value="Australie">Australie</option>	
+<option value="Autriche">Autriche	</option>
+<option value="Azerbaidjan">Azerbaïdjan	</option>
+<option value="Bahamas">Bahamas	</option>
+<option value="Bahrein">Bahreïn	</option>
+<option value="Bangladesh">Bangladesh	</option>
+<option value="Barbade">Barbade	</option>
+<option value="Belgique">Belgique </option>
+<option value="Belize">Belize	</option>
+<option value="Benin">Bénin	</option>
+<option value="Bhoutan">Bhoutan	 </option>
+<option value="Bielorussie">Biélorussie	</option>
+<option value="Birmanie">Birmanie	</option>
+<option value="Bolivie">Bolivie	</option>
+<option value="Bosnie-Herzegovine">Bosnie-Herzégovine	</option>
+<option value="Botswana">Botswana	</option>
+<option value="Bresil">Brésil	</option>
+<option value="Brunei">Brunei	</option>
+<option value="Bulgarie">Bulgarie	</option>
+<option value="Burkina Faso">Burkina Faso </option>	
+<option value="Buundi">Burundi	 </option>
+<option value="Cambodge">Cambodge	</option>
+<option value="Cameroun">Cameroun	</option>
+<option value="Canada">Canada	</option>
+<option value="Cap vert">Cap-Vert	</option>
+<option value="Chili">Chili	</option>
+<option value="Chine">Chine	</option>
+<option value="Chypre">Chypre	</option>
+<option value="Colombie">Colombie </option>
+<option value="Corée du Nord">Corée du Nord	</option>
+<option value="Corée du  sud">Corée du Sud	</option>
+<option value="Costa Rica">Costa Rica	</option>
+<option value="Côte d’Ivoire">Côte d’Ivoire	 </option>
+<option value="Croatie">Croatie	</option>
+<option value="Cuba">Cuba	 </option>
+<option value="Danemark">Danemark	</option>
+<option value="Djibouti">Djibouti	</option>
+<option value="Dominique">Dominique	</option>
+<option value="Égypte">Égypte	</option>
+<option value="Émirats arabes unis">Émirats arabes unis	</option>
+<option value="Équateur">Équateur	</option>
+<option value="Érythrée">Érythrée	</option>
+<option value="Espagne">Espagne	</option>
+<option value="Estonie">Estonie	</option>
+<option value="États-Unis">États-Unis	</option>
+<option value="Éthiopie">Éthiopie</option>	
+<option value="Fidji">Fidji	</option>
+<option value="Finlande">Finlande	</option>
+<option value="France"  selected>France	</option>
+<option value="Gabon">Gabon	</option>
+<option value="Gambie"> Gambie	</option>
+<option value="Géorgie"> Géorgie	</option>
+<option value="Ghana"> Ghana	</option>
+<option value="Grèce">Grèce	</option>
+<option value="Grenade">Grenade	 </option>
+<option value="Guatemala">Guatemala	</option>
+<option value="Guinée Conakry">Guinée	Conakry </option>
+<option value="Guinée équatoriale">Guinée équatoriale	</option>
+<option value="Guinée-Bissau">Guinée-Bissau	</option>
+<option value="Guyana">Guyana	</option>
+<option value="Haïti">Haïti	</option>
+<option value="Honduras">Honduras	</option>
+<option value="Hongrie">Hongrie	</option>
+<option value="Îles Cook">Îles Cook	</option>
+<option value="Îles Marshall">Îles Marshall	</option>
+<option value="Inde">Inde	</option>
+<option value="Indonésie">Indonésie</option>
+<option value="Irak">Irak	</option>
+<option value="Iran">Iran	</option>
+<option value="Irlande">Irlande	</option>
+<option value="Islande">Islande	</option>
+<option value="Israël">Israël	</option>
+<option value="Italie">Italie	</option>
+<option value="Jamaïque">Jamaïque </option>	
+<option value="Japon">Japon	</option>
+<option value="Jordanie">Jordanie	</option>
+<option value="Kazakhstan">Kazakhstan	</option>
+<option value="Kenya">Kenya	</option>
+<option value="Kirghizistan">Kirghizistan</option>	
+<option value="Kiribati">Kiribati	</option>
+<option value="Kosovo">Kosovo	</option>
+<option value="koweit">Koweït	</option>
+<option value="Laos">Laos	</option>
+<option value="Lesotho">Lesotho	</option>
+<option value="Lettonie">Lettonie	</option>
+<option value="Liban">Liban	</option>
+<option value="Liberia">Liberia	</option>
+<option value="Libye">Libye	</option>
+<option value="Liechtenstein">Liechtenstein </option>	
+<option value="Lituanie">Lituanie	</option>
+<option value="Luxembourg">Luxembourg	</option>
+<option value="Macédoine">Macédoine	</option>
+<option value="Madagascar">Madagascar	</option>
+<option value="Malaisie">Malaisie	</option>
+<option value="Malawi">Malawi	</option>
+<option value="Maldives">Maldives	</option>
+<option value="Mali">Mali	</option>
+<option value="Malte">Malte	</option>
+<option value="Maroc">Maroc	</option>
+<option value="Maurice">Maurice	</option>
+<option value="Mauritanie">Mauritanie	</option>
+<option value="Mexique">Mexique	 </option>
+<option value="Micronésie">Micronésie	</option>
+<option value="Moldavie">Moldavie	</option>
+<option value="Monaco">Monaco	</option>
+<option value="Mongolie">Mongolie	</option>
+<option value="Monténégro">Monténégro	</option>
+<option value="Mozambique">Mozambique	</option>
+<option value="Namibie">Namibie	</option>
+<option value="Nauru">Nauru	</option>
+<option value="Népal">Népal	</option>
+<option value="Nicaragua">Nicaragua </option>
+<option value="Niger">Niger	</option>
+<option value="Nigeria">Nigeria	</option>
+<option value="Niue">Niue	</option>
+<option value="Norvège">Norvège	</option>
+<option value="Nouvelle-Zélande">Nouvelle-Zélande	</option>
+<option value="Oman">Oman	</option>
+<option value="Ouganda">Ouganda </option>
+<option value="Ouzbékistan">Ouzbékistan	</option>
+<option value="Pakistan">Pakistan</option>
+<option value="Palaos">Palaos	</option>
+<option value="Palestine">Palestine	</option>
+<option value="Panama">Panama	</option>
+<option value="Papouasie-Nouvelle-Guinée">Papouasie-Nouvelle-Guinée	</option>
+<option value="Paraguay">Paraguay	</option>
+<option value="Pays-Bas">Pays-Bas	</option>
+<option value="Pérou">Pérou	</option>
+<option value="Pologne">Pologne	</option>
+<option value="Portugal">Portugal	</option>
+<option value="Qatar">Qatar	</option>
+<option value="République centrafricaine">République centrafricaine	</option>
+<option value="République démocratique du Congo">République démocratique du Congo	</option>
+<option value="République Dominicaine">République Dominicaine	</option>
+<option value="République du Congo">République du Congo	</option>
+<option value="République tchèque">République tchèque	</option>
+<option value="Roumanie">Roumanie	</option>
+<option value="Royaume-Uni">Royaume-Uni </option>
+<option value="Russie">Russie	</option>
+<option value="Rwanda">Rwanda	</option>
+<option value="Saint-Kitts-et-Nevis">Saint-Kitts-et-Nevis	 </option>
+<option value="Saint-Vincent-et-les-Grenadines">Saint-Vincent-et-les-Grenadines	</option>
+<option value="Sainte-Lucie">Sainte-Lucie	</option>
+<option value="Salomon">Salomon	 </option>
+<option value="Salvador">Salvador	</option>
+<option value="Samoa">Samoa	</option>
+<option value="São Tomé-et-Principe">São Tomé-et-Principe	</option>
+<option value="Sénégal">Sénégal	</option>
+<option value="Serbie">Serbie	</option>
+<option value="Seychelles">Seychelles	</option>
+<option value="Sierra Leone">Sierra Leone	</option>
+<option value="Singapour">Singapour	</option>
+<option value="Slovaquie">Slovaquie	</option>
+<option value="Slovénie">Slovénie	</option>
+<option value="Somalie">Somalie	</option>
+<option value="Soudan">Soudan	</option>
+<option value="Soudan du Sud">Soudan du Sud	</option>
+<option value="Sri Lanka">Sri Lanka </option>
+<option value="Suède">Suède	</option>
+<option value="Suisse">Suisse	</option>
+<option value="Surivalue">Surivalue	</option>
+<option value="Swaziland">Swaziland</option>
+<option value="Syrie">Syrie	 </option>
+<option value="Tadjikistan">Tadjikistan	</option>
+<option value="Tanzanie">Tanzanie	</option>
+<option value="Tchad">Tchad	</option>
+<option value="Thaïlande">Thaïlande	</option>
+<option value="Timor oriental">Timor oriental	</option>
+<option value="Togo">Togo	</option>
+<option value="Tonga">Tonga	</option>
+<option value="Trinité-et-Tobago">Trinité-et-Tobago	</option>
+<option value="Tunisie">Tunisie	</option>
+<option value="Turkménistan">Turkménistan	</option>
+<option value="Turquie">Turquie</option>
+<option value="Tuvalu">Tuvalu	</option>
+<option value="Uruguay">Uruguay	</option>
+<option value="Vatican">Vatican	</option>
+<option value="Venezuela">Venezuela	</option>
+<option value="Viêt Nam">Viêt Nam   </option>
+<option value="Yémen">Yémen	</option>
+<option value="Zambie">Zambie	</option>
+<option value="Zimbabwe">Zimbabwe	</option>
+</select>
+</div>
+
+ 
+												
+											</div>
+											</div>
+											<div class="form-group">
+  <label class="col-md-4 control-label"> Téléphone </label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+  <input name="phone" placeholder="0750501023" class="form-control" type="tel" required data-validation-required-message="Please enter ">
+    </div>
+  </div>
+</div>
+
+											
+											<div class="form-group">
+  <label class="col-md-4 control-label">Adresse</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+  <input name="adresse" placeholder="Adresse" class="form-control"  type="text" required data-validation-required-message="Please enter ">
+    </div>
+</div>
+</div>
+											
+										
+					<div class="form-group">
+											
+  										<label class="col-md-4 control-label">Code postal </label>  
+    									
+    											<div class="col-md-4 inputGroupContainer">
+													    <div class="input-group">
+													        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+													  		<input name="code_postal" pattern="[0-9]{5}" placeholder="Code postal" class="form-control"  type="number" required data-validation-required-message="Entrez votre code postal svp ">
+													    </div>
+												</div>
+											</div>
+
+
+											<div class="form-group">
+  <label class="col-md-4 control-label"> Ville</label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+  <input name="ville" placeholder="ville" class="form-control"  type="text" required data-validation-required-message="Please enter ">
+    </div>
+</div>
+</div>
+
+										<div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+    <button type="submit" name="sendNew"  class="btn btn-xl" href="#Resultat3" data-toggle="modal" data-dismiss="modal"> Souscrire</button> 
+  </div>
+</div>
+
+									</div>
 									
 								</form>
 							</div>
@@ -515,22 +1137,24 @@
 						<div class="row">
 							<div class="col-lg-12 text-center">
 								<h2 class="section-heading1">Connexion</h2>
-								<h3 class="section-subheading1 text-muted"> Veuillez vous connecter pour accéder à toutes les fonctionnalités de notre banque.</h3>
+								<h3 class="section-subheading1 text-muted"> Veuillez vous connecter pour accéder à toutes les fonctionnalités de notre banque.</h4>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-lg-12">
-								<form name="sentMessage" id="contactForm" novalidate>
+								<form name=""  action="Connexion" method="post" id="" novalidate>
 									<div class="row">
 										<div class="col-md-4"></div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
+												<input type="email" class="form-control" placeholder="Your mail *" name="email" required data-validation-required-message="Please enter your mail.">
 												<p class="help-block text-danger"></p>
+												
+												<div class="password">
+                                                  <input type="password" class="form-control" id="passwordfield"  name="password" placeholder=" Your password *">
+                                                 <span class="glyphicon glyphicon-eye-open"></span>
+                                               
 											</div>
-											<div class="form-group">
-												<input type="password" class="form-control" placeholder="Your Password *" id="password" required data-validation-required-message="Please enter your email address."> <!-- ATTENTION AU JSP ICI FORMULAIRE A MODIFIER -->  
-												<p class="help-block text-danger"></p>
 											</div>
 										</div>
 										<div class="col-md-4"></div>
@@ -548,6 +1172,77 @@
 			</div>
 		</div>
 
+
+<!--  Resultat formulaire souscription-->
+		
+		<div class="portfolio-modal modal fade" id="Resultat3" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="close-modal" data-dismiss="modal">
+						<div class="lr">
+							<div class="rl">
+							</div>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 text-center">
+								<h2 class="section-heading1">Formulaire de creation de compte </h2>					
+				
+				<% String Res= (String) request.getAttribute("Res");%>
+				
+					<%=Res%>
+				
+									 <br>
+									 <br>
+				<a href="#connexion" data-toggle="modal" data-dismiss="modal"> Vous connecter</a>
+					 <br>
+									 <br>
+					<a href="#page-top" data-dismiss="modal"> Page d'Acceuil </a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--  Resultat formulaire contact-->
+		
+		<div class="portfolio-modal modal fade" id="Resultat2" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="close-modal" data-dismiss="modal">
+						<div class="lr">
+							<div class="rl">
+							</div>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 text-center">
+								<h2 class="section-heading1">Formulaire de contact </h2>					
+								
+					<%
+						//if (null != message) { %>
+						
+							<div style="color: white" class="section-subheading1 text-muted" class="<%=status %>" >
+									<%=message %>
+									
+									</div>
+									 
+						<% //} %>
+					
+					
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -563,9 +1258,10 @@
 
     <!-- Theme JavaScript -->
     <script src="js/agency.min.js"></script>
-    		
-<% String name = (String) request.getParameter("name");
-System.out.println(name);%>
+    
+    <!-- Voir le mot de passe -->
+     <script src="js/Motdepasse.js"></script>
+
 
 </body>
 

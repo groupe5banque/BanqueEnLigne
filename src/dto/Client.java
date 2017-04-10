@@ -64,7 +64,14 @@ public class Client {
 	 * Surname of the client 
 	 */
 	private String prenomClient;
+	private int idClient;
 	
+
+
+
+
+
+
 	
 		
 	
@@ -110,7 +117,24 @@ public class Client {
 		
 		
 	}
-
+	public Client(int idClient, String nomClient,String prenomClient,String civiliteClient, String emailClient,String dateNaissanceClient,String motDePasseClient,String nationaliteClient,String typeCompte,int telephoneClient,String adresseClient,int codepostalClient,String villeClient,String paysClient) {
+		this.idClient=idClient;
+		this.nomClient = nomClient;
+		this.prenomClient = prenomClient;
+		this.civiliteClient = civiliteClient;
+		this.emailClient = emailClient;
+		this.dateNaissanceClient = dateNaissanceClient;
+		this.motDePasseClient = motDePasseClient;
+		this.nationaliteClient = nationaliteClient;
+		this.typeCompte = typeCompte;
+		this.telephoneClient = telephoneClient;
+		this.adresseClient = adresseClient;
+		this.codepostalClient = codepostalClient;
+		this.villeClient = villeClient;
+		this.paysClient = paysClient;
+		
+		
+	}
 
 
 
@@ -362,15 +386,18 @@ public class Client {
 	}
 
 
-
-
-
-
-
 	public void setPrenomClient(String prenomClient) {
 		this.prenomClient = prenomClient;
 	}
 	
+	public int getIdClient() {
+		return idClient;
+	}
+
+
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
+	}
 
 
 		

@@ -164,21 +164,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 col-md-9">
+        <div class="col-sm-9 col-md-9"> 
             <div class="well">
-            <P> VOS INFORMATIONS PERSONNELLES </P>
-           <p> NOM:  <%=cl.getNomClient()%> </p>
-           <p> PRENOM : <%=cl.getPrenomClient()%> </p>
-           <p> CIVILITE : <%=cl.getCiviliteClient()%> </p>
-           <p> EMAIL : <%=cl.getEmailClient()%> </p>
-           <p> NATIONALITE : <%=cl.getNationaliteClient()%> </p>
-           <p> PAYS DE RESIDENCE : <%=cl.getPaysClient()%> </p>
-           <p> DATE DE NAISSANCE : <%=cl.getDateNaissanceClient()%> </p>
-           <p> TYPE DE COMPTE: <%=cl.getTypeCompte()%> </p>
-           <p> TELEPHONE: <%=cl.getTelephoneClient()%> </p>   
-           <p> ADRESSE: <%=cl.getAdresseClient()%> </p>   
-           <p> CODE POSTAL: <%=cl.getCodepostalClient()%> </p>   
-           <p> VILLE: <%=cl.getVilleClient()%> </p>   
+            <P> VOS INFORMATIONS PERSONNELLES </P> 
+           <p> NOM:  ${sessionScope.client.nomClient} </p>
+           <p> PRENOM :  ${sessionScope.client.prenomClient} </p>
+           <p> CIVILITE :  ${sessionScope.client.nomClient} </p>
+           <p> EMAIL :${sessionScope.client.nomClient} </p>
+           <p> NATIONALITE :${sessionScope.client.nationaliteClient} </p>
+           <p> PAYS DE RESIDENCE : ${sessionScope.client.nomClient} </p>
+           <p> DATE DE NAISSANCE : ${sessionScope.client.nomClient} </p>
+           <p> TYPE DE COMPTE:${sessionScope.client.nomClient} </p>
+           <p> TELEPHONE: ${sessionScope.client.nomClient} </p>   
+           <p> ADRESSE: ${sessionScope.client.nomClient} </p>   
+           <p> CODE POSTAL: ${sessionScope.client.nomClient} </p>   
+           <p> VILLE: ${sessionScope.client.nomClient} </p>   
            
                           
             </div>
