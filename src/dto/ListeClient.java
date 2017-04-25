@@ -8,19 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class TraitementHistorique
+ * Servlet implementation class ListeClient
  */
-@WebServlet("/TraitementHistorique")
-public class TraitementHistorique extends HttpServlet {
+@WebServlet("/ListeClient")
+public class ListeClient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TraitementHistorique() {
+    public ListeClient() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,23 +28,33 @@ public class TraitementHistorique extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
+		
+		//this.getServletContext().getRequestDispatcher("/ListeClient.jsp" ).forward( request, response );
+		
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//doGet(request, response);
 		
-		String compteSelect= request.getParameter("compte");
-		HttpSession session = request.getSession();
-   	    session.setAttribute( "selection",compteSelect );
- 
- 
+		
+		String nom= (String) request.getParameter("NOM");
+		
+		request.setAttribute("NOM", nom);
+		
+		
+	   	 request.setAttribute("b", request.getParameter("b"));
+	   	 
 
+		 String csv_string = request.getParameter("csv_data");
+		String file_name = request.getParameter("file_name");
+		//if(request.getParameter("C") == null){
+
+		this.getServletContext().getRequestDispatcher("ListeClient.jsp" ).forward( request, response );
 		
-   	 this.getServletContext().getRequestDispatcher( "/HistoriqueTransactions.jsp" ).forward( request, response);
 	}
 
 }

@@ -170,6 +170,105 @@ public class ClientDAO {
 		return cl;
 
 	}
+	
+	
+	public Client getClientByName(String nom) {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Client cl = null;
+		
+		// connexion 脿 la base de donn茅es
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT * FROM client WHERE nomClient = ?");
+			ps.setString(1, nom);
+
+			// on ex茅cute la requ锚te
+			// rs contient un pointeur situ茅 juste avant la premi猫re ligne
+			// retourn茅e
+			rs = ps.executeQuery();
+			// passe 脿 la premi猫re (et unique) ligne retourn茅e
+			if (rs.next())
+				cl = new Client(rs.getString("nomClient"),
+						rs.getString("prenomClient"),rs.getString("civiliteClient"),rs.getString("emailClient"),rs.getString("dateNaissanceClient"),rs.getString("motDePasseClient"),rs.getString("nationaliteClient"),rs.getString("typeCompte"),rs.getInt("telephoneClient"),rs.getString("adresseClient"),rs.getInt("codepostalClient"),rs.getString("villeClient"),rs.getString("paysClient"));
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du ResultSet, du PreparedStatement et de la Connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return cl;
+
+	}
+	
+	
+	public ArrayList<Client> getListClient() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Client cl = null;
+		ArrayList<Client> ListClient = new ArrayList<Client>();
+		
+		// connexion 脿 la base de donn茅es
+				try {
+
+					con = DriverManager.getConnection(URL, LOGIN, PASS);
+					ps = con.prepareStatement("SELECT * FROM client");
+					
+
+					// on ex茅cute la requ锚te
+					// rs contient un pointeur situ茅 juste avant la premi猫re ligne
+					// retourn茅e
+					rs = ps.executeQuery();
+					// passe 脿 la premi猫re (et unique) ligne retourn茅e
+					while (rs.next())
+					{
+						cl = new Client(rs.getString("nomClient"),
+								rs.getString("prenomClient"),rs.getString("civiliteClient"),rs.getString("emailClient"),rs.getString("dateNaissanceClient"),rs.getString("motDePasseClient"),rs.getString("nationaliteClient"),rs.getString("typeCompte"),rs.getInt("telephoneClient"),rs.getString("adresseClient"),rs.getInt("codepostalClient"),rs.getString("villeClient"),rs.getString("paysClient"));
+                        ListClient.add(cl);
+                       // System.out.print(rs.getString("prenomClient"));
+					}   
+				} catch (Exception ee) {
+					ee.printStackTrace();
+				} finally {
+					// fermeture du ResultSet, du PreparedStatement et de la Connexion
+					try {
+						if (rs != null)
+							rs.close();
+					} catch (Exception ignore) {
+					}
+					try {
+						if (ps != null)
+							ps.close();
+					} catch (Exception ignore) {
+					}
+					try {
+						if (con != null)
+							con.close();
+					} catch (Exception ignore) {
+					}
+				}
+				return ListClient;				
+	}
+	
 	public Client connexionClient(String mail,String mdp) {
 
 		Connection con = null;

@@ -1,13 +1,11 @@
 
-
-
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
     <%@ page import="dao.*" %>
-    	
+    <%@ page import="java.io.*" %>
+    <%@ page import="javax.servlet.*" %>
+	<%@ page import="javax.servlet.http.*" %>	
 	<%@ page import="dto.*" %>
 	<%@ page import="java.util.ArrayList" %>
 	<%@ page import="java.util.List" %>
@@ -38,7 +36,7 @@
  
    	    
        String cmp= (String)session.getAttribute("selection");        
-        int idCompte=comptedao.getCompteId(cmp);      
+               int idCompte=comptedao.getCompteId(cmp);      
         List<Historique> transactions = new ArrayList<Historique>();
         transactions= hist.getListeCompte(identifiant, idCompte);
         compte=comptedao.getCompteNumero(cmp);
@@ -75,12 +73,40 @@
     <link href="css/agency.min.css" rel="stylesheet">
     <link href="css/menu.css" rel="stylesheet">
     <link href="css/Infos.css" rel="stylesheet">
-
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	
+			<script type="text/javascript">
+			
+			 // Get the bouton
+			   var b = document.getElementById("b");
+			 
+			$(document).ready(function(){
+				b.onclick = function(event) {
+					event.preventDefault();
+					var csv_data1 = jQuery("#csv_data1").val();
+					//var csv_data2 = jQuery("#csv_data2").val();
+					var file_name = jQuery("#file_name").val();
+					jQuery.post( "csv.jsp", {
+						csv_data1: csv_data1,
+						//csv_data2: csv_data2,
+						file_name: file_name
+					})
+				}
+			
+				
+				
+			})
+	      
+   
+		</script>
 
 
 </head>
 
 <body>
+
+
 
 <body id="page-top" class="index">
 
@@ -137,6 +163,13 @@
               <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
             </ul>
           </li>  
+          
+           <li class="nav-header">
+            <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+              <li><a href="Releves.jsp">Releves de comptes</a></li>
+            </ul>
+          </li> 
           
       </ul>
   </aside>
@@ -229,9 +262,9 @@
 </div>
 	</div>
 	<div class="container">
-  <h2>Historique des transactions</h2>
-      <p> Solde au  <%= df %> : <%= compte.getSoldeBanque() %> Euros   </p>      
-  <table class="table table-bordered">
+  <h2 id="Historique">Historique des transactions</h2>
+      <p id="s"> Solde au  <%= df %> : <%= compte.getSoldeBanque() %> Euros   </p>      
+  <table class="table table-bordered" id="t">
     <thead>
       <tr>
         <th>Date</th>
@@ -251,6 +284,8 @@
       <%} %>
     </tbody>
   </table>
+  
+		
 </div>
      	</section>
      	</div>

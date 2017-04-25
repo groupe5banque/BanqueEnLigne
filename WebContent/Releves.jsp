@@ -220,8 +220,8 @@
 </div>
 	</div>
     
-    <form name="" method="post" action="TraitementHistorique" id=""class="well form-horizontal">
-			 <label class="col-md-4 control-label">Veuillez sélectionner le compte dont vous souhaitez afficher l'historique</label>	
+    <form name="" method="post" action="TraitementReleve" id=""class="well form-horizontal">
+			 <label class="col-md-4 control-label">Veuillez sélectionner le compte dont vous souhaitez afficher le relevé</label>	
 			<div class="form-group"> 
     <div class="col-md-4 selectContainer">
     <div class="input-group">

@@ -1,8 +1,6 @@
 package dto;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class TraitementHistorique
+ * Servlet implementation class TraitementReleve
  */
-@WebServlet("/TraitementHistorique")
-public class TraitementHistorique extends HttpServlet {
+@WebServlet("/TraitementReleve")
+public class TraitementReleve extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TraitementHistorique() {
+    public TraitementReleve() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,6 +28,7 @@ public class TraitementHistorique extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -37,15 +36,15 @@ public class TraitementHistorique extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//doGet(request, response);
 		
+
 		String compteSelect= request.getParameter("compte");
 		HttpSession session = request.getSession();
    	    session.setAttribute( "selection",compteSelect );
- 
- 
-
-		
-   	 this.getServletContext().getRequestDispatcher( "/HistoriqueTransactions.jsp" ).forward( request, response);
+ 	
+   	 this.getServletContext().getRequestDispatcher( "/Releve.jsp" ).forward( request, response);
+   	 
 	}
 
 }

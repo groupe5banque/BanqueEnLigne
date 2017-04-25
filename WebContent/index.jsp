@@ -347,8 +347,8 @@
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
                                 
-                              
-                              <button type="submit" name="sendContact"  class="btn btn-xl" href="#Resultat2" data-toggle="modal"> Envoyer </button> 
+                              <a class="btn btn-xl" type="submit"  name="sendContact"  href="#Resultat2" data-toggle="modal" data-dismiss="modal">Envoyer</a>       
+                          
                             </div>
                         </div>
 					
@@ -598,7 +598,7 @@
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="Civilite" class="form-control selectpicker" >
+    <select name="civilite" class="form-control selectpicker" >
 												<option value= "monsieur" selected> M </option>
 												<option value= "madame"> Mme </option>
 												<option value= "mademoiselle"> Mlle </option>
@@ -642,9 +642,9 @@
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
     <select name="nationalite" class="form-control selectpicker" >
-<option name="Afghanistan">Afghanistan </option>	
- <option name="Albanie"> Albanie	</option>
-<option name="Algérie">Algérie	</option>
+<option value="Afghanistan">Afghanistan </option>	
+ <option value="Albanie"> Albanie	</option>
+<option value="Algérie">Algérie	</option>
 <option value="Allemagne">Allemagne	</option>
 <option value="Andorre">Andorre	 </option>
 <option value="Angola">Angola	</option>
@@ -859,9 +859,9 @@
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
     <select name="pays" class="form-control selectpicker" > <!-- ATTENTION AU JSP ICI FORMULAIRE A MODIFIER -->  
-<option name="Afghanistan">Afghanistan </option>	
- <option name="Albanie"> Albanie	</option>
-<option name="Algérie">Algérie	</option>
+<option value="Afghanistan">Afghanistan </option>	
+ <option value="Albanie"> Albanie	</option>
+<option value="Algérie">Algérie	</option>
 <option value="Allemagne">Allemagne	</option>
 <option value="Andorre">Andorre	 </option>
 <option value="Angola">Angola	</option>
@@ -1106,20 +1106,20 @@
 										<div class="form-group">
   <label class="col-md-4 control-label"></label>
   <div class="col-md-4">
-    <button type="submit" name="sendNew"  class="btn btn-xl" href="#Resultat3" data-toggle="modal" data-dismiss="modal"> Souscrire</button> 
+  
+  <a class="btn btn-xl" type="submit"  name="sendNew"  href="#Resultat3" data-toggle="modal" data-dismiss="modal">Souscrire</a>       
+  
+    
   </div>
 </div>
 
-									</div>
+								
 									
 								</form>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	
 
 			
 	
@@ -1137,7 +1137,7 @@
 						<div class="row">
 							<div class="col-lg-12 text-center">
 								<h2 class="section-heading1">Connexion</h2>
-								<h3 class="section-subheading1 text-muted"> Veuillez vous connecter pour accéder à toutes les fonctionnalités de notre banque.</h4>
+								<h3 class="section-subheading1 text-muted"> Veuillez vous connecter pour accéder à toutes les fonctionnalités de notre banque.</h3>
 							</div>
 						</div>
 						<div class="row">
@@ -1191,7 +1191,7 @@
 				
 				<% String Res= (String) request.getAttribute("Res");%>
 				
-					<%=Res%>
+					<p>  <%=Res%></p>
 				
 									 <br>
 									 <br>
@@ -1226,7 +1226,7 @@
 					<%
 						//if (null != message) { %>
 						
-							<div style="color: white" class="section-subheading1 text-muted" class="<%=status %>" >
+							<div  class="section-subheading1 text-muted" class="<%=status %>" >
 									<%=message %>
 									
 									</div>
