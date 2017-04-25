@@ -42,7 +42,7 @@ public class TraitementVirement extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
+	    int o=0;
 		VirementDAO virdao= new VirementDAO();
 		CompteDAO cdao= new CompteDAO();
 		HistoriqueDAO histDAO= new HistoriqueDAO();
@@ -68,8 +68,7 @@ public class TraitementVirement extends HttpServlet {
 	    String compteBeneficiaire = request.getParameter("compteBeneficiaire");
 	    String mont = request.getParameter("montant");
 	    String motif = request.getParameter("motif");
-	    int montant = Integer.parseInt(mont);
-	    
+	  	 double montantd=0;
 	    
 	    HttpSession session = request.getSession();
 	    
@@ -92,17 +91,38 @@ public class TraitementVirement extends HttpServlet {
 	   natureEm= "Virement émis pour le "+ compteEm.getTypeCompte() +" N° " +compteEm.getNumeroDeCompte()+ "\n Motif:" + motif;
 	   natureBen= "Virement reçu du "+ compteBe.getTypeCompte() +" N° "+ compteBe.getNumeroDeCompte()+ "\n Motif:" + motif;
 	   
-	  int montantEm = Integer.parseInt(compteEm.getSoldeBanque());
-	 int montantBe= Integer.parseInt(compteBe.getSoldeBanque());
-	   //Ajout dans ma table historique	   
-      histEm= new Historique(identifiant,identCompteEm,df,natureEm,0,montant);
-      histBen= new Historique(identifiant,identCompteBen,df,natureBen,montant,0);
+	  double montantEm = Double.parseDouble(compteEm.getSoldeBanque());
+	 double montantBe= Double.parseDouble(compteBe.getSoldeBanque());
+	  
 	  
 	  // System.out.println(natureEm);
 	  // System.out.println(natureBen);
 	  //System.out.println( compteEmetteur);
 	  // System.out.println( compteBeneficiaire);
 	   
+      
+      
+      try{
+  		
+  		montantd = Double.parseDouble(mont);
+  		o=1;
+  		}catch(Exception e){
+  			this.getServletContext().getRequestDispatcher( "/ErreurMontant.jsp" ).forward( request, response);
+  			o=0;
+  		}
+  		
+  		if(o==1)
+  		{
+  		if(mont =="")
+  		{
+  			this.getServletContext().getRequestDispatcher( "/ErreurMontant.jsp" ).forward( request, response);
+  		}
+  		else
+  		{
+  		if(Double.parseDouble(mont)<=0)
+  		{
+  			this.getServletContext().getRequestDispatcher( "/ErreurMontant.jsp" ).forward( request, response);
+  		}
     
 
       
@@ -112,26 +132,29 @@ public class TraitementVirement extends HttpServlet {
 	 }
 	 if ( compteEmetteur.equals(compteBeneficiaire)==false){
 		 //System.out.println("Virement possible");
-		 if (montantEm < montant){
+		 if (montantEm < montantd){
 			// System.out.println("Virement impossible car le montant du virement est supérieur au solde du compte émetteur ");
 			 this.getServletContext().getRequestDispatcher( "/ErreurSoldeInferieur.jsp" ).forward( request, response);
 		 
 		 }
-		 if (montantEm >= montant){
+		 if (montantEm >= montantd){
 			  
 			 
 			// Actualisation du solde des deux comptes
-			int montantActEm=montantEm -montant;
-			int montantActBen=montantBe + montant;
+			double montantActEm=montantEm -montantd;
+			double montantActBen=montantBe + montantd;
 			
-			String montant1 =Integer.toString(montantActEm);
-			String montant2 =Integer.toString(montantActBen);
+			String montant1 =Double.toString(montantActEm);
+			String montant2 =Double.toString(montantActBen);
 			
 		     cdao.setSoldeCompte( compteEmetteur, montant1);
 		     cdao.setSoldeCompte( compteBeneficiaire, montant2);
 			
 			 // Ajout virement et historiques
-			    vir=new Virement(identifiant,compteEmetteur,compteBeneficiaire,montant,df,motif);
+		     //Ajout dans ma table historique	   
+		      histEm= new Historique(identifiant,identCompteEm,df,natureEm,0,montantd);
+		      histBen= new Historique(identifiant,identCompteBen,df,natureBen,montantd,0);
+			    vir=new Virement(identifiant,compteEmetteur,compteBeneficiaire,montantd,df,motif);
 			    retour= virdao.ajouter(vir);
 			    retour=histDAO.ajouter(histEm);
 			    retour=histDAO.ajouter(histBen);
@@ -146,4 +169,6 @@ public class TraitementVirement extends HttpServlet {
 
 	}
 
-}
+  	}
+	}
+	}

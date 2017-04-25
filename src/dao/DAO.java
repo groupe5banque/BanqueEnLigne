@@ -30,14 +30,14 @@ import java.util.List;
 import java.util.Date;
 
 /**
- * DAO pour Ã©tablir la connection
+ * DAO pour 脙漏tablir la connection
  * @author AdeleSONG
  *
  */
 public class DAO {
 
 	/**
-	 * Paramé‘¤res de connexion ï¿½ la base de donné–‘s oracle URL, LOGIN et PASS
+	 * Param茅鈥樎es de connexion 茂驴陆 la base de donn茅鈥撯�榮 oracle URL, LOGIN et PASS
 	 * sont des constantes
 	 */
 	
@@ -53,7 +53,7 @@ public class DAO {
 	public DAO() {
 		
 		
-		// chargement du pilote de bases de donné–‘s
+		// chargement du pilote de bases de donn茅鈥撯�榮
 		
 		try {
 			 Class.forName( "com.mysql.jdbc.Driver" );
@@ -81,10 +81,10 @@ public class DAO {
 			
 
 			// on execute la requete
-			// rs contient un pointeur situé juste avant la première ligne
-			// retournée
+			// rs contient un pointeur situ茅 juste avant la premi猫re ligne
+			// retourn茅e
 			rs = ps.executeQuery();
-			// passe à la première (et unique) ligne retournée
+			// passe 脿 la premi猫re (et unique) ligne retourn茅e
 			if (rs.next())
 				news.add(new News(rs.getString("titre"), rs.getString("contenu"), rs.getTimestamp("timestamp"),rs.getInt("idimgNews")));
 

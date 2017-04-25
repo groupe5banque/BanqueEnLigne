@@ -1,24 +1,23 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
     <%@ page import="dao.*" %>
-    <%@ page import="java.io.*" %>
-    <%@ page import="javax.servlet.*" %>
-	<%@ page import="javax.servlet.http.*" %>	
+    	
 	<%@ page import="dto.*" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<%@ page import="java.util.ArrayList" %>
 	<%@ page import="java.util.List" %>
-	<%@ page import="java.util.Date" %>
+
 	
-	 <%ClientDAO dao= new ClientDAO();
+	<%@ page import="java.util.Date" %>
+    <%ClientDAO dao= new ClientDAO();
     Client cl= null;
  
      cl=(Client)session.getAttribute("client");
      
-     if (cl.getEmailClient() == null)
+     if (cl == null)
      {
-    	 response.sendRedirect("index.jsp");
+    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
     	 session.removeAttribute("client");
      }
     %>
@@ -36,14 +35,14 @@
  
    	    
        String cmp= (String)session.getAttribute("selection");        
-               int idCompte=comptedao.getCompteId(cmp);      
+        int idCompte=comptedao.getCompteId(cmp);      
         List<Historique> transactions = new ArrayList<Historique>();
         transactions= hist.getListeCompte(identifiant, idCompte);
         compte=comptedao.getCompteNumero(cmp);
 %>
+ 
+ 
 
- 
- 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -72,48 +71,19 @@
     <!-- Theme CSS -->
     <link href="css/agency.min.css" rel="stylesheet">
     <link href="css/menu.css" rel="stylesheet">
-    <link href="css/Infos.css" rel="stylesheet">
-	
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	
-			<script type="text/javascript">
-			
-			 // Get the bouton
-			   var b = document.getElementById("b");
-			 
-			$(document).ready(function(){
-				b.onclick = function(event) {
-					event.preventDefault();
-					var csv_data1 = jQuery("#csv_data1").val();
-					//var csv_data2 = jQuery("#csv_data2").val();
-					var file_name = jQuery("#file_name").val();
-					jQuery.post( "csv.jsp", {
-						csv_data1: csv_data1,
-						//csv_data2: csv_data2,
-						file_name: file_name
-					})
-				}
-			
-				
-				
-			})
-	      
-   
-		</script>
+
 
 
 </head>
 
 <body>
 
-
-
 <body id="page-top" class="index">
 
     <div class="wrap">
   <nav class="nav-bar navbar-inverse" role="navigation">
       <div id ="top-menu" class="container-fluid active">
-          <a class="navbar-brand" href="#">BIENVENUE SUR VOTRE ESPACE CLIENT</a>
+          <a class="navbar-brand" href="#"> BIENVENUE SUR VOTRE ESPACE CLIENT</a>
           <ul class="nav navbar-nav">        
               <li>
                         <a  href="#portfolio">Actualités</a>
@@ -125,9 +95,9 @@
               <li class="dropdown movable">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span><span class="fa fa-3x fa-child"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                      <li> <a ><span class="fa fa-user"></span> Bienvenue ${sessionScope.client.nomClient} </a></li>
+                      <li> <a ><span class="fa fa-user"></span> Bienvenue ${sessionScope.client.nomClient}</a></li>
                       <li class="divider"></li>
-                      <li><a href="#"><span class="fa fa-power-off"></span> Déconnexion</a></li>
+                      <li><a data-toggle="modal" data-target="#myModal"><span class="fa fa-power-off"></span>Déconnexion</a></li>
                   </ul>
               </li>
               
@@ -140,16 +110,16 @@
             <div class="link"><i class="fa fa-lg fa-user"></i>Profil<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
               <li><a href="InfosPersonnellesClient.jsp">Voir mes informations personnelles</a></li>  
-              <li><a href="PageModInfPer.jsp">Modifier mes informations</a></li>
+              <li><a href="PageModInfPer.jsp">Modifier mes informations</a></li>  
               
             </ul>
           </li>
           
           <li class="nav-header">
-            <div class="link"><i class="fa fa-lg fa-users"></i>Comptes <i class="fa fa-chevron-down"></i></div>
+            <div class="link"><i class="fa fa-lg fa-users"></i>Comptes<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-               <li><a data-toggle="modal" data-target="#myModal1" >Créer un compte épargne</a></li>
-              <li><a data-toggle="modal" data-target="#myModal3">Créer un compte titre</a></li>
+              <li><a  href="CreerCompteEpargne.jsp"" >Créer un compte épargne</a></li>
+              <li><a  href="CreerCompteTitre.jsp">Créer un compte titre</a></li>
               <li><a href="#">Gérer mes comptes</a></li>
                <li><a href="Consultation.jsp">Consulter les soldes de mes comptes</a></li>
             </ul>
@@ -160,17 +130,17 @@
             <ul class="submenu">
               <li><a href="PageVirement.jsp">Effectuer un virement</a></li>
               <li><a href="ChargerArgent.jsp">Alimenter mes comptes</a></li>
+              <li><a href="ChoixCompteTitre.jsp">Acheter des actions </a></li>
+                <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
               <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
             </ul>
           </li>  
-          
-           <li class="nav-header">
+          				         <li class="nav-header">
             <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
               <li><a href="Releves.jsp">Releves de comptes</a></li>
             </ul>
-          </li> 
-          
+          </li>
       </ul>
   </aside>
   
@@ -184,60 +154,7 @@
       </a>      
     </div>
     <section class="content-inner">
-    
-    
     <div class="container">
- <form name=""  action="CompteEpargne" method="post" id="" novalidate>
-									
-  <!-- Modal -->
-             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">CONFIRMATION</h4>
-                  </div>
-                  <div class="modal-body">
-                    Êtes-vous sûr de vouloir créer un compte épargne ?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <button type="submit"  class="btn btn-primary">Valider</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-										
-								</form>
-								
-								<div class="container">
-	
-          <div class="container">
- <form name=""  action="compteTitre" method="post" id="" novalidate>
-									
-  <!-- Modal -->
-             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">CONFIRMATION</h4>
-                  </div>
-                  <div class="modal-body">
-                    Êtes-vous sûr de vouloir créer un compte Titre ?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <button type="submit"  class="btn btn-primary">Valider</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-										
-								</form>
-								
-								<div class="container">
-	 
      <form name=""  action="Deconnexion" method="post" id="" novalidate>        
             <!-- Modal -->
              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -258,13 +175,11 @@
               </div>
             </div>
             </form>
-	</div>
-</div>
-	</div>
-	<div class="container">
-  <h2 id="Historique">Historique des transactions</h2>
-      <p id="s"> Solde au  <%= df %> : <%= compte.getSoldeBanque() %> Euros   </p>      
-  <table class="table table-bordered" id="t">
+     	<div class="container">
+   <div class="container">
+  <h2>Historique des transactions</h2>
+      <p> Solde au  <%= df %> : <%= compte.getSoldeBanque() %> Euros   </p>      
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th>Date</th>
@@ -284,11 +199,17 @@
       <%} %>
     </tbody>
   </table>
-  
-		
 </div>
-     	</section>
-     	</div>
+									
+	</div>
+</div>
+	</div>
+    </section>
+    
+	
+ 
+		 </div>  
+  
 </div>
 
     
@@ -305,3 +226,4 @@
 
 </body>
 </html>
+

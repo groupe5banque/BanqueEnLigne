@@ -1,14 +1,14 @@
 <%@ page import="dao.*"%>
     <%@ page import="dto.*"%>
    
-    <%ClientDAO dao= new ClientDAO();
+     <%ClientDAO dao= new ClientDAO();
     Client cl= null;
  
      cl=(Client)session.getAttribute("client");
      
-     if (cl.getEmailClient() == null)
+     if (cl == null)
      {
-    	 response.sendRedirect("index.jsp");
+    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
     	 session.removeAttribute("client");
      }
     %>
@@ -91,8 +91,8 @@
           <li class="nav-header">
             <div class="link"><i class="fa fa-lg fa-users"></i>Comptes<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a data-toggle="modal" data-target="#myModal1" >Créer un compte épargne</a></li>
-              <li><a data-toggle="modal" data-target="#myModal3">Créer un compte titre</a></li>
+              <li><a  href="CreerCompteEpargne.jsp"" >Créer un compte épargne</a></li>
+              <li><a  href="CreerCompteTitre.jsp">Créer un compte titre</a></li>
               <li><a href="#">Gérer mes comptes</a></li>
                <li><a href="Consultation.jsp">Consulter les soldes de mes comptes</a></li>
             </ul>
@@ -103,17 +103,17 @@
             <ul class="submenu">
               <li><a href="PageVirement.jsp">Effectuer un virement</a></li>
               <li><a href="ChargerArgent.jsp">Alimenter mes comptes</a></li>
+              <li><a href="ChoixCompteTitre.jsp">Acheter des actions </a></li>
+                <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
               <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
             </ul>
           </li>  
-          
-           <li class="nav-header">
+          				         <li class="nav-header">
             <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
               <li><a href="Releves.jsp">Releves de comptes</a></li>
             </ul>
-          </li> 
-          
+          </li>
       </ul>
   </aside>
   
@@ -146,53 +146,8 @@
                            
             </div>
         </div>
-           
- <form name=""  action="CompteEpargne" method="post" id="" novalidate>
-									
-  <!-- Modal -->
-             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">CONFIRMATION</h4>
-                  </div>
-                  <div class="modal-body">
-                    Êtes-vous sûr de vouloir créer un compte épargne ?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <button type="submit"  class="btn btn-primary">Valider</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-										
-								</form>
+ 
 								
-								<div class="container">
-	<form name=""  action="compteTitre" method="post" id="" novalidate>
-									
-  <!-- Modal -->
-             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">CONFIRMATION</h4>
-                  </div>
-                  <div class="modal-body">
-                    Êtes-vous sûr de vouloir créer un compte Titre ?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <button type="submit"  class="btn btn-primary">Valider</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-										
-								</form>
 								
            
      <form name=""  action="Deconnexion" method="post" id="" novalidate>        

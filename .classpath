@@ -48,5 +48,14 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/mailapi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-examples-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-excelant-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-ooxml-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-ooxml-schemas-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-scratchpad-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/pop3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/smtp.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

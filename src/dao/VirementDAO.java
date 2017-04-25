@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Date;
 
 /**
- * Classe d'acc茅鈥樎� aux donn茅鈥撯�榮 contenues dans la table client
+ * Classe d'acc猫艗鈥γ┧喡ッβㄅ矫柯� aux donn猫艗鈥γ┧喡ッ︹�櫬柯矫ββ� contenues dans la table client
  * 
  * @author Anais
  * @version 1.2
@@ -38,7 +38,7 @@ import java.util.Date;
 public class VirementDAO {
 
 	/**
-	 * Param茅鈥樎es de connexion 茂驴陆 la base de donn茅鈥撯�榮 oracle URL, LOGIN et PASS
+	 * Param猫艗鈥γ┧喡ッβㄅ矫溗渆s de connexion 猫艗鈥毭┞┞疵┾劉鈥� la base de donn猫艗鈥γ┧喡ッ︹�櫬柯矫ββ� oracle URL, LOGIN et PASS
 	 * sont des constantes
 	 */
 	
@@ -52,7 +52,7 @@ public class VirementDAO {
 	 * 
 	 */
 	public VirementDAO() {
-		// chargement du pilote de bases de donn茅鈥撯�榮
+		// chargement du pilote de bases de donn猫艗鈥γ┧喡ッ︹�櫬柯矫ββ�
 		
 		try {
 			 Class.forName( "com.mysql.jdbc.Driver" );
@@ -65,36 +65,36 @@ public class VirementDAO {
 
 	/**
 	 * Permet d'ajouter un client dans la table client Le mode est auto-commit
-	 * par d茅鈥撯�檃ut : chaque insertion est valid茅鈥撯��
+	 * par d猫艗鈥γ┧喡ッ︹�櫬柯矫β抲t : chaque insertion est valid猫艗鈥γ┧喡ッ︹�櫬柯矫柯�
 	 * 
 	 * @param Client
-	 *            Client 茂驴陆 ajouter
-	 * @return retourne le nombre de lignes ajout茅鈥撯�榮 dans la table
+	 *            Client 猫艗鈥毭┞┞疵┾劉鈥� ajouter
+	 * @return retourne le nombre de lignes ajout猫艗鈥γ┧喡ッ︹�櫬柯矫ββ� dans la table
 	 */
 	public int ajouter(Virement virement) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int retour = 0;
 
-		// connexion 茂驴陆 la base de donn茅鈥撯�榮
+		// connexion 猫艗鈥毭┞┞疵┾劉鈥� la base de donn猫艗鈥γ┧喡ッ︹�櫬柯矫ββ�
 		try {
 				
 			// tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			// pr茅鈥撆揳ration de l'instruction SQL, chaque ? repr茅鈥撆竐nte une valeur
-			// 茂驴陆 communiquer dans l'insertion
-			// les getters permettent de r茅鈥擄拷up茅鈥撆緀r les valeurs des attributs
-			// souhait茅鈥撆�
+			// pr猫艗鈥γ┧喡ッ︹�欌�犆︼拷鲁ration de l'instruction SQL, chaque ? repr猫艗鈥γ┧喡ッ︹�欌�犆拷nte une valeur
+			// 猫艗鈥毭┞┞疵┾劉鈥� communiquer dans l'insertion
+			// les getters permettent de r猫艗鈥γ┧喡ッ︹�溾�灻︹�孤穟p猫艗鈥γ┧喡ッ︹�欌�犆封偓r les valeurs des attributs
+			// souhait猫艗鈥γ┧喡ッ︹�欌�犆柯�
 			ps = con.prepareStatement("INSERT INTO virement (idClient,compteEmetteur,compteBeneficiaire,montantVirement,dateVirement,motifVirement) VALUES (?,?,?,?,?,?)");
 			ps.setInt(1, virement.getIdClient());
 			ps.setString(2, virement.getCompteEmetteur());
 			ps.setString(3, virement.getCompteBeneficiaire());
-			ps.setInt(4, virement.getMontant());
+			ps.setDouble(4, virement.getMontant());
 			ps.setDate(5, (java.sql.Date) virement.getDate());
 			ps.setString(6, virement.getMotif());
 			
 			
-			// Ex茅鈥擄拷ution de la requ茅藴戮e
+			// Ex猫艗鈥γ┧喡ッ︹�溾�灻︹�孤穟tion de la requ猫艗鈥γㄢ�斅疵λ喡甧
 			retour = ps.executeUpdate();
 
 		} catch (Exception e) {
@@ -123,18 +123,18 @@ public class VirementDAO {
 		ResultSet rs = null;
 		Client cl = null;
 		
-		// connexion 脙聽 la base de donn脙漏es
+		// connexion 猫鈥炩劉猫锟铰� la base de donn猫鈥炩劉忙录锟絜s
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT * FROM client WHERE idClient = ?");
 			ps.setInt(1, idClient);
 
-			// on ex脙漏cute la requ脙陋te
-			// rs contient un pointeur situ脙漏 juste avant la premi脙篓re ligne
-			// retourn脙漏e
+			// on ex猫鈥炩劉忙录锟絚ute la requ猫鈥炩劉茅鈩⑩�箃e
+			// rs contient un pointeur situ猫鈥炩劉忙录锟� juste avant la premi猫鈥炩劉莽炉鈥渞e ligne
+			// retourn猫鈥炩劉忙录锟絜
 			rs = ps.executeQuery();
-			// passe 脙聽 la premi脙篓re (et unique) ligne retourn脙漏e
+			// passe 猫鈥炩劉猫锟铰� la premi猫鈥炩劉莽炉鈥渞e (et unique) ligne retourn猫鈥炩劉忙录锟絜
 			if (rs.next())
 				cl = new Client(rs.getString("nomClient"),
 						rs.getString("prenomClient"),rs.getString("civiliteClient"),rs.getString("emailClient"),rs.getString("dateNaissanceClient"),rs.getString("motDePasseClient"),rs.getString("nationaliteClient"),rs.getString("typeCompte"),rs.getInt("telephoneClient"),rs.getString("adresseClient"),rs.getInt("codepostalClient"),rs.getString("villeClient"),rs.getString("paysClient"));
@@ -170,7 +170,7 @@ public class VirementDAO {
 		ResultSet rs = null;
 		Client cl = null;
 		
-		// connexion 脙聽 la base de donn脙漏es
+		// connexion 猫鈥炩劉猫锟铰� la base de donn猫鈥炩劉忙录锟絜s
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
@@ -178,11 +178,11 @@ public class VirementDAO {
 			ps.setString(1, mail);
 			ps.setString(2,mdp);
 
-			// on ex脙漏cute la requ脙陋te
-			// rs contient un pointeur situ脙漏 juste avant la premi脙篓re ligne
-			// retourn脙漏e
+			// on ex猫鈥炩劉忙录锟絚ute la requ猫鈥炩劉茅鈩⑩�箃e
+			// rs contient un pointeur situ猫鈥炩劉忙录锟� juste avant la premi猫鈥炩劉莽炉鈥渞e ligne
+			// retourn猫鈥炩劉忙录锟絜
 			rs = ps.executeQuery();
-			// passe 脙聽 la premi脙篓re (et unique) ligne retourn脙漏e
+			// passe 猫鈥炩劉猫锟铰� la premi猫鈥炩劉莽炉鈥渞e (et unique) ligne retourn猫鈥炩劉忙录锟絜
 			if (rs.next())
 				cl = new Client(rs.getString("nomClient"),
 						rs.getString("prenomClient"),rs.getString("civiliteClient"),rs.getString("emailClient"),rs.getString("dateNaissanceClient"),rs.getString("motDePasseClient"),rs.getString("nationaliteClient"),rs.getString("typeCompte"),rs.getInt("telephoneClient"),rs.getString("adresseClient"),rs.getInt("codepostalClient"),rs.getString("villeClient"),rs.getString("paysClient"));
@@ -212,12 +212,12 @@ public class VirementDAO {
 	}
 
 	/**
-	 * Permet de r茅鈥擄拷up茅鈥撆緀r un client 茂驴陆 partir de son identifiant
+	 * Permet de r猫艗鈥γ┧喡ッ︹�溾�灻︹�孤穟p猫艗鈥γ┧喡ッ︹�欌�犆封偓r un client 猫艗鈥毭┞┞疵┾劉鈥� partir de son identifiant
 	 * 
 	 * @param idClient
 	 *            le numero du client   r cup rer 
-	 * @return 	le client  trouv茂驴陆;
-	 * 			null si aucun client ne correspond 茂驴陆 cet identifiant
+	 * @return 	le client  trouv猫艗鈥毭┞┞疵┾劉鈥�;
+	 * 			null si aucun client ne correspond 猫艗鈥毭┞┞疵┾劉鈥� cet identifiant
 	 */
 /*	public Client getClient(int idClient) {
 
@@ -226,18 +226,18 @@ public class VirementDAO {
 		ResultSet rs = null;
 		Client retour = null;
 
-		// connexion 茂驴陆 la base de donn茅鈥撯�榮
+		// connexion 猫艗鈥毭┞┞疵┾劉鈥� la base de donn猫艗鈥γ┧喡ッ︹�櫬柯矫ββ�
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT * FROM client WHERE IdClient = ?");
 			ps.setInt(1, idClient);
 
-			// on ex茅鈥擄拷ute la requ茅藴戮e
-			// rs contient un pointeur situ茂驴陆 juste avant la premi茅鈥樎 ligne
-			// retourn茅鈥撯��
+			// on ex猫艗鈥γ┧喡ッ︹�溾�灻︹�孤穟te la requ猫艗鈥γㄢ�斅疵λ喡甧
+			// rs contient un pointeur situ猫艗鈥毭┞┞疵┾劉鈥� juste avant la premi猫艗鈥γ┧喡ッβㄅ矫�⑩�� ligne
+			// retourn猫艗鈥γ┧喡ッ︹�櫬柯矫柯�
 			rs = ps.executeQuery();
-			// passe 茂驴陆 la premi茅鈥樎 (et unique) ligne retourn茅鈥撯��
+			// passe 猫艗鈥毭┞┞疵┾劉鈥� la premi猫艗鈥γ┧喡ッβㄅ矫�⑩�� (et unique) ligne retourn猫艗鈥γ┧喡ッ︹�櫬柯矫柯�
 			if (rs.next())
 				retour = new Client(rs.getInt("idClient"),
 						rs.getString("civiliteClient"),
@@ -273,16 +273,16 @@ public class VirementDAO {
 		
 		int  retour = 0;
 
-		// connexion 茂驴陆 la base de donn茅鈥撯�榮
+		// connexion 猫艗鈥毭┞┞疵┾劉鈥� la base de donn猫艗鈥γ┧喡ッ︹�櫬柯矫ββ�
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("DELETE  FROM Client WHERE idClient = ?");
 			ps.setInt(1, idClient);
 
-			// on ex茅鈥擄拷ute la requ茅藴戮e
-			// rs contient un pointeur situ茂驴陆 juste avant la premi茅鈥樎 ligne
-			// retourn茅鈥撯��
+			// on ex猫艗鈥γ┧喡ッ︹�溾�灻︹�孤穟te la requ猫艗鈥γㄢ�斅疵λ喡甧
+			// rs contient un pointeur situ猫艗鈥毭┞┞疵┾劉鈥� juste avant la premi猫艗鈥γ┧喡ッβㄅ矫�⑩�� ligne
+			// retourn猫艗鈥γ┧喡ッ︹�櫬柯矫柯�
 			retour = ps.executeUpdate();
 			
 
@@ -320,9 +320,9 @@ public class VirementDAO {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT IdClient FROM client");
 
-			// on ex茅鈥擄拷ute la requ茅藴戮e
+			// on ex猫艗鈥γ┧喡ッ︹�溾�灻︹�孤穟te la requ猫艗鈥γㄢ�斅疵λ喡甧
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r茅鈥撆竨ltat
+			// on parcourt les lignes du r猫艗鈥γ┧喡ッ︹�欌�犆╨tat
 			while (rs.next())
 				retour.add( rs.getInt("IdClient"));
 
@@ -351,7 +351,7 @@ public class VirementDAO {
 	}
 	*/
 	/**
-	 * Permet de r茅鈥擄拷up茅鈥撆緀r tous les clients stock茅鈥撆� dans la table client
+	 * Permet de r猫艗鈥γ┧喡ッ︹�溾�灻︹�孤穟p猫艗鈥γ┧喡ッ︹�欌�犆封偓r tous les clients stock猫艗鈥γ┧喡ッ︹�欌�犆柯� dans la table client
 	 * 
 	 * @return une ArrayList de clients
 	 */
@@ -362,15 +362,15 @@ public class VirementDAO {
 		ResultSet rs = null;
 		List<Client> retour = new ArrayList<Client>();
 
-		// connexion 茂驴陆 la base de donn茅鈥撯�榮
+		// connexion 猫艗鈥毭┞┞疵┾劉鈥� la base de donn猫艗鈥γ┧喡ッ︹�櫬柯矫ββ�
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT * FROM client");
 
-			// on ex茅鈥擄拷ute la requ茅藴戮e
+			// on ex猫艗鈥γ┧喡ッ︹�溾�灻︹�孤穟te la requ猫艗鈥γㄢ�斅疵λ喡甧
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r茅鈥撆竨ltat
+			// on parcourt les lignes du r猫艗鈥γ┧喡ッ︹�欌�犆╨tat
 			while (rs.next())
 				retour.add(new Client(rs.getInt("IdClient"), rs
 						.getString("Civilite"), rs
@@ -405,24 +405,24 @@ public class VirementDAO {
 	/*public static void main(String[] args) throws SQLException{
 
 		ClientDAO clientDAO = new ClientDAO();
-		// test de la m茅鈥撀爃ode ajouter
+		// test de la m猫艗鈥γ┧喡ッ︹�欌偓莽藛茠ode ajouter
 	    // Client c1 = new Client( "nom", "prenom","civi","email","DateN","mdp","nation","typeC",12345678,"adC",76100,"ville","paysC");
 		//int retour = clientDAO.ajouter(c1);
 		Client c1= null;
 		c1=clientDAO.connexionClient("anaistchamani@yahoo.fr","anais");
 		if (c1==null){
-			System.out.println("Connexion rat脙漏e");
+			System.out.println("Connexion rat猫鈥炩劉忙录锟絜");
 		} else {
-			System.out.println("Connexion r脙漏ussie");
+			System.out.println("Connexion r猫鈥炩劉忙录锟絬ssie");
 		}
-		//System.out.println(retour + " lignes ajout茅鈥撯�榮");
+		//System.out.println(retour + " lignes ajout猫艗鈥γ┧喡ッ︹�櫬柯矫ββ�");
 		
-		// test de la m茅鈥撀爃ode deleteClient
+		// test de la m猫艗鈥γ┧喡ッ︹�欌偓莽藛茠ode deleteClient
 			//int r  = clientDAO.deleteClient(4);
 			//System.out.println(r);
 		  // ArrayList bbbb =new ArrayList<Integer>();
 		//  System.out.println(bbbb=clientDAO.idClient());
-			// test de la m茅鈥撀爃ode getListeArticles
+			// test de la m猫艗鈥γ┧喡ッ︹�欌偓莽藛茠ode getListeArticles
 			/*List<Article> liste = articleDAO.getListeArticles();
 			// affichage des articles
 			for (Article art : liste) {

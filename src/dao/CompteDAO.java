@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Date;
 
 /**
- * Classe d'acc閼� aux donn闁憇 contenues dans la table client
+ * Classe d'acc茅鈥撀济柯� aux donn茅鈥旓拷忙鈥犫�� contenues dans la table client
  * 
  * @author Prisca - Hornela
  * @version 1.2
@@ -41,7 +41,7 @@ import java.util.Date;
 public class CompteDAO {
 
 	/**
-	 * Param閼es de connexion 锟� la base de donn闁憇 oracle URL, LOGIN et PASS
+	 * Param茅鈥撀济溗渆s de connexion 茅鈥澟该柯� la base de donn茅鈥旓拷忙鈥犫�� oracle URL, LOGIN et PASS
 	 * sont des constantes
 	 */
 	
@@ -55,7 +55,7 @@ public class CompteDAO {
 	 * 
 	 */
 	public CompteDAO() {
-		// chargement du pilote de bases de donn闁憇
+		// chargement du pilote de bases de donn茅鈥旓拷忙鈥犫��
 		
 		try {
 			 Class.forName( "com.mysql.jdbc.Driver" );
@@ -86,9 +86,9 @@ public class CompteDAO {
             
 			ps.setInt(1, IdClient);
 			ps.setString(2, "compte courant" );
-			// on ex闁弖te la requ闃緀
+			// on ex茅鈥旓拷氓录鈥搕e la requ茅鈥斊捗封偓
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r闁焨ltat
+			// on parcourt les lignes du r茅鈥旓拷莽鈥灺╨tat
 			while (rs.next())
 			{
 			compte = new Compte(rs.getInt("IdClient_Compte"),rs.getInt("codeGuichet"),rs.getString("numeroDeCompte"),rs.getInt("clefRib"),rs.getInt("codeBanque"),rs.getString("soldeBanque"),rs.getString("typeCompte"));	
@@ -120,7 +120,7 @@ public class CompteDAO {
 	/**
 	 * 
 	 * 
-	 * Permet de avoir la list de tous les comptes 茅pargne d'un client.
+	 * Permet de avoir la list de tous les comptes 猫艗鈥argne d'un client.
 	 * 	
 	 */
 	public ArrayList<Compte> getCompteEpargne(int IdClient){
@@ -137,9 +137,9 @@ public class CompteDAO {
             
 			ps.setInt(1, IdClient);
 			ps.setString(2, "compte epargne" );
-			// on ex闁弖te la requ闃緀
+			// on ex茅鈥旓拷氓录鈥搕e la requ茅鈥斊捗封偓
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r闁焨ltat
+			// on parcourt les lignes du r茅鈥旓拷莽鈥灺╨tat
 			while (rs.next())
 			{
 			compte = new Compte(rs.getInt("IdClient_Compte"),rs.getInt("codeGuichet"),rs.getString("numeroDeCompte"),rs.getInt("clefRib"),rs.getInt("codeBanque"),rs.getString("soldeBanque"),rs.getString("typeCompte"));	
@@ -172,7 +172,7 @@ public class CompteDAO {
 	/**
 	 * 
 	 * 
-	 * Permet de avoir la list de tous les comptes 茅pargne d'un client.
+	 * Permet de avoir la list de tous les comptes 猫艗鈥argne d'un client.
 	 * 	
 	 */
 	public ArrayList<Compte> getCompteTitre(int IdClient){
@@ -189,9 +189,9 @@ public class CompteDAO {
             
 			ps.setInt(1, IdClient);
 			ps.setString(2, "compte titre" );
-			// on ex闁弖te la requ闃緀
+			// on ex茅鈥旓拷氓录鈥搕e la requ茅鈥斊捗封偓
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r闁焨ltat
+			// on parcourt les lignes du r茅鈥旓拷莽鈥灺╨tat
 			while (rs.next())
 			{compte = new Compte(rs.getInt("IdClient_Compte"),rs.getInt("codeGuichet"),rs.getString("numeroDeCompte"),rs.getInt("clefRib"),rs.getInt("codeBanque"),rs.getString("soldeBanque"),rs.getString("typeCompte"));	
             c.add(compte);
@@ -220,56 +220,6 @@ public class CompteDAO {
 
 	}
 	
-	/**
-	 * 
-	 * 
-	 * Permet de avoir la list de tous les comptes 茅pargne d'un client.
-	 * 	
-	 */
-	public Compte getCompteChoisi(int IdCompte){
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		Compte c = null;
-		Compte compte = new Compte();
-		try {
-
-			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			
-			ps = con.prepareStatement("SELECT * FROM compte WHERE idCompte = ?");
-            
-			ps.setInt(1, IdCompte);
-			
-			// on ex闁弖te la requ闃緀
-			rs = ps.executeQuery();
-			// on parcourt les lignes du r闁焨ltat
-			if (rs.next())
-			{
-			    c = new Compte(rs.getInt("idClient_Compte"), rs.getInt("codeGuichet"), rs.getString("numeroDeCompte"), rs.getInt("clefRIB"), rs.getInt("codeBanque"), rs.getString("soldeBanque"),rs.getString("typeCompte"));
-			}
-		} catch (Exception ee) {
-			ee.printStackTrace();
-		} finally {
-			// fermeture du rs, du preparedStatement et de la connexion
-			try {
-				if (rs != null)
-					rs.close();
-			} catch (Exception ignore) {
-			}
-			try {
-				if (ps != null)
-					ps.close();
-			} catch (Exception ignore) {
-			}
-			try {
-				if (con != null)
-					con.close();
-			} catch (Exception ignore) {
-			}
-		}
-		return c;
-
-	}
 	public Double soldeTotalCompte(int IdClient)
 	{
 		Connection con = null;
@@ -284,9 +234,9 @@ public class CompteDAO {
 			ps = con.prepareStatement("SELECT * FROM compte WHERE idClient_Compte = ?");
             
 			ps.setInt(1, IdClient);
-			// on ex闁弖te la requ闃緀
+			// on ex茅鈥旓拷氓录鈥搕e la requ茅鈥斊捗封偓
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r闁焨ltat
+			// on parcourt les lignes du r茅鈥旓拷莽鈥灺╨tat
 			while (rs.next())
 			{
 				
@@ -333,9 +283,9 @@ public class CompteDAO {
 			ps = con.prepareStatement("SELECT * FROM compte WHERE idClient_Compte = ?");
             
 			ps.setInt(1, IdClient);
-			// on ex闁弖te la requ闃緀
+			// on ex茅鈥旓拷氓录鈥搕e la requ茅鈥斊捗封偓
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r闁焨ltat
+			// on parcourt les lignes du r茅鈥旓拷莽鈥灺╨tat
 			while (rs.next())
 			{
 				compte = new Compte(rs.getInt("IdClient_Compte"),rs.getInt("codeGuichet"),rs.getString("numeroDeCompte"),rs.getInt("clefRib"),rs.getInt("codeBanque"),rs.getString("soldeBanque"),rs.getString("typeCompte"));	
@@ -380,9 +330,9 @@ public class CompteDAO {
             
 			ps.setInt(1, IdClient);
 			ps.setString(2, "courant");
-			// on ex闁弖te la requ闃緀
+			// on ex茅鈥旓拷氓录鈥搕e la requ茅鈥斊捗封偓
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r闁焨ltat
+			// on parcourt les lignes du r茅鈥旓拷莽鈥灺╨tat
 			while (rs.next())
 			{				
 				soldeT = soldeT+ Double.parseDouble(rs.getString("soldeBanque"));
@@ -426,33 +376,76 @@ public class CompteDAO {
 	  }
 	 
 		
-	
+	 public Compte getCompteChoisi(int IdCompte){
+			Connection con = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			Compte c = null;
+			Compte compte = new Compte();
+			try {
+
+				con = DriverManager.getConnection(URL, LOGIN, PASS);
+				
+				ps = con.prepareStatement("SELECT * FROM compte WHERE idCompte = ?");
+	            
+				ps.setInt(1, IdCompte);
+				
+				// on ex闁弖te la requ闃緀
+				rs = ps.executeQuery();
+				// on parcourt les lignes du r闁焨ltat
+				if (rs.next())
+				{
+				    c = new Compte(rs.getInt("idClient_Compte"), rs.getInt("codeGuichet"), rs.getString("numeroDeCompte"), rs.getInt("clefRIB"), rs.getInt("codeBanque"), rs.getString("soldeBanque"),rs.getString("typeCompte"));
+				}
+			} catch (Exception ee) {
+				ee.printStackTrace();
+			} finally {
+				// fermeture du rs, du preparedStatement et de la connexion
+				try {
+					if (rs != null)
+						rs.close();
+				} catch (Exception ignore) {
+				}
+				try {
+					if (ps != null)
+						ps.close();
+				} catch (Exception ignore) {
+				}
+				try {
+					if (con != null)
+						con.close();
+				} catch (Exception ignore) {
+				}
+			}
+			return c;
+
+		}
 	
 
 	/**
 	 * Permet d'ajouter un client dans la table client Le mode est auto-commit
-	 * par d闁抋ut : chaque insertion est valid闁�
+	 * par d茅鈥旓拷忙艩鈥箄t : chaque insertion est valid茅鈥旓拷茂驴陆
 	 * 
 	 * @param Client
-	 *            Client 锟� ajouter
-	 * @return retourne le nombre de lignes ajout闁憇 dans la table
+	 *            Client 茅鈥澟该柯� ajouter
+	 * @return retourne le nombre de lignes ajout茅鈥旓拷忙鈥犫�� dans la table
 	 */
 	public int ajouter(Compte compte) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int retour = 0;
 
-		// connexion 锟� la base de donn闁憇
+		// connexion 茅鈥澟该柯� la base de donn茅鈥旓拷忙鈥犫��
 		try {
 			
 			//DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 			
 			// tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			// pr闁渁ration de l'instruction SQL, chaque ? repr闁焑nte une valeur
-			// 锟� communiquer dans l'insertion
-			// les getters permettent de r闁弖p闁瀍r les valeurs des attributs
-			// souhait闁�
+			// pr茅鈥旓拷忙赂锟絩ation de l'instruction SQL, chaque ? repr茅鈥旓拷莽鈥炩�榥te une valeur
+			// 茅鈥澟该柯� communiquer dans l'insertion
+			// les getters permettent de r茅鈥旓拷氓录鈥損茅鈥旓拷莽鈧拷r les valeurs des attributs
+			// souhait茅鈥旓拷茂驴陆
 			ps = con.prepareStatement("INSERT INTO compte ( idClient_Compte, codeGuichet,numeroDeCompte,clefRIB,codeBanque, soldeBanque,typeCompte) VALUES (?,?,?,?,?,?,?)");
 			ps.setInt(1, compte.getIdClient());
 			ps.setInt(2, compte.getCodeGuichet());
@@ -461,7 +454,7 @@ public class CompteDAO {
 			ps.setInt(5, compte.getCodeBanque());
 			ps.setString(6, compte.getSoldeBanque());
 			ps.setString(7, compte.getTypeCompte());
-			// Ex闁弖tion de la requ闃緀
+			// Ex茅鈥旓拷氓录鈥搕ion de la requ茅鈥斊捗封偓
 			retour = ps.executeUpdate();
 
 		} catch (Exception e) {
@@ -489,15 +482,15 @@ public class CompteDAO {
 		ResultSet rs = null;
 		List<Compte> retour = new ArrayList<Compte>();
 
-		// connexion 茂驴陆 la base de donn茅鈥撯�榮
+		// connexion 猫艗鈥毭┞┞疵┾劉鈥� la base de donn猫艗鈥γ┧喡ッ︹�櫬柯矫ββ�
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT * FROM compte WHERE  idClient_Compte= ?");
 			ps.setInt(1, identifiant);
-			// on ex茅鈥擄拷ute la requ茅藴戮e
+			// on ex猫艗鈥γ┧喡ッ︹�溾�灻︹�孤穟te la requ猫艗鈥γㄢ�斅疵λ喡甧
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r茅鈥撆竨ltat
+			// on parcourt les lignes du r猫艗鈥γ┧喡ッ︹�欌�犆╨tat
 			while (rs.next())
 				retour.add(new Compte(rs.getInt("idClient_Compte"), rs.getInt("codeGuichet"),rs
 						.getString("numeroDeCompte"),rs.getInt("clefRIB"),rs.getInt("codeBanque"),rs.getString("soldeBanque"),rs.getString("typeCompte")));
@@ -532,7 +525,7 @@ public class CompteDAO {
 		ResultSet rs = null;
 		int retour = 0;
 
-		// connexion 脿 la base de donn茅es
+		// connexion 猫鈥灺� la base de donn猫艗鈥s
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
@@ -540,11 +533,11 @@ public class CompteDAO {
 			ps.setString(1,numero );
 			
             
-			// on ex脙漏cute la requ锚te
-			// rs contient un pointeur situ脙漏 juste avant la premi猫re ligne
-			// retourn茅
+			// on ex猫鈥炩劉忙录锟絚ute la requ茅鈥澟e
+			// rs contient un pointeur situ猫鈥炩劉忙录锟� juste avant la premi莽艗芦re ligne
+			// retourn猫艗鈥�
 			rs = ps.executeQuery();
-			// passe 脙聽 la premi脙篓re (et unique) ligne retourn脙漏e
+			// passe 猫鈥炩劉猫锟铰� la premi猫鈥炩劉莽炉鈥渞e (et unique) ligne retourn猫鈥炩劉忙录锟絜
 			if (rs.next())
 				retour =rs.getInt("idCompte");
 
@@ -579,7 +572,7 @@ public class CompteDAO {
 		ResultSet rs = null;
 		int retour = 0;
 
-		// connexion 脿 la base de donn茅es
+		// connexion 猫鈥灺� la base de donn猫艗鈥s
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
@@ -587,11 +580,11 @@ public class CompteDAO {
 			ps.setString(1,numero );
 			
             
-			// on ex脙漏cute la requ锚te
-			// rs contient un pointeur situ脙漏 juste avant la premi猫re ligne
-			// retourn茅
+			// on ex猫鈥炩劉忙录锟絚ute la requ茅鈥澟e
+			// rs contient un pointeur situ猫鈥炩劉忙录锟� juste avant la premi莽艗芦re ligne
+			// retourn猫艗鈥�
 			rs = ps.executeQuery();
-			// passe 脙聽 la premi脙篓re (et unique) ligne retourn脙漏e
+			// passe 猫鈥炩劉猫锟铰� la premi猫鈥炩劉莽炉鈥渞e (et unique) ligne retourn猫鈥炩劉忙录锟絜
 			if (rs.next())
 				retour =rs.getInt("idCompte");
 
@@ -626,17 +619,17 @@ public class CompteDAO {
 				PreparedStatement ps = null;
 				int retour = 0;
 
-				// connexion 锟� la base de donn闁憇
+				// connexion 茅鈥澟该柯� la base de donn茅鈥旓拷忙鈥犫��
 				try {
 					
 					//DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 					
 					// tentative de connexion
 					con = DriverManager.getConnection(URL, LOGIN, PASS);
-					// pr闁渁ration de l'instruction SQL, chaque ? repr闁焑nte une valeur
-					// 锟� communiquer dans l'insertion
-					// les getters permettent de r闁弖p闁瀍r les valeurs des attributs
-					// souhait闁�
+					// pr茅鈥旓拷忙赂锟絩ation de l'instruction SQL, chaque ? repr茅鈥旓拷莽鈥炩�榥te une valeur
+					// 茅鈥澟该柯� communiquer dans l'insertion
+					// les getters permettent de r茅鈥旓拷氓录鈥損茅鈥旓拷莽鈧拷r les valeurs des attributs
+					// souhait茅鈥旓拷茂驴陆
 					ps = con.prepareStatement("UPDATE compte SET soldeBanque = ? WHERE numeroDeCompte = ? ");
 					ps.setString(1, montantS);
 					ps.setString(2, numeroCompte);
@@ -662,6 +655,7 @@ public class CompteDAO {
 			return retour;
 
 		}
+	
 	public Compte getCompteNumero(String numeroDeCompte) {
 
 		Connection con = null;
@@ -669,18 +663,18 @@ public class CompteDAO {
 		ResultSet rs = null;
 		Compte compte = null;
 		
-		// connexion 脿 la base de donn茅es
+		// connexion 猫鈥灺� la base de donn猫艗鈥s
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT * FROM compte WHERE numeroDeCompte = ?");
 			ps.setString(1, numeroDeCompte);
 
-			// on ex茅cute la requ锚te
-			// rs contient un pointeur situ茅 juste avant la premi猫re ligne
-			// retourn茅e
+			// on ex猫艗鈥ute la requ茅鈥澟e
+			// rs contient un pointeur situ猫艗鈥� juste avant la premi莽艗芦re ligne
+			// retourn猫艗鈥
 			rs = ps.executeQuery();
-			// passe 脿 la premi猫re (et unique) ligne retourn茅e
+			// passe 猫鈥灺� la premi莽艗芦re (et unique) ligne retourn猫艗鈥
 			if (rs.next())
 				compte = new Compte(rs.getInt("idClient_Compte"),rs.getInt("codeGuichet"),
 						rs.getString("numeroDeCompte"),rs.getInt("clefRib"),rs.getInt("codeBanque"),
@@ -716,18 +710,18 @@ public class CompteDAO {
 		ResultSet rs = null;
 		Compte compte = null;
 		
-		// connexion 脿 la base de donn茅es
+		// connexion 猫鈥灺� la base de donn猫艗鈥s
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT * FROM compte WHERE idClient_Compte = ?");
 			ps.setInt(1, idClient);
 
-			// on ex茅cute la requ锚te
-			// rs contient un pointeur situ茅 juste avant la premi猫re ligne
-			// retourn茅e
+			// on ex猫艗鈥ute la requ茅鈥澟e
+			// rs contient un pointeur situ猫艗鈥� juste avant la premi莽艗芦re ligne
+			// retourn猫艗鈥
 			rs = ps.executeQuery();
-			// passe 脿 la premi猫re (et unique) ligne retourn茅e
+			// passe 猫鈥灺� la premi莽艗芦re (et unique) ligne retourn猫艗鈥
 			if (rs.next())
 				compte = new Compte(rs.getInt("idClient_Compte"),rs.getInt("codeGuichet"),
 						rs.getString("numeroDeCompte"),rs.getInt("clefRib"),rs.getInt("codeBanque"),
@@ -757,12 +751,12 @@ public class CompteDAO {
 
 	}
 	/**
-	 * Permet de r闁弖p闁瀍r un client 锟� partir de son identifiant
+	 * Permet de r茅鈥旓拷氓录鈥損茅鈥旓拷莽鈧拷r un client 茅鈥澟该柯� partir de son identifiant
 	 * 
 	 * @param idClient
 	 *            le numero du client   r cup rer 
-	 * @return 	le client  trouv锟�;
-	 * 			null si aucun client ne correspond 锟� cet identifiant
+	 * @return 	le client  trouv茅鈥澟该柯�;
+	 * 			null si aucun client ne correspond 茅鈥澟该柯� cet identifiant
 	 */
 /*	public Client getClient(int idClient) {
 
@@ -771,18 +765,18 @@ public class CompteDAO {
 		ResultSet rs = null;
 		Client retour = null;
 
-		// connexion 锟� la base de donn闁憇
+		// connexion 茅鈥澟该柯� la base de donn茅鈥旓拷忙鈥犫��
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT * FROM client WHERE IdClient = ?");
 			ps.setInt(1, idClient);
 
-			// on ex闁弖te la requ闃緀
-			// rs contient un pointeur situ锟� juste avant la premi閼 ligne
-			// retourn闁�
+			// on ex茅鈥旓拷氓录鈥搕e la requ茅鈥斊捗封偓
+			// rs contient un pointeur situ茅鈥澟该柯� juste avant la premi茅鈥撀济�⑩�� ligne
+			// retourn茅鈥旓拷茂驴陆
 			rs = ps.executeQuery();
-			// passe 锟� la premi閼 (et unique) ligne retourn闁�
+			// passe 茅鈥澟该柯� la premi茅鈥撀济�⑩�� (et unique) ligne retourn茅鈥旓拷茂驴陆
 			if (rs.next())
 				retour = new Client(rs.getInt("idClient"),
 						rs.getString("civiliteClient"),
@@ -818,16 +812,16 @@ public class CompteDAO {
 		
 		int  retour = 0;
 
-		// connexion 锟� la base de donn闁憇
+		// connexion 茅鈥澟该柯� la base de donn茅鈥旓拷忙鈥犫��
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("DELETE  FROM Client WHERE idClient = ?");
 			ps.setInt(1, idClient);
 
-			// on ex闁弖te la requ闃緀
-			// rs contient un pointeur situ锟� juste avant la premi閼 ligne
-			// retourn闁�
+			// on ex茅鈥旓拷氓录鈥搕e la requ茅鈥斊捗封偓
+			// rs contient un pointeur situ茅鈥澟该柯� juste avant la premi茅鈥撀济�⑩�� ligne
+			// retourn茅鈥旓拷茂驴陆
 			retour = ps.executeUpdate();
 			
 
@@ -865,9 +859,9 @@ public class CompteDAO {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT IdClient FROM client");
 
-			// on ex闁弖te la requ闃緀
+			// on ex茅鈥旓拷氓录鈥搕e la requ茅鈥斊捗封偓
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r闁焨ltat
+			// on parcourt les lignes du r茅鈥旓拷莽鈥灺╨tat
 			while (rs.next())
 				retour.add( rs.getInt("IdClient"));
 
@@ -896,7 +890,7 @@ public class CompteDAO {
 	}
 	*/
 	/**
-	 * Permet de r闁弖p闁瀍r tous les clients stock闁� dans la table client
+	 * Permet de r茅鈥旓拷氓录鈥損茅鈥旓拷莽鈧拷r tous les clients stock茅鈥旓拷茂驴陆 dans la table client
 	 * 
 	 * @return une ArrayList de clients
 	 */
@@ -907,15 +901,15 @@ public class CompteDAO {
 		ResultSet rs = null;
 		List<Client> retour = new ArrayList<Client>();
 
-		// connexion 锟� la base de donn闁憇
+		// connexion 茅鈥澟该柯� la base de donn茅鈥旓拷忙鈥犫��
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT * FROM client");
 
-			// on ex闁弖te la requ闃緀
+			// on ex茅鈥旓拷氓录鈥搕e la requ茅鈥斊捗封偓
 			rs = ps.executeQuery();
-			// on parcourt les lignes du r闁焨ltat
+			// on parcourt les lignes du r茅鈥旓拷莽鈥灺╨tat
 			while (rs.next())
 				retour.add(new Client(rs.getInt("IdClient"), rs
 						.getString("Civilite"), rs
@@ -979,28 +973,22 @@ public class CompteDAO {
 			 
 		 }
 		CodeDAO codeDAO = new CodeDAO();
-		// test de la m闁爃ode ajouter
+		// test de la m茅鈥旓拷莽藛茠ode ajouter
 	     Code c1 = new Code( "Venezuela", NumeroCompte,clef);
 		int retour = codeDAO.ajouter(c1);
 
-		System.out.println(retour + " lignes ajout闁憇");
+		System.out.println(retour + " lignes ajout茅鈥旓拷忙鈥犫��");
 		
-		// test de la m闁爃ode deleteClient
+		// test de la m茅鈥旓拷莽藛茠ode deleteClient
 			//int r  = clientDAO.deleteClient(4);
 			//System.out.println(r);
 		  // ArrayList bbbb =new ArrayList<Integer>();
 		//  System.out.println(bbbb=clientDAO.idClient());
-			// test de la m闁爃ode getListeArticles
+			// test de la m茅鈥旓拷莽藛茠ode getListeArticles
 			/*List<Article> liste = articleDAO.getListeArticles();
 			// affichage des articles
 		for (Article art : liste) {
 				System.out.println(art.toString());
 			}
-	}*/
-	/*public static void main(String[] args){
-		CompteDAO cd = new CompteDAO();
-		System.out.print(cd.getCompteChoisi(1).getNumeroDeCompte());
-		
-		
 	}*/
 }

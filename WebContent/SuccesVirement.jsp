@@ -1,3 +1,20 @@
+<%@ page import="dao.*"%>
+    <%@ page import="dto.*"%>
+
+<%ClientDAO dao= new ClientDAO();
+    Client cl= null;
+ 
+     cl=(Client)session.getAttribute("client");
+     
+     if (cl == null)
+     {
+    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+    	 session.removeAttribute("client");
+     }
+    %>
+
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -63,7 +80,7 @@
                   <ul class="dropdown-menu" role="menu">
                       <li> <a ><span class="fa fa-user"></span> Bienvenue ${sessionScope.client.nomClient} </a></li>
                       <li class="divider"></li>
-                      <li><a href="#"><span class="fa fa-power-off"></span> Déconnexion</a></li>
+                      <li><a data-toggle="modal" data-target="#myModal"><span class="fa fa-power-off"></span>Déconnexion</a></li>
                   </ul>
               </li>
               
@@ -81,11 +98,11 @@
             </ul>
           </li>
           
-          <li class="nav-header">
+         <li class="nav-header">
             <div class="link"><i class="fa fa-lg fa-users"></i>Comptes<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-               <li><a data-toggle="modal" data-target="#myModal1" >Créer un compte épargne</a></li>
-              <li><a data-toggle="modal" data-target="#myModal3">Créer un compte titre</a></li>
+              <li><a  href="CreerCompteEpargne.jsp"" >Créer un compte épargne</a></li>
+              <li><a  href="CreerCompteTitre.jsp">Créer un compte titre</a></li>
               <li><a href="#">Gérer mes comptes</a></li>
                <li><a href="Consultation.jsp">Consulter les soldes de mes comptes</a></li>
             </ul>
@@ -96,17 +113,17 @@
             <ul class="submenu">
               <li><a href="PageVirement.jsp">Effectuer un virement</a></li>
               <li><a href="ChargerArgent.jsp">Alimenter mes comptes</a></li>
+              <li><a href="ChoixCompteTitre.jsp">Acheter des actions </a></li>
+                <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
               <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
             </ul>
           </li>  
-          
-           <li class="nav-header">
+          				         <li class="nav-header">
             <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
               <li><a href="Releves.jsp">Releves de comptes</a></li>
             </ul>
-          </li> 
-          
+          </li>
       </ul>
   </aside>
   

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+  <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
     
      
@@ -9,37 +10,55 @@
   <%  
    %>
     
-  <%
-    int id;
+    
+    
+     <%ClientDAO cdao= new ClientDAO();
+       Client cl1= null;
+       String nom=null;
+   	   String prenom=null;
+   	   int id=0;
+      CompteDAO cd = new CompteDAO();
+	  ArrayList<Compte> Acc = new ArrayList<Compte>();
+	  ArrayList<Compte> cc = new ArrayList<Compte>();
+	  ArrayList<Compte> ce=new ArrayList<Compte>();
+	  ArrayList<Compte> ct=new ArrayList<Compte>();
+	  
+     cl1=(Client)session.getAttribute("client");
+     
+     if (cl1 == null)
+     {
+    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+    	 session.removeAttribute("client");
+     }
+     else{
+    
     String email;
-	ClientDAO cdao = new ClientDAO();
-	String nom;
-	String prenom;
-	Client cl = (Client) session.getAttribute("client");
-	if(cl!=null)
-	{
+	
+	
+	Client cl = cl1;
+	
     email = cl.getEmailClient();
 	id = cdao.getIdClient(email);
-	}
-	else{
-		String ID=(String)session.getAttribute("IdClient");
-		id=Integer.parseInt(ID);
-		cl=cdao.getClient(id);
-	}
+	
+	
+		
+	
 	nom=cl.getNomClient();
 	prenom=cl.getPrenomClient();
 	
 	System.out.println(id);
-	CompteDAO cd = new CompteDAO();
-	ArrayList<Compte> Acc = cd.getTousCompte(id);
-	ArrayList<Compte> cc = cd.getCompteCourant(id);
+     
+	cd = new CompteDAO();
+	Acc = cd.getTousCompte(id);
+	cc = cd.getCompteCourant(id);
 	System.out.println(cc.get(0).getNumeroDeCompte());
-	ArrayList<Compte> ce = cd.getCompteEpargne(id);
-	ArrayList<Compte> ct = cd.getCompteTitre(id);
+	ce = cd.getCompteEpargne(id);
+	cc = cd.getCompteCourant(id);
+	ct = cd.getCompteTitre(id);
 	request.setAttribute("ce", ce);
 	request.setAttribute("ct", ct);
 	request.setAttribute("cc", cc);
-	
+     }
 %>
 
 <!DOCTYPE html>
@@ -128,9 +147,18 @@
             <ul class="submenu">
               <li><a href="PageVirement.jsp">Effectuer un virement</a></li>
               <li><a href="ChargerArgent.jsp">Alimenter mes comptes</a></li>
+               <li><a href="ChoixCompteTitre.jsp">Acheter des actions </a></li>
+                <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
               <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
             </ul>
           </li>  
+          
+                   <li class="nav-header">
+            <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+              <li><a href="Releves.jsp">Releves de comptes</a></li>
+            </ul>
+          </li> 
           
       </ul>
   </aside>
@@ -195,11 +223,11 @@
         data.addColumn('string', 'Solde totale');
         
         data.addRows([
-          ['Tous type de compte', '<%=cd.getTousCompte(id).size()%>' , '<%=cd.soldeTotal(Acc)+" EUR"%>'],
-          ['Compte epargne', '<%=cd.getCompteEpargne(id).size()%>' , '<%=cd.soldeTotal(ce)+" EUR"%>'],
-          ['Compte courant', '<%=cd.getCompteCourant(id).size()%>' , '<%=cd.soldeTotal(cc)+" EUR"%>'],
-          ['Compte titre', '<%=cd.getCompteTitre(id).size()%>' , '<%=cd.soldeTotal(ct)+" EUR"%>'],
-        ]);
+            ['Tous type de compte', '<%=cd.getTousCompte(id).size()%>' , '<%=cd.soldeTotal(Acc)+" EUR"%>'],
+            ['Compte epargne', '<%=cd.getCompteEpargne(id).size()%>' , '<%=cd.soldeTotal(ce)+" EUR"%>'],
+            ['Compte courant', '<%=cd.getCompteCourant(id).size()%>' , '<%=cd.soldeTotal(cc)+" EUR"%>'],
+            ['Compte titre', '<%=cd.getCompteTitre(id).size()%>' , '<%=cd.soldeTotal(ct)+" EUR"%>'],
+          ]);
 
         var table = new google.visualization.Table(document.getElementById('table_div'));
 

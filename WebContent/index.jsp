@@ -16,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bank 8-5 Of ESIGELEC</title>
+    <title> Bank 8-5 Of ESIGELEC </title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -598,7 +598,7 @@
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="civilite" class="form-control selectpicker" >
+    <select name="Civilite" class="form-control selectpicker" >
 												<option value= "monsieur" selected> M </option>
 												<option value= "madame"> Mme </option>
 												<option value= "mademoiselle"> Mlle </option>

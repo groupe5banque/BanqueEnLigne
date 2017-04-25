@@ -70,52 +70,52 @@
          int e=0;
          int r=0;
          int d=0;
-         int se=0;
-         int sr=0;
-         int sd=0;
+         double se=0;
+         double sr=0;
+         double sd=0;
          
          int ee=0;
          int re=0;
          int de=0;
-         int mee=0;
-         int mre=0;
-         int mde=0;
+         double mee=0;
+         double mre=0;
+         double mde=0;
          
          
          int ec=0;
          int rc=0;
          int dc=0;
-         int mec=0;
-         int mrc=0;
-         int mdc=0;
+         double mec=0;
+         double mrc=0;
+         double mdc=0;
          
          int et=0;
          int rt=0;
          int dt=0;
-         int met=0;
-         int mrt=0;
-         int mdt=0;
+         double met=0;
+         double mrt=0;
+         double mdt=0;
          
-         int md6=0;
-         int md5=0;
-         int md4=0;
-         int md3=0;
-         int md2=0;
-         int md1=0;
+         double md6=0;
+         double md5=0;
+         double md4=0;
+         double md3=0;
+         double md2=0;
+         double md1=0;
          
-         int ve6=0;
-         int ve5=0;
-         int ve4=0;
-         int ve3=0;
-         int ve2=0;
-         int ve1=0;
+         double ve6=0;
+         double ve5=0;
+         double ve4=0;
+         double ve3=0;
+         double ve2=0;
+         double ve1=0;
          
-         int vr1=0;
-         int vr2=0;
-         int vr3=0;
-         int vr4=0;
-         int vr5=0;
-         int vr6=0;
+         double vr1=0;
+         double vr2=0;
+         double vr3=0;
+         double vr4=0;
+         double vr5=0;
+         double vr6=0;
          
          int nve6=0;
          int nvr6=0;

@@ -117,10 +117,17 @@
             <ul class="submenu">
               <li><a href="PageVirement.jsp">Effectuer un virement</a></li>
               <li><a href="ChargerArgent.jsp">Alimenter mes comptes</a></li>
+               <li><a href="ChoixCompteTitre.jsp">Acheter des actions </a></li>
+                <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
               <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
             </ul>
           </li>  
-          
+          				         <li class="nav-header">
+            <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+              <li><a href="Releves.jsp">Releves de comptes</a></li>
+            </ul>
+          </li>
       </ul>
   </aside>
   

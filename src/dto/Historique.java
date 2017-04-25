@@ -8,46 +8,8 @@ public class Historique {
 		 */
 		
 	   private int idClient_historique;
-		/**
-		 * identifiant du compte associé
-		 */
-		private int idCompte_historique;
-		
-		/**
-		 * date de la transaction
-		 */
-
-	  private Date date;
 	   
-	     /**
-	      * nature de la transaction
-	      */
-
-	 private String nature;
-	 
-	 /**
-	  *montant de  crédit de la transaction
-	  */
-	 private int credit;
-	 
-	 /**
-	  * montant de débit de la transaction
-	  */
-	 
-	 private int debit;
-	 
-	 public Historique(int idClient_historique,int idCompte_historique,Date date,String nature,int credit,int debit ){
-		 
-		 this.credit=credit;
-		 this.date=date;
-		 this.debit=debit;
-		 this.idClient_historique=idClient_historique;
-		 this.idCompte_historique= idCompte_historique;
-		 this.nature=nature;
-	 }
-	 
-	
-		
+	   
 		public int getIdClient_historique() {
 			return idClient_historique;
 		}
@@ -80,21 +42,63 @@ public class Historique {
 			this.nature = nature;
 		}
 
-		public int getCredit() {
+		public double getCredit() {
 			return credit;
 		}
 
-		public void setCredit(int credit) {
+		public void setCredit(double credit) {
 			this.credit = credit;
 		}
 
-		public int getDebit() {
+		public double getDebit() {
 			return debit;
 		}
 
-		public void setDebit(int debit) {
+		public void setDebit(double debit) {
 			this.debit = debit;
 		}
+
+		/**
+		 * identifiant du compte associé
+		 */
+		private int idCompte_historique;
+		
+		/**
+		 * date de la transaction
+		 */
+
+	  private Date date;
+	   
+	     /**
+	      * nature de la transaction
+	      */
+
+	 private String nature;
+	 
+	 /**
+	  *montant de  crédit de la transaction
+	  */
+	 private double credit;
+	 
+	 /**
+	  * montant de débit de la transaction
+	  */
+	 
+	 private double debit;
+	 
+	 public Historique(int idClient_historique,int idCompte_historique,Date date,String nature,double credit,double debit ){
+		 
+		 this.credit=credit;
+		 this.date=date;
+		 this.debit=debit;
+		 this.idClient_historique=idClient_historique;
+		 this.idCompte_historique= idCompte_historique;
+		 this.nature=nature;
+	 }
+	 
+	
+		
+		
 	}
 
 	

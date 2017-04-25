@@ -1,36 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
+   <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
     <%@ page import="dao.*" %>
-    	
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<%@ page import="dto.*" %>
 	<%@ page import="java.util.ArrayList" %>
 	<%@ page import="java.util.List" %>
 	<%@ page import="java.util.HashMap" %>
 	<%@ page import="java.util.Enumeration" %>
-	
-     <%    CompteDAO dao = new CompteDAO(); 
-       Client client=null;
-     client= (Client)session.getAttribute("client");
-     int identifiant=0; 
-	 identifiant= client.getIdClient();
-   List <Compte> compte = new ArrayList <Compte>();
-   compte = dao.getListeCompte(identifiant);
-   
-   
-%>
-
-  <%ClientDAO dao1= new ClientDAO();
+ <%ClientDAO dao1= new ClientDAO();
     Client cl= null;
  
      cl=(Client)session.getAttribute("client");
      
-     if (cl.getEmailClient() == null)
+     if (cl == null)
      {
-    	 response.sendRedirect("index.jsp");
+    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
     	 session.removeAttribute("client");
      }
     %>
+
+	
+     <%    
+     
+     CompteDAO dao = new CompteDAO(); 
+     Compte cmp=null;
+     Client client=null;
+     ClientDAO cdao=new ClientDAO();
+     client= (Client)session.getAttribute("client");
+     int identifiant=0; 
+     String mail= client.getEmailClient();
+     identifiant=cdao.getIdClient(mail);
+     List <Compte> compte = new ArrayList <Compte>();
+     compte = dao.getListeCompte(identifiant);
+     BeneficiaireDAO bendao= new BeneficiaireDAO();
+     List <Beneficiaire> benef=bendao.getListeBeneficiaire(identifiant);
+     request.setAttribute("compte", compte);
+   
+%>
+
+ 
  
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -104,13 +113,12 @@
               
             </ul>
           </li>
-          
-          <li class="nav-header">
+         <li class="nav-header">
             <div class="link"><i class="fa fa-lg fa-users"></i>Comptes<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a data-toggle="modal" data-target="#myModal1" >Créer un compte épargne</a></li>
-              <li><a data-toggle="modal" data-target="#myModal3">Créer un compte titre</a></li>
-              <li><a href="">Gérer mes comptes</a></li>
+              <li><a  href="CreerCompteEpargne.jsp"" >Créer un compte épargne</a></li>
+              <li><a  href="CreerCompteTitre.jsp">Créer un compte titre</a></li>
+              <li><a href="#">Gérer mes comptes</a></li>
                <li><a href="Consultation.jsp">Consulter les soldes de mes comptes</a></li>
             </ul>
           </li>
@@ -120,18 +128,17 @@
             <ul class="submenu">
               <li><a href="PageVirement.jsp">Effectuer un virement</a></li>
               <li><a href="ChargerArgent.jsp">Alimenter mes comptes</a></li>
+              <li><a href="ChoixCompteTitre.jsp">Acheter des actions </a></li>
+                <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
               <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
             </ul>
-            
-             <li class="nav-header">
+          </li>  
+          				         <li class="nav-header">
             <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
               <li><a href="Releves.jsp">Releves de comptes</a></li>
             </ul>
-          </li> 
-          
-          </li>  
-          
+          </li>
       </ul>
   </aside>
   
@@ -144,59 +151,8 @@
         <span class='burger_inside' id='bgrThree'></span>
       </a>      
     </div>
-    <section class="content-inner">
+     <section class="content-inner">
     <div class="container">
- <form name=""  action="CompteEpargne" method="post" id="" novalidate>
-									
-  <!-- Modal -->
-             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">CONFIRMATION</h4>
-                  </div>
-                  <div class="modal-body">
-                    Êtes-vous sûr de vouloir créer un compte épargne ?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <button type="submit"  class="btn btn-primary">Valider</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-										
-								</form>
-								
-								<div class="container">
-	
-          <div class="container">
- <form name=""  action="compteTitre" method="post" id="" novalidate>
-									
-  <!-- Modal -->
-             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">CONFIRMATION</h4>
-                  </div>
-                  <div class="modal-body">
-                    Êtes-vous sûr de vouloir créer un compte Titre ?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <button type="submit"  class="btn btn-primary">Valider</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-										
-								</form>
-								
-								<div class="container">
-	 
      <form name=""  action="Deconnexion" method="post" id="" novalidate>        
             <!-- Modal -->
              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -217,29 +173,23 @@
               </div>
             </div>
             </form>
-	</div>
-</div>
-	</div>
-    <div class="bs-example">
+            <div class="bs-example">
     <div class="alert alert-danger fade in">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
         <strong>Erreur!</strong> Virement impossible entre deux comptes identiques.
     </div>
-</div>
-       
-    
-    <div class="container">
-    
-		<form name="" method="post" action="TraitementVirement" id=""class="well form-horizontal">
+</div> 
+     	<div class="container">
+  <form name="" method="post" action="TraitementVirement" id="form"class="well form-horizontal">
 			<div class="form-group"> 
   <label class="col-md-4 control-label">Compte émetteur</label>
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
     <select name="compteEmetteur" class="form-control selectpicker" >
- <% for (int i=0; i< compte.size(); i++ ){  %>
-		<option  value="<%= compte.get(i).getNumeroDeCompte()%>" >  <%= compte.get(i).getTypeCompte()%> - N° <%= compte.get(i).getNumeroDeCompte()%> - Solde <%= compte.get(i).getSoldeBanque()%>   </option>	
-		<%	}	%>
+  <c:forEach var="cmp" items = "${compte}">
+       	<option  value = "${cmp.getNumeroDeCompte()}"> <c:out value="${cmp.getTypeCompte()}"/>&nbsp;&nbsp; -N°  <c:out value=" ${cmp.getNumeroDeCompte()}"/> &nbsp;&nbsp;Solde:<c:out value=" ${cmp.getSoldeBanque()}"/></option>   	
+     	</c:forEach> 	
 		
 	
 		</select>
@@ -255,11 +205,10 @@
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
   
-    <select name="compteBeneficiaire" class="form-control selectpicker" >
-     <% for (int i=0; i< compte.size(); i++ ){  %>
-		<option  value="<%= compte.get(i).getNumeroDeCompte()%>" >  <%= compte.get(i).getTypeCompte()%> -N° <%= compte.get(i).getNumeroDeCompte()%> - Solde <%= compte.get(i).getSoldeBanque()%>   </option>	
-		<%	}	%>
-		
+    <select name="compteBeneficiaire" class="form-control selectpicker" >   
+    <c:forEach var="cmp" items = "${compte}">
+       	<option  value = "${cmp.getNumeroDeCompte()}"> <c:out value="${cmp.getTypeCompte()}"/>&nbsp;&nbsp; - N°  <c:out value=" ${cmp.getNumeroDeCompte()}"/>&nbsp;&nbsp;  Solde:<c:out value=" ${cmp.getSoldeBanque()}"/></option>   	
+     	</c:forEach> 	
 			</select> 
 			</div>
 			</div>
@@ -270,7 +219,7 @@
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-  <input name="montant" placeholder="Montant*" class="form-control"  type="number" required data-validation-required-message="Please enter ">
+  <input name="montant" placeholder="Montant*" class="form-control"  type="text" required data-validation-required-message="Please enter ">
     </div>
   </div>
 </div>
@@ -293,12 +242,16 @@
     <button type="submit" class="btn btn-warning" > Valider </button>
   </div>
 </div>
+<label id="hint"></label>
 
 			</form>
+									
 	</div>
-	
-     	</section>
-     	</div>
+</div>
+	</div>
+    </section>
+  </div>  
+  
 </div>
 
     
@@ -310,8 +263,7 @@
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script>
     <script src="js/menu.js"></script>
-    
-<script>
+    <script>
 
 	   function affichageSolde(){
 		var select,choice;
@@ -325,6 +277,7 @@
 		
 		}
 </script>
+
 
 </body>
 </html>

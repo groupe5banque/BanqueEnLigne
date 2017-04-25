@@ -5,12 +5,16 @@ import java.sql.Date;
 public class Titre {
 
 	private int idTitre;
-	private double sommeTitre;
+	private double prix;
 	private int idClient;
 	private int idCompteTitre;
 	private String nomTitre;
-	private Date DateAchatTitre;
+	private Date DateTitre;
+	private int nombre;
+	private String type;
 	
+
+
 /**Constructor
  * 
  * @param idTitre
@@ -20,14 +24,16 @@ public class Titre {
  * @param nomTitre
  * @param DateAchatTitre
  */
-	public Titre(int idTitre, double sommeTitre, int idClient, int idCompteTitre, String nomTitre,  Date DateAchatTitre )
+	public Titre(double prix, int idClient, int idCompteTitre, String nomTitre,  Date DateTitre,int nombre )
 	{
-		this.idTitre = idTitre;
-		this.sommeTitre = sommeTitre;
+		
+	    this.prix=prix;
 		this.idClient = idClient;
 		this.idCompteTitre = idCompteTitre;
 		this.nomTitre = nomTitre;
-		this.DateAchatTitre = DateAchatTitre;
+		this.DateTitre = DateTitre;
+		this.nombre=nombre;
+		
 	}
 
 public int getIdTitre() {
@@ -38,12 +44,12 @@ public void setIdTitre(int idTitre) {
 	this.idTitre = idTitre;
 }
 
-public double getSommeTitre() {
-	return sommeTitre;
+public double getPrix() {
+	return prix;
 }
 
-public void setSommeTitre(double sommeTitre) {
-	this.sommeTitre = sommeTitre;
+public void setPrix(double prix) {
+	this.prix = prix;
 }
 
 public int getIdClient() {
@@ -70,12 +76,20 @@ public void setNomTitre(String nomTitre) {
 	this.nomTitre = nomTitre;
 }
 
-public Date getDateAchatTitre() {
-	return DateAchatTitre;
+public Date getDateTitre() {
+	return DateTitre;
 }
 
-public void setDateAchatTitre(Date dateAchatTitre) {
-	DateAchatTitre = dateAchatTitre;
+public void setDateTitre(Date dateTitre) {
+	DateTitre = dateTitre;
+}
+
+public int getNombre() {
+	return nombre;
+}
+
+public void setNombre(int nombre) {
+	this.nombre = nombre;
 }
 	
 	

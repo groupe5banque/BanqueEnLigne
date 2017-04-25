@@ -22,7 +22,7 @@ public class Virement {
 	 * montant du virement
 	 */
 	
-	private int montant;
+	private double montant;
 	
 	/**
 	 * date du virement
@@ -37,7 +37,7 @@ public class Virement {
 	private String motif;
 	
 	
-	public Virement(int idClient, String compteEmetteur,String compteBeneficiaire,int montant,Date date,String motif){
+	public Virement(int idClient, String compteEmetteur,String compteBeneficiaire,double montant,Date date,String motif){
 		
 		this.idClient=idClient;
 		this.compteEmetteur= compteEmetteur;
@@ -77,12 +77,12 @@ public class Virement {
 	}
 
 
-	public int getMontant() {
+	public double getMontant() {
 		return montant;
 	}
 
 
-	public void setMontant(int montant) {
+	public void setMontant(double montant) {
 		this.montant = montant;
 	}
 

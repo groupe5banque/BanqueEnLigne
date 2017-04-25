@@ -47,7 +47,7 @@
        String cmp= (String)session.getAttribute("selection");        
                int idCompte=comptedao.getCompteId(cmp);    
                
-        List<Releve> releves = new ArrayList<Releve>();
+        List<Releve> releves = null;
         
         releves= re.FindReleveDuMois(identifiant, idCompte, mois);
         compte=comptedao.getCompteNumero(cmp);
@@ -166,10 +166,12 @@
           </li>
           
           <li class="nav-header">
-            <div class="link"><i class="fa fa-cloud"></i>releves<i class="fa fa-chevron-down"></i></div>
+            <div class="link"><i class="fa fa-cloud"></i>Transactions<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
               <li><a href="PageVirement.jsp">Effectuer un virement</a></li>
               <li><a href="ChargerArgent.jsp">Alimenter mes comptes</a></li>
+               <li><a href="ChoixCompteTitre.jsp">Acheter des actions </a></li>
+                <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
               <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes releves</a></li>
             </ul>
           </li>  
@@ -305,8 +307,8 @@
 			
   <h2 id="Historique">Relevés du compte </h2>
   
-  <%
-    if(releves == null){  %>
+  <% System.out.println(releves);
+    if(releves.size()==0){  %>
     	
     	 <h1 >Il n'ya pas de relevés  pour ce mois</h1>
    <% }
@@ -340,7 +342,7 @@
   
     
   <%
-    if(releves != null){  %>
+    if(releves.size()!=0){  %>
 	  <form name="csv_form" method="post" action="csv.jsp">
 
 			<br>

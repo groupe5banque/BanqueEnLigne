@@ -61,7 +61,7 @@ public class ChargerArgent extends HttpServlet {
 	    
 		//Recuperation des donnees
 		
-	    
+		HttpSession session = request.getSession();
 		String montant = (String) request.getParameter("Montant");
 		String typeC = request.getParameter("typeC");
 		String numeroCompte;
@@ -71,7 +71,11 @@ public class ChargerArgent extends HttpServlet {
 		int t=0;
 		int o=0;
 		Double m;
-		
+		int idClient=(int)session.getAttribute("IdClient");
+		HistoriqueDAO hd=new HistoriqueDAO();
+		Date today;
+	    today=new java.sql.Date(System.currentTimeMillis());
+	    double montantD = Double.parseDouble(montant);
 		
 		try{
 		
@@ -94,35 +98,29 @@ public class ChargerArgent extends HttpServlet {
 		{
 			 response.getWriter().write("La valeur de chargement ne peut pas egale ou inferieur a 0 !");
 		}
-		else
-		{
+	else
+	{
 	   switch(typeC)
 	   {
 	   case "Compte epargne":
 			numeroCompte = request.getParameter("ceChoisi");
 			soldeC = cd.getCompteNumero(numeroCompte).getSoldeBanque();
 			MontantS = Double.parseDouble(soldeC) + Double.parseDouble(montant);
-			//montantS = MontantS.toString();
-			t = cd.setSoldeCompte(numeroCompte, montant);
-			
-			
+			montantS = MontantS.toString();
+			t = cd.setSoldeCompte(numeroCompte, montantS);
+						
 			if(t==1)
-			{
-			
-			HttpSession session = request.getSession();
-			HistoriqueDAO hd=new HistoriqueDAO();
+			{		
 			int IDCompte=cd.getIdCompte(numeroCompte);
-			int idClient=(int)session.getAttribute("IdClient");
-			Date today;
-		    today=new java.sql.Date(System.currentTimeMillis());
+					
 			String nature = "Dépôt"+ cd.getCompteChoisi(IDCompte).getTypeCompte()+"N°"+numeroCompte;
-			int montantD = Integer.parseInt(montant);
+			
 			
 			Historique his = new Historique(idClient,IDCompte,today,nature,montantD,0);
 			hd.ajouter(his);
 			
-			System.out.println("Chargement rÃ©ussi.");	 
-			response.getWriter().write("Chargement reussi. \tSolde du comtpe "+numeroCompte+": "+montantD);
+			System.out.println("Chargement réussi.");	 
+			response.getWriter().write("Chargement reussi. \tSolde du compte "+numeroCompte+": "+MontantS);
 			}
 			else{
 				response.getWriter().write("Echec de chargement.");
@@ -135,12 +133,24 @@ public class ChargerArgent extends HttpServlet {
 			MontantS = Double.parseDouble(soldeC) + Double.parseDouble(montant);
 			montantS = MontantS.toString();
 			t = cd.setSoldeCompte(numeroCompte, montantS);
-			System.out.println("Chargement réussi.");
+			
+			montantS = MontantS.toString();
+			t = cd.setSoldeCompte(numeroCompte, montantS);
+			
 		    
 		    if(t==1)
 			{
+		    	int IDCompte=cd.getIdCompte(numeroCompte);
+				
+				String nature = "Dépôt"+ cd.getCompteChoisi(IDCompte).getTypeCompte()+"N°"+numeroCompte;
+				
+				
+				Historique his = new Historique(idClient,IDCompte,today,nature,montantD,0);
+				hd.ajouter(his);
+		   
 			System.out.println("Chargement réussi.");
-		    response.getWriter().write("Chargement reussi. \tSolde du comtpe "+numeroCompte+": "+montantS);
+			
+		    response.getWriter().write("Chargement reussi. \tSolde du compte "+numeroCompte+": "+montantS);
 			}
 			else{
 				response.getWriter().write("Echec de chargement.");
@@ -157,8 +167,16 @@ public class ChargerArgent extends HttpServlet {
 		    
 		    if(t==1)
 			{
+		    	int IDCompte=cd.getIdCompte(numeroCompte);
+				
+				String nature = "Dépôt"+ cd.getCompteChoisi(IDCompte).getTypeCompte()+"N°"+numeroCompte;
+				
+				
+				Historique his = new Historique(idClient,IDCompte,today,nature,montantD,0);
+				hd.ajouter(his);
+		    	
 			System.out.println("Chargement réussi.");
-		    response.getWriter().write("Chargement reussi. \tSolde du comtpe "+numeroCompte+": "+montantS);
+		    response.getWriter().write("Chargement reussi. \tSolde du compte "+numeroCompte+": "+montantS);
 			}
 			else{
 				response.getWriter().write("Echec de chargement.");

@@ -47,23 +47,18 @@ public class ModifierInfoPer extends HttpServlet {
 		  HttpSession session = request.getSession();
 		ClientDAO dao= new ClientDAO();
 	    Client c1= new Client();
-	   
+	    Client C2= new Client();
 	    Client cl= null;
 	    
 	    cl=(Client)session.getAttribute("client");
-	    
+	    int a = 0;
+	    a = cl.getIdClient();
 		//Recuperation des donnees
 		
 	    System.out.println(" TEST");
 		String name = (String) request.getParameter("name");
 		String surname = (String) request.getParameter("surname");
-		String civilite = (String) request.getParameter("civilite");
-		String mail = (String) request.getParameter("mail");
-		String birthday = (String) request.getParameter("birthday");
-		String mdp = (String) request.getParameter("mdp");
-		String nationalite= (String) request.getParameter("nationalite");
-		String type_compte = (String) request.getParameter("type_compte");
-		String phone = (String) request.getParameter("phone");
+		
 		String adresse = (String) request.getParameter("adresse");
 		String code_postal = (String) request.getParameter("code_postal");
 		String ville = (String) request.getParameter("ville");
@@ -72,9 +67,9 @@ public class ModifierInfoPer extends HttpServlet {
 		System.out.println(" TEST");
 		
 
-		int tel= Integer.parseInt(phone);
+		
 		int codePos= Integer.parseInt(code_postal);
-       c1 = new Client( name,surname, civilite,mail,birthday,mdp,nationalite,type_compte,tel,adresse,codePos,ville,pays);
+       c1 = new Client( name,surname, cl.getCiviliteClient(),cl.getEmailClient(),cl.getDateNaissanceClient(),cl.getMotDePasseClient(),cl.getNationaliteClient(),cl.getTypeCompte(),cl.getTelephoneClient(),adresse,codePos,ville,pays);
 		int retour=0;
 		try{
 		 retour = dao.modifierClient(c1,cl.getIdClient());
@@ -91,7 +86,8 @@ public class ModifierInfoPer extends HttpServlet {
 	       {
 	    	  
 			 
-		    	 session.setAttribute( "client",c1 );
+			 C2=new Client(a, name,surname, cl.getCiviliteClient(),cl.getEmailClient(),cl.getDateNaissanceClient(),cl.getMotDePasseClient(),cl.getNationaliteClient(),cl.getTypeCompte(),cl.getTelephoneClient(),adresse,codePos,ville,pays);
+		     session.setAttribute( "client",C2);
 	  			
 	  		this.getServletContext().getRequestDispatcher( "/InfosPersonnellesClient.jsp" ).forward( request, response);
 	  		//this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
