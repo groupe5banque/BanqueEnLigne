@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
     
      
   <%@ page import="dao.*"%>
@@ -10,10 +10,25 @@
    %>
     
   <%
+    int id;
+    String email;
 	ClientDAO cdao = new ClientDAO();
+	String nom;
+	String prenom;
 	Client cl = (Client) session.getAttribute("client");
-	String email = cl.getEmailClient();
-	int id = cdao.getIdClient(email);
+	if(cl!=null)
+	{
+    email = cl.getEmailClient();
+	id = cdao.getIdClient(email);
+	}
+	else{
+		String ID=(String)session.getAttribute("IdClient");
+		id=Integer.parseInt(ID);
+		cl=cdao.getClient(id);
+	}
+	nom=cl.getNomClient();
+	prenom=cl.getPrenomClient();
+	
 	System.out.println(id);
 	CompteDAO cd = new CompteDAO();
 	ArrayList<Compte> Acc = cd.getTousCompte(id);
@@ -27,9 +42,8 @@
 	
 %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<head>
 <head>
 
 <meta charset="utf-8">
@@ -70,7 +84,7 @@
           <a class="navbar-brand" href="#">BIENVENUE SUR VOTRE ESPACE CLIENT</a>
           <ul class="nav navbar-nav">        
               <li>
-                        <a  href="#portfolio">ActualitualitÃ©s</a>
+                        <a  href="#portfolio">Actualitualités</a>
                     </li>
                     <li>
                         <a  href="#contact"> Nous Contacter  </a>
@@ -81,7 +95,7 @@
                   <ul class="dropdown-menu" role="menu">
                       <li> <a ><span class="fa fa-user"></span> Bienvenue ${sessionScope.client.nomClient} </a></li>
                       <li class="divider"></li>
-                      <li><a data-toggle="modal" data-target="#myModal"><span class="fa fa-power-off"></span> DÃ©connexion</a></li>
+                      <li><a data-toggle="modal" data-target="#myModal"><span class="fa fa-power-off"></span> Déconnexion</a></li>
                   </ul>
               </li>
               
@@ -102,9 +116,9 @@
           <li class="nav-header">
             <div class="link"><i class="fa fa-lg fa-users"></i>Comptes<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a data-toggle="modal" data-target="#myModal1" >CrÃ©er un compte Acompargne</a></li>
-              <li><a data-toggle="modal" data-target="#myModal3">CrÃ©er un compte titre</a></li>
-              <li><a href="#">GÃ©rer mes comptes</a></li>
+              <li><a data-toggle="modal" data-target="#myModal1" >Créer un compte Acompargne</a></li>
+              <li><a data-toggle="modal" data-target="#myModal3">Créer un compte titre</a></li>
+              <li><a href="#">Gérer mes comptes</a></li>
                <li><a href="Consultation.jsp">Consulter les soldes de mes comptes</a></li>
             </ul>
           </li>
@@ -117,13 +131,6 @@
               <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
             </ul>
           </li>  
-          
-           <li class="nav-header">
-            <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-              <li><a href="Releves.jsp">Releves de comptes</a></li>
-            </ul>
-          </li> 
           
       </ul>
   </aside>
@@ -147,131 +154,220 @@
       </a>      
     </div>
     <section class="content-inner">
-    
+   
     
          <div>
-    
-         <P>-----------------------------------INFORMATIONS DES COMPTES--------------------------------</P> 
-         <p class="compte">SITUATION GLOBALE:</p>
-         <table>
-  				<tr>
-    			<th>Type de compte&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				<th>Nombre de compte&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				<th>Solde total</th>			 
- 				 </tr>
- 				 <td>Tous type de compte&nbsp;&nbsp;</td>
-   				 <td><%=cd.getTousCompte(id).size()%></td>
-   				 <td><%=cd.soldeTotal(Acc)+" EUR"%></td>
- 				 </tr>
- 				<td>Compte epargne</td>
-   				<td><%=cd.getCompteEpargne(id).size()%></td>
-   				<td><%=cd.soldeTotal(ce)+" EUR"%></td>
-   				</tr>
-   				<td>Compte courant</td>
-   				<td><%=cd.getCompteCourant(id).size()%></td>
-   				<td><%=cd.soldeTotal(cc)+" EUR" %></td>
-   				</tr>
-   				<td>Compte titre</td>
-   				<td><%=cd.getCompteTitre(id).size()%></td>
-   				<td><%=cd.soldeTotal(ct)+" EUR" %></td>
-   				</tr>
-   		</table>
+         
+         <h1> INFORMATIONS DES COMPTES DE&nbsp;<%=prenom%>&nbsp;<%=nom %> : </h1> 
          <br>
+         <h4 class="text-center">SITUATION GLOBALE:</h4>
+         
+         <br>
+       <!--Table and divs that hold the pie charts-->
+    <table class="columns">
+      <tr>
+        <%if(cc.size()!=0||ce.size()!=0||ct.size()!=0){ %>
+        <td><div id="TN_chart_div" style="title:'Répartition de nombre de compte',width:550, height:800"></div></td>
+        <%}else{ %>
+        <td><h4>Répartition de nombre de compte: 0 compte.</h4></td>
+        <%} %>
+        <%if(cd.soldeTotal(ce)!=0||cd.soldeTotal(cc)!=0||cd.soldeTotal(ct)!=0){ %>
+        <td><div id="TM_chart_div" style="title:'Répartition de solde de compte',width:550, height:800"></div></td>
+        <%}else{ %>
+        <td><h4>Répartition de solde de compte: 0 solde.</h4></td>
+        <%} %>
+      </tr>
+    </table>
+    <br>
+          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+          
+          <div id="table_div"></div>
+   
+     <script>    
+      google.charts.load('current', {'packages':['corechart', 'table']});
+      google.charts.setOnLoadCallback(drawTable);
+
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+ 
+        data.addColumn('string', 'Type de compte');
+        data.addColumn('string', 'Nombre de compte');
+        data.addColumn('string', 'Solde totale');
         
-         
-         
-        
-         
-         	
+        data.addRows([
+          ['Tous type de compte', '<%=cd.getTousCompte(id).size()%>' , '<%=cd.soldeTotal(Acc)+" EUR"%>'],
+          ['Compte epargne', '<%=cd.getCompteEpargne(id).size()%>' , '<%=cd.soldeTotal(ce)+" EUR"%>'],
+          ['Compte courant', '<%=cd.getCompteCourant(id).size()%>' , '<%=cd.soldeTotal(cc)+" EUR"%>'],
+          ['Compte titre', '<%=cd.getCompteTitre(id).size()%>' , '<%=cd.soldeTotal(ct)+" EUR"%>'],
+        ]);
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+      }
       
-         <p class="compte">=============================== Compte epargne =============================</p>
+      
+      google.charts.setOnLoadCallback(drawTNChart);
+      function drawTNChart() {
+
+          // Create the data table for Sarah's pizza.
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Topping');
+          data.addColumn('number', 'Slices');
+          data.addRows([
+        	['Compte épargne', <%=ce.size()%>],  
+            ['Compte courant', <%=cc.size()%>],
+            ['Compte titre', <%=ct.size()%>]
+          ]);
+
+          // Set options for Sarah's pie chart.
+          var options = {title:'Répartition de nombre de compte', width:550,height:400};
+
+          // Instantiate and draw the chart for Sarah's pizza.
+          var chart = new google.visualization.PieChart(document.getElementById('TN_chart_div'));
+          chart.draw(data, options);
+        }
+      
+      google.charts.setOnLoadCallback(drawTMChart);
+      function drawTMChart() {
+
+          // Create the data table for Sarah's pizza.
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Topping');
+          data.addColumn('number', 'Slices');
+          data.addRows([
+        	['Compte épargne', <%=cd.soldeTotal(ce)%>],  
+            ['Compte courant', <%=cd.soldeTotal(cc)%>],
+            ['Compte titre', <%=cd.soldeTotal(ct)%>]
+          ]);
+
+          // Set options for Sarah's pie chart.
+          var options = {title:'Répartition de solde de compte (EUR)', width:550,height:400};
+
+          // Instantiate and draw the chart for Sarah's pizza.
+          var chart = new google.visualization.PieChart(document.getElementById('TM_chart_div'));
+          chart.draw(data, options);
+        }
+      </script>
          
-            
-    		<table>
-  				<tr>
-    			<th>Numero de Compte&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Code guichet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>ClÃ© rib&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Code Banque&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Solde Banque&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Type Compte&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>   				 
- 				 </tr>
- 				 <c:forEach var = "compteE" items = "${ce}">
- 				 <tr>
-   				 <td><c:out value="${compteE.getNumeroDeCompte()}"/></td>
-   				 <td><c:out value="${compteE.getCodeGuichet()}"/></td>
-   				 <td><c:out value="${compteE.getClefRIB()}"/></td>
-   				 <td><c:out value="${compteE.getCodeBanque()}"/></td>
-   				 <td><c:out value="${compteE.getSoldeBanque()}"/> EUR</td>
-   				 <td><c:out value="${compteE.getTypeCompte()}"/></td>
- 				 </tr>
- 				 </c:forEach>
-			</table>
-    		
-    		
-         
-         <p><br><br><br></p>
-         <p class="compte">=============================== Compte courant =============================</p>
-         
-          	
-          	<table>
-  				<tr>
-    			<th>Numero de Compte&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Code guichet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>ClÃ© rib&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Code Banque&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Solde Banque&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Type Compte&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>   				 
- 				 </tr>
- 				 
- 				 <c:forEach var = "compteC" items = "${cc}">
- 				 <tr>
-   				 <td><c:out value="${compteC.getNumeroDeCompte()}"/></td>
-   				 <td><c:out value="${compteC.getCodeGuichet()}"/></td>
-   				 <td><c:out value="${compteC.getClefRIB()}"/></td>
-   				 <td><c:out value="${compteC.getCodeBanque()}"/></td>
-   				 <td><c:out value="${compteC.getSoldeBanque()}"/> EUR</td>
-   				 <td><c:out value="${compteC.getTypeCompte()}"/></td>
- 				 </tr>
- 				 </c:forEach>
-			</table>		
-    		
-         <p><br><br><br></p>
-         <p class="compte">================================ Compte titre ===============================</p>
-         
+        
+         <br>
+               	
+      
+         <h4 class="text-center"> Compte épargne </h4>
+         <%if(ce.size()!=0){ %>
+          <div id="table_div1"></div>
+         <%}else{ %>
+          <div style="text-align: center">0 compte épargne.</div>
+          <%} %>
+          
+         <script> 
+         google.charts.load('current', {'packages':['table']});
+         google.charts.setOnLoadCallback(drawTable);
+
+         function drawTable() {
+           var data = new google.visualization.DataTable();
+           data.addColumn('string', 'Numero de compte');
+           data.addColumn('string', 'Code guichet');
+           data.addColumn('string', 'Clé rib');
+           data.addColumn('string', 'Code banque');
+           data.addColumn('string', 'Solde banque');
+           data.addColumn('string', 'Type Compte');
            
-    		<table>
-  				<tr>
-    			<th>Numero de Compte&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Code guichet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>ClÃ© rib&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Code Banque&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Solde Banque&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-   				 <th>Type Compte&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>   				 
- 				 </tr>
- 				 
- 				 <c:forEach var = "compteT" items = "${ct}">
- 				 <tr>
-   				 <td><c:out value="${compteT.getNumeroDeCompte()}"/></td>
-   				 <td><c:out value="${compteT.getCodeGuichet()}"/></td>
-   				 <td><c:out value="${compteT.getClefRIB()}"/></td>
-   				 <td><c:out value="${compteT.getCodeBanque()}"/></td>
-   				 <td><c:out value="${compteT.getSoldeBanque()}"/> EUR</td>
-   				 <td><c:out value="${compteT.getTypeCompte()}"/></td>
- 				 </tr>
- 				 </c:forEach>
-			</table>		
+           <c:forEach var = "compteE" items = "${ce}">
+           data.addRows([
+             ['<c:out value="${compteE.getNumeroDeCompte()}"/>', '<c:out value="${compteE.getCodeGuichet()}"/>' , '<c:out value="${compteE.getClefRIB()}"/>','<c:out value="${compteE.getCodeBanque()}"/>','<c:out value="${compteE.getSoldeBanque()}"/> EUR','<c:out value="${compteE.getTypeCompte()}"/>']
+           
+           ]);
+           </c:forEach>
+           var table = new google.visualization.Table(document.getElementById('table_div1'));
+
+           table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+         }
+         
+         
+         </script>
+    		
+    		
+    		
+         
+         <br>
+         <h4 class="text-center"> Compte courant </h4>
+          <%if(cc.size()!=0){ %>
+          <div id="table_div2"></div>
+          <%}else{ %>
+          <div style="text-align: center">0 compte courant.</div>
+          <%} %>	
+          <script>
+          google.charts.load('current', {'packages':['table']});
+          google.charts.setOnLoadCallback(drawTable);
+
+          function drawTable() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Numero de compte');
+            data.addColumn('string', 'Code guichet');
+            data.addColumn('string', 'Clé rib');
+            data.addColumn('string', 'Code banque');
+            data.addColumn('string', 'Solde banque');
+            data.addColumn('string', 'Type Compte');
+            
+            <c:forEach var = "compteC" items = "${cc}">
+            data.addRows([
+              ['<c:out value="${compteC.getNumeroDeCompte()}"/>', '<c:out value="${compteC.getCodeGuichet()}"/>' , '<c:out value="${compteC.getClefRIB()}"/>','<c:out value="${compteC.getCodeBanque()}"/>','<c:out value="${compteC.getSoldeBanque()}"/> EUR','<c:out value="${compteC.getTypeCompte()}"/>']
+            
+            ]);
+            </c:forEach>
+            var table = new google.visualization.Table(document.getElementById('table_div2'));
+
+            table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+          }
+          </script>
+          	
+    		
+         <br>
+         <h4 class="text-center"> Compte titre </h4>
+          <%if(ct.size()!=0){ %>
+          <div id="table_div3"></div>
+          <%}else{ %>
+          <div style="text-align: center">0 compte titre.</div>
+          <%} %>
+          <script>
+          google.charts.load('current', {'packages':['table']});
+          google.charts.setOnLoadCallback(drawTable);
+
+          function drawTable() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Numero de compte');
+            data.addColumn('string', 'Code guichet');
+            data.addColumn('string', 'Clé rib');
+            data.addColumn('string', 'Code banque');
+            data.addColumn('string', 'Solde banque');
+            data.addColumn('string', 'Type Compte');
+            
+            <c:forEach var = "compteT" items = "${ct}">
+            data.addRows([
+              ['<c:out value="${compteT.getNumeroDeCompte()}"/>', '<c:out value="${compteT.getCodeGuichet()}"/>' , '<c:out value="${compteT.getClefRIB()}"/>','<c:out value="${compteT.getCodeBanque()}"/>','<c:out value="${compteT.getSoldeBanque()}"/> EUR','<c:out value="${compteT.getTypeCompte()}"/>']
+            
+            ]);
+            </c:forEach>
+            var table = new google.visualization.Table(document.getElementById('table_div3'));
+
+            table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+          }
+          </script> 
+    	
     		
     		<br>
          
           
          </div>
-         </div>
+        
    
    
    
     
      	</section>
+     	</div>
      	</div>
 
 

@@ -76,7 +76,7 @@ public class ClientDAO {
 		PreparedStatement ps = null;
 		int retour = 0;
 
-		// connexion à la base de donnée
+		// connexion 锟� la base de donn闁憇
 		try {
 			
 			//DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -171,55 +171,6 @@ public class ClientDAO {
 
 	}
 	
-	
-	public Client getClientByName(String nom) {
-
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		Client cl = null;
-		
-		// connexion 脿 la base de donn茅es
-		try {
-
-			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("SELECT * FROM client WHERE nomClient = ?");
-			ps.setString(1, nom);
-
-			// on ex茅cute la requ锚te
-			// rs contient un pointeur situ茅 juste avant la premi猫re ligne
-			// retourn茅e
-			rs = ps.executeQuery();
-			// passe 脿 la premi猫re (et unique) ligne retourn茅e
-			if (rs.next())
-				cl = new Client(rs.getString("nomClient"),
-						rs.getString("prenomClient"),rs.getString("civiliteClient"),rs.getString("emailClient"),rs.getString("dateNaissanceClient"),rs.getString("motDePasseClient"),rs.getString("nationaliteClient"),rs.getString("typeCompte"),rs.getInt("telephoneClient"),rs.getString("adresseClient"),rs.getInt("codepostalClient"),rs.getString("villeClient"),rs.getString("paysClient"));
-
-		} catch (Exception ee) {
-			ee.printStackTrace();
-		} finally {
-			// fermeture du ResultSet, du PreparedStatement et de la Connexion
-			try {
-				if (rs != null)
-					rs.close();
-			} catch (Exception ignore) {
-			}
-			try {
-				if (ps != null)
-					ps.close();
-			} catch (Exception ignore) {
-			}
-			try {
-				if (con != null)
-					con.close();
-			} catch (Exception ignore) {
-			}
-		}
-		return cl;
-
-	}
-	
-	
 	public ArrayList<Client> getListClient() {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -241,7 +192,7 @@ public class ClientDAO {
 					// passe 脿 la premi猫re (et unique) ligne retourn茅e
 					while (rs.next())
 					{
-						cl = new Client(rs.getString("nomClient"),
+						cl = new Client(rs.getInt("idClient"),rs.getString("nomClient"),
 								rs.getString("prenomClient"),rs.getString("civiliteClient"),rs.getString("emailClient"),rs.getString("dateNaissanceClient"),rs.getString("motDePasseClient"),rs.getString("nationaliteClient"),rs.getString("typeCompte"),rs.getInt("telephoneClient"),rs.getString("adresseClient"),rs.getInt("codepostalClient"),rs.getString("villeClient"),rs.getString("paysClient"));
                         ListClient.add(cl);
                        // System.out.print(rs.getString("prenomClient"));
@@ -268,6 +219,9 @@ public class ClientDAO {
 				}
 				return ListClient;				
 	}
+	
+	
+	
 	
 	public Client connexionClient(String mail,String mdp) {
 
@@ -610,15 +564,18 @@ public class ClientDAO {
 
 	
 	// main permettant de tester la classe
-	/*public static void main(String[] args) throws SQLException{
-     int i=16;
-		ClientDAO clientDAO = new ClientDAO();
+	//public static void main(String[] args) throws SQLException{
+     //int i=16;
+		//ClientDAO clientDAO = new ClientDAO();
+		/*
 		// test de la m闁爃ode ajouter
 	     Client c1 = new Client( "nom", "prenom","civi","email","DateN","mdp","nation","typeC",12345678,"adC",76100,"ville","paysC");
 		int retour = clientDAO.modifierClient(c1,i);
-
 		System.out.println(retour + " lignes modifi茅es");
-		
+		*/
+		/*
+		ArrayList<Client> lc = clientDAO.getListClient();
+		System.out.print(lc.size());
 		// test de la m闁爃ode deleteClient
 			//int r  = clientDAO.deleteClient(4);
 			//System.out.println(r);
@@ -629,8 +586,9 @@ public class ClientDAO {
 			// affichage des articles
 			for (Article art : liste) {
 				System.out.println(art.toString());
-			}
-	}*/
+			}*/
+	//}
+		
 }
 
 

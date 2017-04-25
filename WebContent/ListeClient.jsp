@@ -3,6 +3,8 @@
    <%@ page import="dao.*"%>
    <%@ page import="dto.*"%>
    <%@page import= "java.util.ArrayList" %>
+   <%@page import= "java.time.LocalDate" %>
+<%@page import="java.time.ZoneId"%>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
    
 <%
@@ -162,13 +164,48 @@ cursor:pointer;
     <section class="content-inner">
     
     
-    <div class="text-right form-group">
-
-				
-		<input name="NOM" id="NOM" placeholder="Nom du Client" class="form-control"  style ="display: inline-block; width: 200px;" type="text" required data-validation-required-message="Nom du client svp ">
+    <div class="form-group">
+        <br>
+		<form id="form" method="POST"  action="./TraitementR">	
+		<label>Choisir le client que vous voulez consulter:&nbsp;</label>
+		<input name="IdClient" id="IdClient" placeholder="Id du Client" class="form-control"  style ="display: inline-block; width: 200px;" type="text" required data-validation-required-message="Nom du client svp ">
 	
-		<button id="bouton" type="submit" style ="display: inline-block;">Generer Reporting</button>
+		<button id="bouton" type="submit"  class="btn btn-default" >Choisir</button>
+		<br>
+        <label id="hint"></label>
+		
+  		</form>
+  			
+  		<script>
   		
+  		
+  		$(document).on("submit", "#form", function() {
+  			var $form = $(this);
+  			
+  			
+            $.post($form.attr("action"), $form.serialize(), function(responseText) {
+            	if(responseText!="error")
+    			{
+                $("#hint").text(responseText);
+    			}
+                else{
+                	document.location.href="ReportingClient.jsp"; 
+                }
+            
+            });
+        	
+            event.preventDefault(); // Important! Prevents submitting the form.
+  		 
+       
+        
+        });
+    	
+			
+			
+  		</script>
+  		   
+   
+       
 	</div> 
 	
         <br>
@@ -176,7 +213,7 @@ cursor:pointer;
 
         <h4 class="text-center"> Liste des clients </h4>     
 
-
+        <br>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
        <div id="table_div"></div>
     
@@ -192,6 +229,8 @@ cursor:pointer;
     <span class="close">&times;</span>
     
              <P id= "titre" class="text-center"> REPORTING </P>
+             <br>
+           <button  id="bouton"  style ="display: inline-block;">Reporting</button>
            
            <br>
            
@@ -227,10 +266,12 @@ cursor:pointer;
 
     	<div class="container" >
 
-     
-  <table class="table table-bordered" id="t1">
+     <div class="row col-md-12" style="overflow: scroll">
+  <table class="table table-striped" id="t1">
+  
     <thead>
       <tr>
+       <th>Id</th>
         <th>Nom</th>
         <th>Prenom</th>
         <th>Civilite</th>
@@ -241,7 +282,7 @@ cursor:pointer;
         <th>Type de Compte</th>
         <th>Telephone</th>
         <th>Adresse</th>
-        <th>Codepostal</th>
+        <th>Code postal</th>
         <th>Ville</th>
         <th>Pays</th>
       </tr>
@@ -249,7 +290,7 @@ cursor:pointer;
     <tbody>
     <%for (Client sujet: lc){ %>
       <tr >
-
+        <td>   <%=sujet.getIdClient() %> </td>
         <td id="NomR">   <%=sujet.getNomClient() %> </td>
         <td>   <%=sujet.getPrenomClient() %> </td>
         <td>   <%=sujet.getCiviliteClient() %></td>
@@ -268,6 +309,9 @@ cursor:pointer;
       <%} %>
     </tbody>
   </table>
+  
+  </div>
+  
 </div>
 
    <script type="text/javascript">  

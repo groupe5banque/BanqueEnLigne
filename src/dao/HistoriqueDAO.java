@@ -8,6 +8,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+
+
 import dto.*;
 
 public class HistoriqueDAO {
@@ -139,8 +145,182 @@ public class HistoriqueDAO {
 		return retour;
 
 	}
+	
+	public ArrayList<Historique> getTousHistorique() {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Historique> retour = new ArrayList<Historique>();
+
+		// connexion 脙炉脗驴脗陆 la base de donn脙漏芒鈧�溍⑩偓藴s
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT * FROM historique");
+			
+			// on ex脙漏芒鈧�溍柯絬te la requ脙漏脣艙脗戮e
+			rs = ps.executeQuery();
+			// on parcourt les lignes du r脙漏芒鈧�溍吢竨ltat
+			while (rs.next())
+				retour.add(new Historique(rs.getInt("idClient"), rs.getInt("idCompte"), rs.getDate("date"),rs.getString("nature"),rs.getInt("credit"),rs.getInt("debit")));
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du rs, du preparedStatement et de la connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return retour;
+
+	}
+	/**
+	 * 
+	 * @param nombreMois
+	 * @return ArrayList des historiques nombreMois précédents
+	 */
+	public ArrayList<Historique> getMoisHistorique(int nombreMois, int idClient) {
+        
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Historique> retour = new ArrayList<Historique>();
+		ZoneId z = ZoneId.systemDefault();
+		LocalDate today = LocalDate.now( z );
+		LocalDate ThreeMonthBefore = today.minusMonths(nombreMois);
+		Date datebefore = Date.valueOf(ThreeMonthBefore);
+		
+		System.out.println(ThreeMonthBefore);
+		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		//System.out.println(df.format(ThreeMonthBefore));
+		
+		
+		// connexion 脙炉脗驴脗陆 la base de donn脙漏芒鈧�溍⑩偓藴s
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			
+			if(idClient==0)
+			{
+			ps = con.prepareStatement("SELECT * FROM historique WHERE date > ?");
+			ps.setDate(1, datebefore);				
+			} 
+			else
+			{
+				ps = con.prepareStatement("SELECT * FROM historique WHERE date > ? AND idClient = ?");
+				ps.setDate(1, datebefore);	
+				ps.setInt(2, idClient);
+			}
+			
+			rs = ps.executeQuery();
+			// on parcourt les lignes du r脙漏芒鈧�溍吢竨ltat
+			while (rs.next()){
+				retour.add(new Historique(rs.getInt("idClient"), rs.getInt("idCompte"),rs.getDate("date"),rs.getString("nature"),rs.getInt("credit"),rs.getInt("debit")));
+				System.out.println(rs.getDate("date").toString());
+			}
+			
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du rs, du preparedStatement et de la connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return retour;
+
+	}
+
+	/**
+	 * 
+	 * @param nombreMois
+	 * @return ArrayList des historiques nombreMois précédents
+	 */
+	public ArrayList<Historique> getAnneeHistorique(int annee, int idClient) {
+        
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Historique> retour = new ArrayList<Historique>();
+		
+		
+		
+		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		//System.out.println(df.format(ThreeMonthBefore));
+		
+		// connexion 脙炉脗驴脗陆 la base de donn脙漏芒鈧�溍⑩偓藴s
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			if(idClient==0)
+		{	
+			ps = con.prepareStatement("SELECT * FROM historique WHERE YEAR(date) = ?");
+			ps.setInt(1, annee);
+			
+		}else{
+			ps = con.prepareStatement("SELECT * FROM historique WHERE YEAR(date) = ? AND idClient = ?");
+			ps.setInt(1, annee);
+			ps.setInt(2, idClient);
+			
+		}
+			rs = ps.executeQuery();
+			// on parcourt les lignes du r脙漏芒鈧�溍吢竨ltat
+			while (rs.next()){
+				retour.add(new Historique(rs.getInt("idClient"), rs.getInt("idCompte"),rs.getDate("date"),rs.getString("nature"),rs.getInt("credit"),rs.getInt("debit")));
+				System.out.println(rs.getDate("date").toString());
+			}
+			
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du rs, du preparedStatement et de la connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return retour;
+
+	}	
 	// main permettant de tester la classe
-		/*public static void main(String[] args)  {
+	/*public static void main(String[] args)  {
 	     
 			HistoriqueDAO historiqueDAO = new HistoriqueDAO();
 			//test de la m茅鈥撀爃ode 
@@ -150,9 +330,13 @@ public class HistoriqueDAO {
 			for (int i=0; i<retour.size();i++){
 				System.out.println(retour.get(i).getNature());
 			}
-			
-		}*/
 	
+			//HistoriqueDAO hd = new HistoriqueDAO();
+			//System.out.println(hd.getTousHistorique().size());
+			HistoriqueDAO hd = new HistoriqueDAO();
+			hd.getAnneeHistorique(2017);
+		}
+	*/
 	
 }
 	

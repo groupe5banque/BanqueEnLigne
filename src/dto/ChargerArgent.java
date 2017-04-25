@@ -8,12 +8,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.sql.Date;
 
 import dao.ClientDAO;
 import dao.CompteDAO;
+import dao.HistoriqueDAO;
+
 
 /**
  * Servlet implementation class Home
@@ -95,13 +102,27 @@ public class ChargerArgent extends HttpServlet {
 			numeroCompte = request.getParameter("ceChoisi");
 			soldeC = cd.getCompteNumero(numeroCompte).getSoldeBanque();
 			MontantS = Double.parseDouble(soldeC) + Double.parseDouble(montant);
-			montantS = MontantS.toString();
-			t = cd.setSoldeCompte(numeroCompte, montantS);
+			//montantS = MontantS.toString();
+			t = cd.setSoldeCompte(numeroCompte, montant);
+			
 			
 			if(t==1)
 			{
-			System.out.println("Chargement r¨¦ussi.");
-			response.getWriter().write("Chargement reussi. \tSolde du comtpe "+numeroCompte+": "+montantS);
+			
+			HttpSession session = request.getSession();
+			HistoriqueDAO hd=new HistoriqueDAO();
+			int IDCompte=cd.getIdCompte(numeroCompte);
+			int idClient=(int)session.getAttribute("IdClient");
+			Date today;
+		    today=new java.sql.Date(System.currentTimeMillis());
+			String nature = "Dépôt"+ cd.getCompteChoisi(IDCompte).getTypeCompte()+"N°"+numeroCompte;
+			int montantD = Integer.parseInt(montant);
+			
+			Historique his = new Historique(idClient,IDCompte,today,nature,montantD,0);
+			hd.ajouter(his);
+			
+			System.out.println("Chargement rÃ©ussi.");	 
+			response.getWriter().write("Chargement reussi. \tSolde du comtpe "+numeroCompte+": "+montantD);
 			}
 			else{
 				response.getWriter().write("Echec de chargement.");
@@ -114,11 +135,11 @@ public class ChargerArgent extends HttpServlet {
 			MontantS = Double.parseDouble(soldeC) + Double.parseDouble(montant);
 			montantS = MontantS.toString();
 			t = cd.setSoldeCompte(numeroCompte, montantS);
-			System.out.println("Chargement r¨¦ussi.");
+			System.out.println("Chargement réussi.");
 		    
 		    if(t==1)
 			{
-			System.out.println("Chargement r¨¦ussi.");
+			System.out.println("Chargement réussi.");
 		    response.getWriter().write("Chargement reussi. \tSolde du comtpe "+numeroCompte+": "+montantS);
 			}
 			else{
@@ -132,11 +153,11 @@ public class ChargerArgent extends HttpServlet {
 		    MontantS = Double.parseDouble(soldeC) + Double.parseDouble(montant);
 			montantS = MontantS.toString();
 			t = cd.setSoldeCompte(numeroCompte, montantS);
-			System.out.println("Chargement r¨¦ussi.");
+			System.out.println("Chargement réussi.");
 		    
 		    if(t==1)
 			{
-			System.out.println("Chargement r¨¦ussi.");
+			System.out.println("Chargement réussi.");
 		    response.getWriter().write("Chargement reussi. \tSolde du comtpe "+numeroCompte+": "+montantS);
 			}
 			else{

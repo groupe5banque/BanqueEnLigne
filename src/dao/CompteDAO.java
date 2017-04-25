@@ -220,6 +220,56 @@ public class CompteDAO {
 
 	}
 	
+	/**
+	 * 
+	 * 
+	 * Permet de avoir la list de tous les comptes 茅pargne d'un client.
+	 * 	
+	 */
+	public Compte getCompteChoisi(int IdCompte){
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Compte c = null;
+		Compte compte = new Compte();
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			
+			ps = con.prepareStatement("SELECT * FROM compte WHERE idCompte = ?");
+            
+			ps.setInt(1, IdCompte);
+			
+			// on ex闁弖te la requ闃緀
+			rs = ps.executeQuery();
+			// on parcourt les lignes du r闁焨ltat
+			if (rs.next())
+			{
+			    c = new Compte(rs.getInt("idClient_Compte"), rs.getInt("codeGuichet"), rs.getString("numeroDeCompte"), rs.getInt("clefRIB"), rs.getInt("codeBanque"), rs.getString("soldeBanque"),rs.getString("typeCompte"));
+			}
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du rs, du preparedStatement et de la connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return c;
+
+	}
 	public Double soldeTotalCompte(int IdClient)
 	{
 		Connection con = null;
@@ -946,5 +996,11 @@ public class CompteDAO {
 		for (Article art : liste) {
 				System.out.println(art.toString());
 			}
+	}*/
+	/*public static void main(String[] args){
+		CompteDAO cd = new CompteDAO();
+		System.out.print(cd.getCompteChoisi(1).getNumeroDeCompte());
+		
+		
 	}*/
 }
