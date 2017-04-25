@@ -15,17 +15,12 @@
 	ClientDAO cdao = new ClientDAO();
 	String nom;
 	String prenom;
-	Client cl = (Client) session.getAttribute("client");
-	if(cl!=null)
-	{
-    email = cl.getEmailClient();
-	id = cdao.getIdClient(email);
-	}
-	else{
+	Client cl = null;
+	
 		String ID=(String)session.getAttribute("IdClient");
 		id=Integer.parseInt(ID);
 		cl=cdao.getClient(id);
-	}
+	
 	nom=cl.getNomClient();
 	prenom=cl.getPrenomClient();
 	
