@@ -103,10 +103,7 @@ cursor:pointer;
       <div id="top-menu" class="container-fluid active">
           <a class="navbar-brand" href="#">BIENVENUE SUR VOTRE ESPACE MANAGERIAL</a>
           <ul class="nav navbar-nav">        
-              <li>
-                        <a href="#portfolio">Actualités</a>
-                    </li>
-                    
+
               <li class="dropdown movable">
                   <a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"><span class="caret"></span><span
@@ -123,20 +120,27 @@ cursor:pointer;
       </div>      
   </nav>
   <aside id="side-menu" class="aside" role="navigation">            
-        <ul class="nav nav-list accordion">                    
+              <ul class="nav nav-list accordion">   
+                         
           <li class="nav-header">
-            <div class="link">
-					<i class="fa fa-lg fa-user"></i>Clients<i class="fa fa-chevron-down"></i>
-				</div>
+            <div class="link"><i class="fa fa-lg fa-user"></i>Clients<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a href="ListeClient.jsp">Generer des reportings</a></li>  
-              <li><a href="">Consulter somme des depots</a></li>  
+              <li><a href="ListeClient.jsp"> Voir la liste client</a></li>   
+              <li><a href="ChoixListeHistorique.jsp"> Voir le reporting totale</a></li> 
               
             </ul>
           </li>
-           
           
-      </ul>
+                    <li class="nav-header">
+            <div class="link"><i class="fa fa-lg fa-user"></i>Actualités<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+              <li><a href=""> Ajouter / Modifier</a></li>   
+              <li><a href="index.jsp#portfolio"> Consulter</a></li> 
+              
+            </ul>
+          </li>
+          
+          </ul>
   </aside>
   
    <script src="vendor/jquery/jquery.min.js"></script>
@@ -225,41 +229,41 @@ cursor:pointer;
 <div id="reporting" class="modal">
 
   <!-- Modal content -->
-  <div class="modal-content">
+  <div class="modal-content" >
     <span class="close">&times;</span>
     
-             <P id= "titre" class="text-center"> REPORTING </P>
+             <P id= "titre"  style="font-weight: bold;" class="text-center"> INFOS </P>
              <br>
-           <button  id="bouton"  style ="display: inline-block;">Reporting</button>
-           
-           <br>
-           
-           <p class = "element"> NOM:   </p>
-           <textarea id="textarea.nom" name="nom" disabled="disabled"></textarea>
+             
+           <div>
+           <p class = "element" > NOM:   </p>
+           <a id="textarea.nom" ></a>
            <p class = "element"> PRENOM :   </p>
-           <textarea id="textarea.prenom" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.prenom" ></a>
            <p class = "element"> CIVILITE :  </p> 
-           <textarea id="textarea.civilite" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.civilite" ></a>
            <p class = "element"> EMAIL :  </p> 
-           <textarea id="textarea.email" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.email" ></a>
            <p class = "element"> DATE DE NAISSANCE :  </p> 
-           <textarea id="textarea.dateNaissance" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.dateNaissance" ></a>
             <p class = "element"> MOT DE PASSE :  </p> 
-           <textarea id="textarea.motDePasse" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.motDePasse" ></a>
             <p class = "element"> NATIONALITE :  </p> 
-           <textarea id="textarea.nationalite" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.nationalite" ></a>
            <p class = "element"> TYPE DE COMPTE :  </p> 
-           <textarea id="textarea.typeCompte" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.typeCompte" ></a>
            <p class = "element"> TELEPHONE :  </p> 
-           <textarea id="textarea.telephone" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.telephone" ></a>
            <p class = "element"> ADRESSE :  </p> 
-           <textarea id="textarea.adresse" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.adresse" ></a>
            <p class = "element"> CODE POSTAL :  </p> 
-           <textarea id="textarea.codePostal" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.codePostal" ></a>
            <p class = "element"> VILLE :  </p> 
-           <textarea id="textarea.ville" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.ville" ></a>
            <p class = "element"> PAYS :  </p> 
-           <textarea id="textarea.pays" name="nom" disabled="disabled"></textarea>
+           <a id="textarea.pays" ></a>
+           </div>
+           
   </div>
 
 </div>
@@ -329,7 +333,7 @@ cursor:pointer;
 	            {
 	                return function() {  	modal.style.display = "block";
 	                
-	                                        var cell0 = row.getElementsByTagName("td")[0];
+	                               
 	                                        var cell1 = row.getElementsByTagName("td")[1];
 	                                        var cell2 = row.getElementsByTagName("td")[2];
 	                                        var cell3 = row.getElementsByTagName("td")[3];
@@ -342,8 +346,8 @@ cursor:pointer;
 	                                        var cell10 = row.getElementsByTagName("td")[10];
 	                                        var cell11 = row.getElementsByTagName("td")[11];
 	                                        var cell12 = row.getElementsByTagName("td")[12];
-	                                        
-	                                        var id0 = cell0.innerHTML;
+	                                        var cell13 = row.getElementsByTagName("td")[13];
+	                                       
 	                                        var id1 = cell1.innerHTML;
 	                                        var id2 = cell2.innerHTML;
 	                                        var id3 = cell3.innerHTML;
@@ -356,20 +360,22 @@ cursor:pointer;
 	                                        var id10 = cell10.innerHTML;
 	                                        var id11 = cell11.innerHTML;
 	                                        var id12 = cell12.innerHTML;
+	                                        var id12 = cell12.innerHTML;
+	                                        var id13 = cell13.innerHTML;
 	                                        
-	                                        document.getElementById('textarea.nom').innerHTML = id0;
-	                                        document.getElementById('textarea.prenom').innerHTML = id1;
-	                                        document.getElementById('textarea.civilite').innerHTML = id2;
-	                                        document.getElementById('textarea.email').innerHTML = id3;
-	                                        document.getElementById('textarea.dateNaissance').innerHTML = id4;
-	                                        document.getElementById('textarea.motDePasse').innerHTML = id5;
-	                                        document.getElementById('textarea.nationalite').innerHTML = id6;
-	                                        document.getElementById('textarea.typeCompte').innerHTML = id7;
-	                                        document.getElementById('textarea.telephone').innerHTML = id8;
-	                                        document.getElementById('textarea.adresse').innerHTML = id9;
-	                                        document.getElementById('textarea.codePostal').innerHTML = id10;
-	                                        document.getElementById('textarea.ville').innerHTML = id11;
-	                                        document.getElementById('textarea.pays').innerHTML = id12;
+	                                        document.getElementById('textarea.nom').innerHTML = id1;
+	                                        document.getElementById('textarea.prenom').innerHTML = id2;
+	                                        document.getElementById('textarea.civilite').innerHTML = id3;
+	                                        document.getElementById('textarea.email').innerHTML = id4;
+	                                        document.getElementById('textarea.dateNaissance').innerHTML = id5;
+	                                        document.getElementById('textarea.motDePasse').innerHTML = id6;
+	                                        document.getElementById('textarea.nationalite').innerHTML = id7;
+	                                        document.getElementById('textarea.typeCompte').innerHTML = id8;
+	                                        document.getElementById('textarea.telephone').innerHTML = id9;
+	                                        document.getElementById('textarea.adresse').innerHTML = id10;
+	                                        document.getElementById('textarea.codePostal').innerHTML = id11;
+	                                        document.getElementById('textarea.ville').innerHTML = id12;
+	                                        document.getElementById('textarea.pays').innerHTML = id13;
 	                                        
 	                                        
 	                                        //alert("Client:" + id);

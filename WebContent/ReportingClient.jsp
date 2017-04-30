@@ -61,9 +61,7 @@
       <div id="top-menu" class="container-fluid active">
           <a class="navbar-brand" href="#">BIENVENUE SUR VOTRE ESPACE MANAGER</a>
           <ul class="nav navbar-nav">        
-              <li>
-                        <a href="#portfolio">ActualitÃ©s</a>
-                    </li>
+            
                     <li>
                         <a href="#contact"> Nous Contacter  </a>
                     </li>
@@ -76,59 +74,36 @@
                       <li> <a><span class="fa fa-user"></span> Bienvenue ${sessionScope.client.nomClient} </a></li>
                       <li class="divider"></li>
                       <li><a href="#"><span
-								class="fa fa-power-off"></span> DÃ©connexion</a></li>
+								class="fa fa-power-off"></span> Déconnexion</a></li>
                   </ul>
               </li>
               
           </ul>
       </div>      
   </nav>
-  <aside id="side-menu" class="aside" role="navigation">            
-        <ul class="nav nav-list accordion">                    
+ <aside id="side-menu" class="aside" role="navigation">            
+        <ul class="nav nav-list accordion">   
+                         
           <li class="nav-header">
-            <div class="link">
-					<i class="fa fa-lg fa-user"></i>Profil<i class="fa fa-chevron-down"></i>
-				</div>
+            <div class="link"><i class="fa fa-lg fa-user"></i>Clients<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a href="InfosPersonnellesClient.jsp"> Voir mes informations personnelles</a></li>  
-              <li><a href="PageModInfPer.jsp">Modifier mes informations</a></li>  
+              <li><a href="ListeClient.jsp"> Voir la liste client</a></li>   
+              <li><a href="ChoixListeHistorique.jsp"> Voir le reporting totale</a></li> 
               
             </ul>
           </li>
           
-          <li class="nav-header">
-            <div class="link">
-					<i class="fa fa-lg fa-users"></i>Comptes<i
-						class="fa fa-chevron-down"></i>
-				</div>
+                    <li class="nav-header">
+            <div class="link"><i class="fa fa-lg fa-user"></i>Actualités<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a href="#">Créer un compte épargne</a></li>
-              <li><a href="#">Créer un compte titre</a></li>
-              <li><a href="#">Gérer mes comptes</a></li>
-               <li><a href="Consultation.jsp">Consulter les soldes de mes comptes</a></li>
+              <li><a href=""> Ajouter / Modifier</a></li>   
+              <li><a href="index.jsp#portfolio"> Consulter</a></li> 
+              
             </ul>
           </li>
           
-          <li class="nav-header">
-            <div class="link">
-					<i class="fa fa-cloud"></i>Transactions<i
-						class="fa fa-chevron-down"></i>
-				</div>
-            <ul class="submenu">
-              <li><a href="PageVirement.jsp">Effectuer un virement</a></li>
-              <li><a href="ChargerArgent.jsp">Alimenter mes comptes</a></li>
-              <li><a href="ChoixCompteTitre.jsp">Acheter des actions </a></li>
-                <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
-              <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
-            </ul>
-          </li>  
-          				         <li class="nav-header">
-            <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-              <li><a href="Releves.jsp">Releves de comptes</a></li>
-            </ul>
-          </li>
-      </ul>
+          </ul>
+                
   </aside>
   
    <script src="vendor/jquery/jquery.min.js"></script>

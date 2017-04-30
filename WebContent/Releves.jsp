@@ -1,3 +1,16 @@
+ <%ClientDAO dao1= new ClientDAO();
+    Client cl= null;
+ 
+     cl=(Client)session.getAttribute("client");
+     
+     if (cl == null)
+     {
+    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+    	 session.removeAttribute("client");
+     }
+    %>
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -19,18 +32,7 @@
    
    
 %>
- <%ClientDAO dao1= new ClientDAO();
-    Client cl= null;
- 
-     cl=(Client)session.getAttribute("client");
-     
-     if (cl.getEmailClient() == null)
-     {
-    	 response.sendRedirect("index.jsp");
-    	 session.removeAttribute("client");
-     }
-    %>
- 
+
  
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

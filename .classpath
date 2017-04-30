@@ -1,61 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueEnLignee/WebContent/WEB-INF/lib/commons-lang-2.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueEnLignee/WebContent/WEB-INF/lib/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueEnLignee/WebContent/WEB-INF/lib/mysql-connector-java-5.1.13-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueEnLignee/WebContent/WEB-INF/lib/mysql-connector-java-5.1.40-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/annotations-api.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/catalina.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/catalina-ant.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/catalina-ha.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/catalina-storeconfig.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/catalina-tribes.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/ecj-4.6.1.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/el-api.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/jasper.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/jasper-el.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/jaspic-api.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-api.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-coyote.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-dbcp.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-i18n-es.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-i18n-fr.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-i18n-ja.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-jdbc.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-jni.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-util.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-util-scan.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-websocket.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/websocket-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Downloads/activation.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Downloads/javax.mail.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Downloads/mailapi.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Downloads/pop3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Downloads/smtp.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_121">
-		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/mailapi.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-3.16.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-examples-3.16.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-excelant-3.16.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-ooxml-3.16.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-ooxml-schemas-3.16.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/poi-scratchpad-3.16.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/pop3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AdeleSONG/Desktop/BanqueS8/smtp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/catalina.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/catalina-ant.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/catalina-ha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/catalina-storeconfig.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/catalina-tribes.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/ecj-4.5.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/el-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/jasper.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/jasper-el.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-dbcp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-i18n-es.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-i18n-fr.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-i18n-ja.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-jdbc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-jni.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-util.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-util-scan.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/tomcat-websocket.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/Desktop/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41-windows-x64/apache-tomcat-8.0.41/lib/websocket-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/workspace/BanqueS8/mailapi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/workspace/BanqueS8/poi-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/workspace/BanqueS8/poi-examples-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/workspace/BanqueS8/poi-excelant-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/workspace/BanqueS8/poi-ooxml-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/workspace/BanqueS8/poi-ooxml-schemas-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/workspace/BanqueS8/poi-scratchpad-3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/workspace/BanqueS8/pop3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASSOGBA Prisca/workspace/BanqueS8/smtp.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

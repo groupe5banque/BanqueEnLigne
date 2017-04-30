@@ -16,74 +16,80 @@ public class News {
 		 /**
 	     * Titre
 	     */
-	    private String titreNews;
+	    private String titre;
 	    /**
 		 * Contenu
 		 */
-		private String contenuNews;
+		private String contenu;
 		/** 
 		 * Timestamp
 		 */
-		private Timestamp timestampNews;
+		private Timestamp timestamp;
 		/** 
 		 * idimg 
 		 */
-		private int idimgNews;
-
+		private int idimg;
 	
 	public News()
 	{
-		this.titreNews = null;
-		this.contenuNews = null;
-		this.timestampNews=null;
-		this.idimgNews = 0;	
+		this.titre = null;
+		this.contenu = null;
+		this.timestamp = null;
+		this.idimg = 0;	
 	}
 
 	/**
 	 * Constructeur
-	 * @param id 
-	 * @param titreNews
-	 * @param contenuNews
-	 * @param idimgNews
-	 */
-	public News(String titreNews, String contenuNews, Timestamp timestampNews, int idimgNews) { //importer pour avoir le type timestamp : "import com.sun.jmx.snmp.Timestamp;"
-		this.titreNews = titreNews;
-		this.contenuNews = contenuNews;
-		this.timestampNews = timestampNews; 
-		this.idimgNews = idimgNews;
-		}
-	
-	public void setTitreNews(String titreNews) {
-		this.titreNews = titreNews;
-	}
-	
-	public String getTitreNews() {
-		return titreNews;
-		}
-	
-	public void setContenuNews(String contenuNews) {
-		this.contenuNews = contenuNews;
-	}
-	
-	public String getContenuNews() {
-		return titreNews;
-		}
-	
-	
-	public int getidimgNews() {
-		return idimgNews;
-		}
-	
-	public void setIdimgNews(int idimgNews) {
-		this.idimgNews = idimgNews;
-	}
-	
-	public Timestamp gettimestampNews() {
-		return timestampNews;//à ajouter timestampNews ici
-		}
+	 * @param titre
+	 * @param contenu
+	 * @param idimg
+	 **/
 
-	public String toString() {
-		return " [Titre: " +titreNews  + " , Contenu: " + contenuNews
-				+ ", Date:" + timestampNews+  ", Image associee:" + idimgNews+ "]";
+	public News(String titre, String contenu, Timestamp timestamp, int idimg) {
+		this.titre = titre;
+		this.contenu = contenu;
+		this.timestamp = timestamp; 
+		this.idimg = idimg;
+		}
+	
+	
+	public String getTitre() {
+		return titre;
+		}
+	
+	public void setTitreNews(String titre) {
+		this.titre = titre;
 	}
+	
+	public String getContenu() {
+		return contenu;
+		}
+	
+	public void setContenu(String contenu) {
+		this.contenu = contenu;
+	}
+	
+	public int getidimg() {
+		return idimg;
+		}
+	
+	public void setidimg(int idimg) {
+		this.idimg = idimg;
+	}
+	
+	public Timestamp gettimestamp() {
+		return timestamp;
+		}
+	
+	public void settimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+	
+/*
+	public String toString() {
+		return " [Titre: " + titreNews  + " , Contenu: " + contenuNews
+				+ ", Date:" + timestampNews +  ", Image associee:" + idimgNews + "]";
+	}
+*/
+	
 }

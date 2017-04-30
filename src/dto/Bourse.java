@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,7 +25,7 @@ public class Bourse {
 
 	final static String URL = "jdbc:mysql://localhost:3306/banqueenligne";
 	final static String LOGIN = "root";  //exemple BDD1
-	final static String PASS = "projetBanque";  //exemple BDD1
+	final static String PASS = "Mmdpne1995";  //exemple BDD1
 	
 	
 	
@@ -49,7 +50,7 @@ public void ActualisationBourse() {
 	
 	try {
 		
-		InputStream input= new FileInputStream ("cac40.xls");
+		InputStream input= new FileInputStream ("bourse.xls");
 		POIFSFileSystem fs= new POIFSFileSystem(input);
 		HSSFWorkbook wb= new HSSFWorkbook(fs);
 		HSSFSheet sheet = wb.getSheetAt(0);
@@ -98,7 +99,7 @@ public void ActualisationBourse() {
 // message de succes
 		
 		if (count>0){
-			//System.out.println("Enregistrement effectué");
+			System.out.println("Enregistrement effectué");
 	}
 		}	
 	
@@ -107,6 +108,12 @@ public void ActualisationBourse() {
 	}
 
 }
+
+//main permettant de tester la classe
+	public static void main(String[] args) throws SQLException{
+Bourse bourse=new Bourse();
+bourse.ActualisationBourse();		
+	}
 	
 }
 

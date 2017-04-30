@@ -304,16 +304,25 @@
 		
 		<br>
 		<br>
-			
+	
+	  <% 
+    if(releves.size()!=0){  %>
+    		
   <h2 id="Historique">Relevés du compte </h2>
+    <% }
   
-  <% System.out.println(releves);
+  %>
+  <% 
     if(releves.size()==0){  %>
     	
     	 <h1 >Il n'ya pas de relevés  pour ce mois</h1>
    <% }
   
   %>
+  
+  <% 
+    if(releves.size()!=0){  %>
+    	
       <p id="s"> Solde au  <%= df %> : <%= compte.getSoldeBanque() %> Euros   </p>      
       <p id="s"> Nom du client: <%= nomC %> <%= prenomC %> </p>   
       <p id="s"> Numero de compte : <%= compte.getNumeroDeCompte() %>  </p>      
@@ -339,7 +348,9 @@
     </tbody>
   </table>
   
+  <% }
   
+  %>
     
   <%
     if(releves.size()!=0){  %>

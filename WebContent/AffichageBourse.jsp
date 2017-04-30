@@ -1,28 +1,29 @@
- <%ClientDAO dao1= new ClientDAO();
-    Client cl= null;
- 
-     cl=(Client)session.getAttribute("client");
-     
-     if (cl == null)
-     {
-    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
-    	 session.removeAttribute("client");
-     }
-    %>
-
- <%@ page import="dao.*"%>
-    <%@ page import="dto.*"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-   
-  <%
-     TitreDAO titredao= new TitreDAO();   
-	   String nomAction= (String)session.getAttribute("action");
-	   int NombreActionn= titredao.getNombreTitre(nomAction);
-    %>
-
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@ page import="dao.*" %>
+    	
+	<%@ page import="dto.*" %>
+	<%@ page import="java.util.ArrayList" %>
+	<%@ page import="java.util.List" %>
+	<%@ page import="java.util.Date" %>
+	
+	
+	
+     <%  
+     
+	     Date df=new java.sql.Date(System.currentTimeMillis());
+         ElementBourseDAO elem=new ElementBourseDAO();                
+       
+        String cmp= (String)session.getAttribute("selection");                
+        List<ElementBourse> actions = new ArrayList<ElementBourse>();
+        actions=elem.getListeActions();
+      
+%>
+
+ 
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -51,6 +52,7 @@
     <!-- Theme CSS -->
     <link href="css/agency.min.css" rel="stylesheet">
     <link href="css/menu.css" rel="stylesheet">
+    <link href="css/Infos.css" rel="stylesheet">
 
 
 
@@ -63,7 +65,7 @@
     <div class="wrap">
   <nav class="nav-bar navbar-inverse" role="navigation">
       <div id ="top-menu" class="container-fluid active">
-          <a class="navbar-brand" href="#"> BIENVENUE SUR VOTRE ESPACE CLIENT</a>
+          <a class="navbar-brand" href="#">BIENVENUE SUR VOTRE ESPACE CLIENT</a>
           <ul class="nav navbar-nav">        
               <li>
                         <a  href="#portfolio">Actualités</a>
@@ -75,9 +77,9 @@
               <li class="dropdown movable">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span><span class="fa fa-3x fa-child"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                      <li> <a ><span class="fa fa-user"></span> Bienvenue ${sessionScope.client.nomClient}</a></li>
+                      <li> <a ><span class="fa fa-user"></span> Bienvenue ${sessionScope.client.nomClient} </a></li>
                       <li class="divider"></li>
-                      <li><a data-toggle="modal" data-target="#myModal"><span class="fa fa-power-off"></span>Déconnexion</a></li>
+                     <li><a data-toggle="modal" data-target="#myModal"><span class="fa fa-power-off"></span>Déconnexion</a></li>
                   </ul>
               </li>
               
@@ -90,15 +92,15 @@
             <div class="link"><i class="fa fa-lg fa-user"></i>Profil<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
               <li><a href="InfosPersonnellesClient.jsp">Voir mes informations personnelles</a></li>  
-              <li><a href="PageModInfPer.jsp">Modifier mes informations</a></li>  
+              <li><a href="PageModInfPer.jsp">Modifier mes informations</a></li>
               
             </ul>
           </li>
           
           <li class="nav-header">
-            <div class="link"><i class="fa fa-lg fa-users"></i>Comptes<i class="fa fa-chevron-down"></i></div>
+            <div class="link"><i class="fa fa-lg fa-users"></i>Comptes <i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-             <li><a  href="CreerCompteEpargne.jsp"" >Créer un compte épargne</a></li>
+               <li><a  href="CreerCompteEpargne.jsp"" >Créer un compte épargne</a></li>
               <li><a  href="CreerCompteTitre.jsp">Créer un compte titre</a></li>
               <li><a href="#">Gérer mes comptes</a></li>
                <li><a href="Consultation.jsp">Consulter les soldes de mes comptes</a></li>
@@ -111,7 +113,7 @@
               <li><a href="PageVirement.jsp">Effectuer un virement</a></li>
               <li><a href="ChargerArgent.jsp">Alimenter mes comptes</a></li>
               <li><a href="ChoixCompteTitre.jsp">Acheter des actions </a></li>
-                <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
+               <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
               <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
             </ul>
           </li>  
@@ -133,45 +135,8 @@
         <span class='burger_inside' id='bgrThree'></span>
       </a>      
     </div>
-    <section class="content-inner">
-     	<div class="container">
- 
-								
-								
-								
-								<div class="container">
-	 
-     <form name=""  action="VenteActions" method="post" id="" novalidate>        
-            <!-- Modal -->
-             <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Vente d'actions </h4>
-                  </div>
-                  <div class="modal-body">
-                      Nombre d'actions à vendre 
-                       <div class="input-group">
-                              <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-                               <input name="nombreAction" placeholder="Nombre*" class="form-control"  type="text" required data-validation-required-message="Please enter ">
-                               *Le nombre d'actions ne peut pas excéder <%= NombreActionn %> 
-                                  </div>
-                                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <button type="submit"  class="btn btn-primary">Confirmer la vente</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </form>
-	
-
-
-								
-								<div class="container">
-	 
+   <section class="content-inner">
+    <div class="container">
      <form name=""  action="Deconnexion" method="post" id="" novalidate>        
             <!-- Modal -->
              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -192,42 +157,57 @@
               </div>
             </div>
             </form>
-	</div>
-</div>
-	</div>
-	 <div class="bs-example">
-    <div class="alert alert-danger fade in">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Erreur!</strong> Le nombre saisi est supérieur au nombre d'action que vous disposer <%=  NombreActionn %> 
-    </div>
-</div>
-							
+     	<div class="container">
+  <form name="" method="post" action="TraitementActionsSelection" id="form"class="well form-horizontal">
 	
-	<% String action= (String)session.getAttribute("action"); %> 
-	<% ElementBourseDAO edao= new ElementBourseDAO();
-	  ElementBourse elem=null;
-	  elem= edao.getElement(action);
-	%>
-	
-	<h5> <c:out value=" ${elem.getNom()}"/> <%= elem.getNom() %> </h5>
-	<h6> Ouverture: <c:out value=" ${el.getOuv()}"/> <%= elem.getOuv() %>  </h6>
-	<h6> + Haut:  <c:out value=" ${el.getHaut()}"/> <%= elem.getHaut() %> </h6>
-	<h6> + Bas: <c:out value=" ${el.getBas()}"/>  <%= elem.getBas() %></h6>
-	<h6> Volume: <c:out value=" ${elem.getVolume()}"/> <%= elem.getVolume() %> </h6>
-	<h6> Veille: <c:out value=" ${elem.getVeille()}"/> <%= elem.getVeille() %>  </h6>
-	<h6> Prix actuel: <c:out value=" ${elem.getActuel()}"/> <%= elem.getActuel() %> </h6>
-	<h6> Variation: <c:out value=" ${elem.getVar()}"/> <%= elem.getVar() %> </h6>
-	
-	 <div class="form-group">
+   
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        
+        <th>Entreprise </th>
+        <th>Prix actuel</th>
+        <th>Variation</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%double variation; %>
+    <% for (int i =1; i<actions.size(); i++){ %>
+    <% variation= Double.parseDouble(actions.get(i).getVar());%>
+    <% if ( variation > 0){ %>
+      <tr  class="success">
+      
+        <td>  <%=actions.get(i).getNom() %> </td>
+        <td>   <%=actions.get(i).getActuel() %> </td>
+        <td>   <%=actions.get(i).getVar() %> %</td>
+      </tr>
+      <%} %>
+      <% if ( Double.parseDouble(actions.get(i).getVar()) <= 0) { %>
+      <tr  class="danger">
+        <td>    <%=actions.get(i).getNom() %> </td>
+        <td>   <%=actions.get(i).getActuel() %> </td>
+        <td>   <%=actions.get(i).getVar() %> %</td>
+      </tr>
+      <%} %>
+      
+       <%} %>
+    </tbody>
+  </table>
+  
+   <div class="form-group">
   <label class="col-md-4 control-label"></label>
   <div class="col-md-4">
-    <a data-toggle="modal" data-target="#myModal5" > Vendre </a>
-    
-    
+    <button type="submit" class="btn btn-warning" > Choisir </button>
   </div>
 </div>
+
+</form>
+									
+	</div>
+</div>
+	</div>
     </section>
-  </div>  
+ </div>  
   
 </div>
 
@@ -245,4 +225,5 @@
 
 </body>
 </html>
-
+								
+								<

@@ -16,7 +16,7 @@ public class ElementBourseDAO {
 	
 	final static String URL = "jdbc:mysql://localhost:3306/banqueenligne";
 	final static String LOGIN = "root";  //exemple BDD1
-	final static String PASS = "root";   //exemple BDD1
+	final static String PASS = "Mmdpne1995";   //exemple BDD1
 
 	
 	/**

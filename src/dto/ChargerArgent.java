@@ -112,8 +112,8 @@ public class ChargerArgent extends HttpServlet {
 			if(t==1)
 			{		
 			int IDCompte=cd.getIdCompte(numeroCompte);
-					
-			String nature = "Dépôt"+ cd.getCompteChoisi(IDCompte).getTypeCompte()+"N°"+numeroCompte;
+			//"Dépôt"+ cd.getCompteChoisi(IDCompte).getTypeCompte()+"N°"+numeroCompte;		
+			String nature = "Dépôt";
 			
 			
 			Historique his = new Historique(idClient,IDCompte,today,nature,montantD,0);
@@ -142,7 +142,7 @@ public class ChargerArgent extends HttpServlet {
 			{
 		    	int IDCompte=cd.getIdCompte(numeroCompte);
 				
-				String nature = "Dépôt"+ cd.getCompteChoisi(IDCompte).getTypeCompte()+"N°"+numeroCompte;
+				String nature = "Dépôt";
 				
 				
 				Historique his = new Historique(idClient,IDCompte,today,nature,montantD,0);
@@ -169,7 +169,7 @@ public class ChargerArgent extends HttpServlet {
 			{
 		    	int IDCompte=cd.getIdCompte(numeroCompte);
 				
-				String nature = "Dépôt"+ cd.getCompteChoisi(IDCompte).getTypeCompte()+"N°"+numeroCompte;
+				String nature = "Dépôt";
 				
 				
 				Historique his = new Historique(idClient,IDCompte,today,nature,montantD,0);

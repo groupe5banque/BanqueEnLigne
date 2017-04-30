@@ -38,13 +38,13 @@ import java.util.Date;
 public class BeneficiaireDAO {
 
 	/**
-	 * Param闁碱槝es de connexion 閿燂拷 la base de donn闂佹唶 oracle URL, LOGIN et PASS
+	 * Param闁碱槝es de connexion 閿燂拷 la base de donn闂佹唶 orac URL, LOGIN et PASS
 	 * sont des constantes
 	 */
 	
 	final static String URL = "jdbc:mysql://localhost:3306/banqueenligne";
 	final static String LOGIN = "root";  //exemple BDD1
-	final static String PASS = "root";   //exemple BDD1
+	final static String PASS = "Mmdpne1995";   //exemple BDD1
 
 	
 	/**

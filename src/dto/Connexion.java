@@ -54,7 +54,12 @@ public class Connexion extends HttpServlet {
 	    c1=cldao.connexionClient(mail,mdp);
 	    
 	    if (c1==null){
-	    	System.out.println("Identifiants erronés");
+	    	//System.out.println("Identifiants erronés");
+	    	response.getWriter().println("<H1 class='text-center'> Identifiants erronés! </H1>");
+	    	response.getWriter().println("<BR> ");
+	    	response.getWriter().println("<H2> Veuillez réessayer</H2>");
+	    	response.getWriter().println("<BR> ");
+	    	response.getWriter().println("<a href='index.jsp'> Connexion</a>");
 	    }
 	    else {
 

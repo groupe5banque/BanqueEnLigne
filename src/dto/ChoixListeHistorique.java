@@ -60,15 +60,15 @@ public class ChoixListeHistorique extends HttpServlet {
 		session.setAttribute("IdClient",IdClient);
 		
 		System.out.println(TypeH);
-		if(TypeH.equals("Les historique 3 mois pr¨¦c¨¦dents")||TypeH.equals("Les historiques 6 mois pr¨¦c¨¦dents"))
+		if(TypeH.equals("Les historique 3 mois précédents")||TypeH.equals("Les historiques 6 mois précédents"))
 	{
-		if(TypeH.equals("Les historique 3 mois pr¨¦c¨¦dents"))
+		if(TypeH.equals("Les historique 3 mois précédents"))
 		{
 		    System.out.print("000000");
 			response.sendRedirect( "ListeHistorique3mois.jsp" );
 		}
 		
-		if(TypeH.equals("Les historiques 6 mois pr¨¦c¨¦dents"))
+		if(TypeH.equals("Les historiques 6 mois précédents"))
 		{
 			response.sendRedirect( "ListeHistorique6mois.jsp" );
 		}

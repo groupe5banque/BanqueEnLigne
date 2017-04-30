@@ -79,7 +79,7 @@
           <a class="navbar-brand" href="#">BIENVENUE SUR VOTRE ESPACE CLIENT</a>
           <ul class="nav navbar-nav">        
               <li>
-                        <a  href="#portfolio">Actualitualités</a>
+                        <a  href="#portfolio">Actualités</a>
                     </li>
                     <li>
                         <a  href="#contact"> Nous Contacter  </a>
@@ -98,45 +98,30 @@
       </div>      
   </nav>
   <aside id="side-menu" class="aside" role="navigation">            
-        <ul class="nav nav-list accordion">                    
+            <ul class="nav nav-list accordion">   
+                         
           <li class="nav-header">
-            <div class="link"><i class="fa fa-lg fa-user"></i>Profil<i class="fa fa-chevron-down"></i></div>
+            <div class="link"><i class="fa fa-lg fa-user"></i>Clients<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a href="InfosPersonnellesClient.jsp"> Voir mes informations personnelles</a></li>  
-              <li><a href="PageModInfPer.jsp">Modifier mes informations</a></li>  
+              <li><a href="ListeClient.jsp"> Voir la liste client</a></li>   
+              <li><a href="ChoixListeHistorique.jsp"> Voir le reporting totale</a></li> 
               
             </ul>
           </li>
           
-          <li class="nav-header">
-            <div class="link"><i class="fa fa-lg fa-users"></i>Comptes<i class="fa fa-chevron-down"></i></div>
+                    <li class="nav-header">
+            <div class="link"><i class="fa fa-lg fa-user"></i>Actualités<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a data-toggle="modal" data-target="#myModal1" >Créer un compte Acompargne</a></li>
-              <li><a data-toggle="modal" data-target="#myModal3">Créer un compte titre</a></li>
-              <li><a href="#">Gérer mes comptes</a></li>
-               <li><a href="Consultation.jsp">Consulter les soldes de mes comptes</a></li>
+              <li><a href=""> Ajouter / Modifier</a></li>   
+              <li><a href="index.jsp#portfolio"> Consulter</a></li> 
+              
             </ul>
           </li>
           
-          <li class="nav-header">
-            <div class="link"><i class="fa fa-cloud"></i>Transactions<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-              <li><a href="PageVirement.jsp">Effectuer un virement</a></li>
-              <li><a href="ChargerArgent.jsp">Alimenter mes comptes</a></li>
-               <li><a href="ChoixCompteTitre.jsp">Acheter des actions </a></li>
-                <li><a href="ChoixCompteTitreVente.jsp">Vendre des actions</a></li>
-              <li><a href="HistoriqueSelection.jsp">Consulter l'historique de mes transactions</a></li>
-            </ul>
-          </li>  
+          </ul>
+         
           
-                   <li class="nav-header">
-            <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-              <li><a href="Releves.jsp">Releves de comptes</a></li>
-            </ul>
-          </li> 
           
-      </ul>
   </aside>
   
    <script src="vendor/jquery/jquery.min.js"></script>
@@ -171,12 +156,12 @@
     <table class="columns">
       <tr>
         <%if(cc.size()!=0||ce.size()!=0||ct.size()!=0){ %>
-        <td><div id="TN_chart_div" style="title:'Répartition de nombre de compte',width:550, height:800"></div></td>
+        <td><div id="TN_chart_div" ></div></td>
         <%}else{ %>
         <td><h4>Répartition de nombre de compte: 0 compte.</h4></td>
         <%} %>
         <%if(cd.soldeTotal(ce)!=0||cd.soldeTotal(cc)!=0||cd.soldeTotal(ct)!=0){ %>
-        <td><div id="TM_chart_div" style="title:'Répartition de solde de compte',width:550, height:800"></div></td>
+        <td><div id="TM_chart_div" ></div></td>
         <%}else{ %>
         <td><h4>Répartition de solde de compte: 0 solde.</h4></td>
         <%} %>
@@ -259,17 +244,18 @@
                	
       
          <h4 class="text-center"> Compte épargne </h4>
-         <%if(ce.size()!=0){ %>
+         <% int a=0;
+         if(ce.size()!=0){ %>
           <div id="table_div1"></div>
          <%}else{ %>
           <div style="text-align: center">0 compte épargne.</div>
           <%} %>
           
          <script> 
-         google.charts.load('current', {'packages':['table']});
-         google.charts.setOnLoadCallback(drawTable);
+         
+         google.charts.setOnLoadCallback(drawTableE);
 
-         function drawTable() {
+         function drawTableE() {
            var data = new google.visualization.DataTable();
            data.addColumn('string', 'Numero de compte');
            data.addColumn('string', 'Code guichet');
@@ -283,6 +269,8 @@
              ['<c:out value="${compteE.getNumeroDeCompte()}"/>', '<c:out value="${compteE.getCodeGuichet()}"/>' , '<c:out value="${compteE.getClefRIB()}"/>','<c:out value="${compteE.getCodeBanque()}"/>','<c:out value="${compteE.getSoldeBanque()}"/> EUR','<c:out value="${compteE.getTypeCompte()}"/>']
            
            ]);
+           <%System.out.println("Compte épargne solde:"+ce.get(a).getSoldeBanque());
+           a++;%>
            </c:forEach>
            var table = new google.visualization.Table(document.getElementById('table_div1'));
 
@@ -298,15 +286,18 @@
          <br>
          <h4 class="text-center"> Compte courant </h4>
           <%if(cc.size()!=0){ %>
+          <%System.out.println("taille cc:"+cc.size());%>
           <div id="table_div2"></div>
           <%}else{ %>
-          <div style="text-align: center">0 compte courant.</div>
-          <%} %>	
+          <div style="text-align: center">0 compte courant.</div>        
+          <%
+          } %>
+          	
           <script>
-          google.charts.load('current', {'packages':['table']});
-          google.charts.setOnLoadCallback(drawTable);
+          
+          google.charts.setOnLoadCallback(drawTableC);
 
-          function drawTable() {
+          function drawTableC() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Numero de compte');
             data.addColumn('string', 'Code guichet');
@@ -336,10 +327,10 @@
           <div style="text-align: center">0 compte titre.</div>
           <%} %>
           <script>
-          google.charts.load('current', {'packages':['table']});
-          google.charts.setOnLoadCallback(drawTable);
+          
+          google.charts.setOnLoadCallback(drawTableT);
 
-          function drawTable() {
+          function drawTableT() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Numero de compte');
             data.addColumn('string', 'Code guichet');

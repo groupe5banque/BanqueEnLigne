@@ -24,7 +24,7 @@ public class CsvReleveDAO implements ReleveDao{
 	
 	final static String URL = "jdbc:mysql://localhost:3306/banqueenligne";
 	final static String LOGIN = "root";  
-	final static String PASS = "root";   
+	final static String PASS = "Mmdpne1995";   
 	
 	
 	
@@ -33,7 +33,7 @@ public class CsvReleveDAO implements ReleveDao{
 	 * 
 	 */
 	public CsvReleveDAO() {
-		// chargement du pilote de bases de donn闁憇
+		// chargement du pilote de bases de donné—�æ†‡
 		
 		try {
 			 Class.forName( "com.mysql.jdbc.Driver" );

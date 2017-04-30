@@ -198,11 +198,10 @@
 	  ElementBourse elem=null;
 	  elem= edao.getElement(action);
 	  
-	  String a="tototot";
-	  pageContext.setAttribute("aa",a);
+	
 	%>
 	
-	<h5> <c:out value=" ${aa}"  default="AAAA"/>  <%= elem.getNom() %> </h5>
+	<h5>   <%= elem.getNom() %> </h5>
 	<h6> Ouverture: <c:out value=" ${elem.getOuv()}"/>  <%= elem.getOuv() %>  </h6>
 	<h6> + Haut:  <c:out value=" ${el.getHaut()}"/>  <%= elem.getHaut() %> </h6>
 	<h6> + Bas: <c:out value=" ${el.getBas()}"/>   <%= elem.getBas() %></h6>

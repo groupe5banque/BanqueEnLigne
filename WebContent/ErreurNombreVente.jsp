@@ -1,17 +1,4 @@
-
-
-
-
-
-
-
-
-
- <%@ page import="dao.*"%>
-    <%@ page import="dto.*"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-   
-  <%ClientDAO dao= new ClientDAO();
+<%ClientDAO dao1= new ClientDAO();
     Client cl= null;
  
      cl=(Client)session.getAttribute("client");
@@ -21,6 +8,13 @@
     	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
     	 session.removeAttribute("client");
      }
+    %>
+
+ <%@ page import="dao.*"%>
+    <%@ page import="dto.*"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+   
+  <%
      TitreDAO titredao= new TitreDAO();   
 	   String nomAction= (String)session.getAttribute("action");
 	   int NombreActionn= titredao.getNombreTitre(nomAction);

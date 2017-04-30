@@ -4,9 +4,27 @@
     <%@ page import="dao.*" %>
     <%@ page import="dto.*" %>
     <%@ page import="java.util.ArrayList" %>
- 	<%@ page import="javax.mail.MessagingException"%>
+ 	<%@ page import="javax.mail.MessagingException" %>
+ 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ 	<%@ page import="java.util.Date" %>
+ 	<%@ page import="java.util.List" %>
 
-    
+	<%
+		NewsDAO nd=new NewsDAO();
+	    ArrayList<News> PrintNews = nd.getAllNews();
+	%>
+	
+	<%  
+     
+	     Date df=new java.sql.Date(System.currentTimeMillis());
+         ElementBourseDAO elem=new ElementBourseDAO();                
+       
+        String cmp= (String)session.getAttribute("selection");                
+        List<ElementBourse> actions = new ArrayList<ElementBourse>();
+        actions=elem.getListeActions();
+      
+%>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,7 +34,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> Bank 8-5 Of ESIGELEC </title>
+    <title>Bank 8-5 Of ESIGELEC</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,6 +48,74 @@
 
     <!-- Theme CSS -->
     <link href="css/agency.css" rel="stylesheet">
+
+	<style type="text/css">
+        .news h1, h3
+        {
+            text-align:center;
+        }
+        .news h3
+        {
+            background-color:black;
+            color:white;
+            font-size:0.9em;
+            margin-bottom:0px;
+        }
+        .news p
+        {
+            background-color:#CCCCCC;
+            margin-top:0px;
+        }
+        .news
+        {
+            width:650px;
+            margin:auto;
+        }
+        </style>
+        
+        
+        <SCRIPT type="text/javascript" >
+
+function VerifMailConnexion()
+	{
+	a = document.ConnexionTeam.email.value;
+	valide1 = false;
+	
+	for(var j=1;j<(a.length);j++){
+		if(a.charAt(j)=='@'){
+			if(j<(a.length-4)){
+				for(var k=j;k<(a.length-2);k++){
+					if(a.charAt(k)=='.') valide1=true;
+				}
+			}
+		}
+	}
+	if(valide1==false) alert("Veuillez saisir une adresse mail valide.");
+	return valide1;
+	}
+
+
+function VerifMailFContact()
+	{
+	a = document.FContact.email.value;
+	valide1 = false;
+	
+	for(var j=1;j<(a.length);j++){
+		if(a.charAt(j)=='@'){
+			if(j<(a.length-4)){
+				for(var k=j;k<(a.length-2);k++){
+					if(a.charAt(k)=='.') valide1=true;
+				}
+			}
+		}
+	}
+	if(valide1==false) alert("Veuillez saisir une adresse mail valide.");
+	return valide1;
+	}
+
+
+
+</SCRIPT>
 
 </head>
 
@@ -72,13 +158,15 @@
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
-    </nav>
+    </nav>		
 
     <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Bienvenue sur notre nouveau website de banque en ligne!</div>
+                <div class="intro-lead-in">
+                	<p> Welcome to our new online bank website </p>
+                </div>
                 <div class="intro-heading">Bank 8-5 of ESIGELEC</div>
                 <a href="#services" class="page-scroll btn btn-xl">Poursuivez vers le bas</a>
             </div>
@@ -122,7 +210,7 @@
 				<div class="col-md-3">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <a href="#"><i class="fa fa-area-chart fa-stack-1x fa-inverse"></i></a>
+                        <a href="#bourse" class="portfolio-link" data-toggle="modal"><i class="fa fa-area-chart fa-stack-1x fa-inverse"></i></a>
                     </span>
                     <h4 class="service-heading">Voir le cours de la bourse</h4>
                     <p class="text-muted">Vous pouvez voir le cours de la bourse en cliquant sur l'icône ci-dessus. <u>(Possible en tant que visiteur)</u></p>
@@ -130,8 +218,9 @@
             </div>
         </div>
     </section>
-
-    <!-- ACTUALITES Section -->
+    
+    
+    
     <!-- ACTUALITES Section -->
     <section id="portfolio" class="bg-light-gray">
         <div class="container">
@@ -150,7 +239,7 @@
                                 <i class="fa fa-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="img/portfolio/bank1.jpg" class="img-responsive" alt="">
+                        <img src="img/actualites/1.jpg" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
                         <h4>Banque en ligne</h4>
@@ -164,7 +253,7 @@
                                 <i class="fa fa-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="img/portfolio/bank2.jpg" class="img-responsive" alt="">
+                        <img src="img/actualites/2.jpg" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
                         <h4>L'Euro/L'argent</h4>
@@ -178,7 +267,7 @@
                                 <i class="fa fa-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="img/portfolio/bank3.jpg" class="img-responsive" alt="">
+                        <img src="img/actualites/3.jpg" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
                         <h4>Nouveau système en ligne</h4>
@@ -188,7 +277,7 @@
             </div>
         </div>
         
-        
+         </div>
     
 		
     </section>
@@ -231,7 +320,7 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading">Se connecter</h2>
-					<h3 class="section-subheading1 text-muted">Vous pouvez vous vous connectez sur notre site en cliquant sur l'icône suivant.</h3>
+					<h3 class="section-subheading1 text-muted">Vous pouvez-vous vous connectez sur notre site en cliquant sur l'icône suivant.</h3>
 				</div>
 			</div>
             <div class="row text-center">
@@ -248,6 +337,7 @@
 						</div>
                     </div>
 					</a>
+					</div>
                     <h4 class="service-heading">Connexion avec un profil existant</h4>
                     <p class="text-muted">La connexion à votre compte vous permettre d'accéder à toutes les fonctionnalités du site ainsi que voir toutes vos informations personnelles</p>
                 </div>
@@ -306,7 +396,7 @@
 	}
 %>
 
-                    <form action="" method="POST" id="" novalidate="novalidate">
+                    <form action="" method="POST" id="" name="FContact" onsubmit="return VerifMailFContact();" novalidate>
                     
 					                   <div class="row">
                             <div class="col-md-6">
@@ -347,7 +437,10 @@
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
                                 
-                              <a class="btn btn-xl" type="submit"  name="sendContact"  href="#Resultat2" data-toggle="modal" data-dismiss="modal">Envoyer</a>       
+                                
+                                <button type="submit" class="btn btn-xl">Envoyer</button>
+                                
+                              <!--  <a class="btn btn-xl" type="submit"  name="sendContact"  href="#Resultat2" data-toggle="modal" data-dismiss="modal">Envoyer</a>    -->   
                           
                             </div>
                         </div>
@@ -374,6 +467,66 @@
         </div>
     </footer>
 
+
+<!-- MODAL BOURSE -->
+<div class="portfolio-modal modal fade" id="bourse" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <div class="modal-body">
+                                <!-- Details Go Here -->
+                                
+                                <table class="table table-bordered">
+								    <thead>
+								      <tr>
+								        
+								        <th>Entreprise </th>
+								        <th>Prix actuel</th>
+								        <th>Variation</th>
+								      </tr>
+								    </thead>
+								    <tbody>
+								    <%double variation; %>
+								    <% for (int i =1; i<actions.size(); i++){ %>
+								    <% variation= Double.parseDouble(actions.get(i).getVar());%>
+								    <% if ( variation > 0){ %>
+								      <tr  class="success">
+								      
+								        <td>  <%=actions.get(i).getNom() %> </td>
+								        <td>   <%=actions.get(i).getActuel() %> </td>
+								        <td>   <%=actions.get(i).getVar() %> %</td>
+								      </tr>
+								      <%} %>
+								      <% if ( Double.parseDouble(actions.get(i).getVar()) <= 0) { %>
+								      <tr  class="danger">
+								        <td>    <%=actions.get(i).getNom() %> </td>
+								        <td>   <%=actions.get(i).getActuel() %> </td>
+								        <td>   <%=actions.get(i).getVar() %> %</td>
+								      </tr>
+								      <%} %>
+								      
+								       <%} %>
+								    </tbody>
+								 </table>
+                                
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i>Fermer</button>
+                            	</div>
+                       		 </div>
+                    	</div>
+                	</div>
+            	</div>
+       		 </div>
+    	</div>
+
+
     <!-- ACTUALITES -->
     
 
@@ -392,32 +545,31 @@
                         <div class="col-lg-8 col-lg-offset-2">
                             <div class="modal-body">
                                 <!-- Details Go Here -->
-                               
-                                
-                                <% DAO dao=new DAO(); 
-                                
-                                  ArrayList<News> news = dao.getNews();
-                    		
-                    			for(News nw: news) { %>
-                    			
-                    			  <h2> <%=nw.getTitreNews()%></h2>
-                    				
-                    			<p class="item-intro text-muted"> <%=nw.gettimestampNews()%> </p>
-                    			
-                                <img class="img-responsive img-centered" src="" alt="">
-                                
-                                 <p> <%=nw.getContenuNews()%></p>
-                                 
-                    			<%	}
-                                  
-                                  %>
+                                <div class ="article1">
+	                                <div class="intro-lead-in">
+						                <div class="news" align="center">
+						                <p>LISTE DES ACTUALITES</p>
+							             	<% for(int i =0; i< PrintNews.size();i++) {%>
+									                    <h3>
+									                    	<%= PrintNews.get(i).getTitre() %>
+									                    	<em><%= PrintNews.get(i).gettimestamp() %></em>
+									                    </h3>
+									                    <% int indice= PrintNews.get(i).getidimg(); %>
+									                    <img src="./img/actualites/<%= indice %>.jpg">
+									                    
+									                    <p><%= PrintNews.get(i).getContenu() %></p>
+									                    
+								             <% }%>
+						                </div>
+                               		</div>
                                 <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                            	</div>
+                       		 </div>
+                    	</div>
+                	</div>
+            	</div>
+       		 </div>
+    	</div>
     </div>
 
     <!-- ACTUALITE 2 -->
@@ -436,7 +588,7 @@
                             <div class="modal-body">
                                 <h2>L'Euro/L'argent</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-responsive img-centered" src="img/portfolio/treehouse-preview.png" alt="">
+                                <img class="img-responsive img-centered" src="" alt="">
                                 <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.</p>
                                 <p>Lorem ipsum dolor sit amet consectetur.</p>
                                 <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer</button>
@@ -464,8 +616,8 @@
                             <div class="modal-body">
                                 <!-- Project Details Go Here -->
                                 <h2>Nouveau système en ligne</h2>
-                                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-responsive img-centered" src="img/portfolio/treehouse-preview.png" alt="">
+                                <p class="item-intro text-muted"></p>
+                                <img class="img-responsive img-centered" src="" alt="">
                                 <p>Lorem ipsum dolor sit amet consectetur. This is bright and spacious design perfect for people or startup companies looking to showcase their apps or other projects.</p>
                                 <p>Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.</p>
                                 <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Fermer</button>
@@ -1107,7 +1259,9 @@
   <label class="col-md-4 control-label"></label>
   <div class="col-md-4">
   
-  <a class="btn btn-xl" type="submit"  name="sendNew"  href="#Resultat3" data-toggle="modal" data-dismiss="modal">Souscrire</a>       
+  <button type="submit" class="btn btn-xl">Souscrire</button> 
+  
+  <!--  <a class="btn btn-xl" type="submit"  name="sendNew"  href="#Resultat3" data-toggle="modal" data-dismiss="modal">Souscrire</a>   -->    
   
     
   </div>
@@ -1142,7 +1296,7 @@
 						</div>
 						<div class="row">
 							<div class="col-lg-12">
-								<form name=""  action="Connexion" method="post" id="" novalidate>
+								<form name="ConnexionTeam"  action="Connexion" onsubmit="return VerifMailConnexion();" method="post" id="" novalidate>
 									<div class="row">
 										<div class="col-md-4"></div>
 										<div class="col-md-4">
@@ -1153,7 +1307,7 @@
 												<div class="password">
                                                   <input type="password" class="form-control" id="passwordfield"  name="password" placeholder=" Your password *">
                                                  <span class="glyphicon glyphicon-eye-open"></span>
-                                               
+                                          
 											</div>
 											</div>
 										</div>

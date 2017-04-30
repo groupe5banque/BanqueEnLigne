@@ -1,15 +1,4 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-    <%@ page import="dao.*" %>
-    	
-	<%@ page import="dto.*" %>
-	<%@ page import="java.util.ArrayList" %>
-	<%@ page import="java.util.List" %>
-	<%@ page import="java.util.Date" %>
-	
-	 <%ClientDAO dao= new ClientDAO();
+ <%ClientDAO dao= new ClientDAO();
     Client cl= null;
  
      cl=(Client)session.getAttribute("client");
@@ -21,8 +10,23 @@
      }
     %>
 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+    <%@ page import="dao.*" %>
+    	
+	<%@ page import="dto.*" %>
+	<%@ page import="java.util.ArrayList" %>
+	<%@ page import="java.util.List" %>
+	<%@ page import="java.util.Date" %>
+	<%@ page import=" java.io.FileInputStream" %>
+	<%@ page import=" java.io.InputStream" %>
+	<%@ page import=" java.sql.Connection" %>
 	
-     <%  
+	
+	
+     <%  Bourse bourse=new Bourse();
+          bourse.ActualisationBourse();
      
 	     Date df=new java.sql.Date(System.currentTimeMillis());
          ElementBourseDAO elem=new ElementBourseDAO();                

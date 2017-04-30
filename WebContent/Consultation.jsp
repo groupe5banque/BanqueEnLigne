@@ -1,4 +1,14 @@
-
+ <%ClientDAO dao1= new ClientDAO();
+    Client cl11= null;
+ 
+     cl11=(Client)session.getAttribute("client");
+     
+     if (cl11 == null)
+     {
+    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+    	 session.removeAttribute("client");
+     }
+    %>
   <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
     

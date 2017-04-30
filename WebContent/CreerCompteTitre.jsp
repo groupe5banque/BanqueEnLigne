@@ -129,29 +129,7 @@
     <section class="content-inner">
      	<div class="container">
   <form name=""  action="compteTitre" method="post" id="" novalidate>
-  <div class="container">
-	 
-     <form name=""  action="Deconnexion" method="post" id="" novalidate>        
-            <!-- Modal -->
-             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Déconnexion</h4>
-                  </div>
-                  <div class="modal-body">
-                    Êtes-vous sûr de vouloir vous déconnecter ?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <button type="submit"  class="btn btn-primary">Se Deconnecter</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </form>
-	</div>
+  
 	<div class="container">
             
  

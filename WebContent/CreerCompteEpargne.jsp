@@ -1,3 +1,16 @@
+ <%ClientDAO dao1= new ClientDAO();
+    Client cl4= null;
+ 
+     cl4=(Client)session.getAttribute("client");
+     
+     if (cl4 == null)
+     {
+    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+    	 session.removeAttribute("client");
+     }
+    %>
+
+
 <%@ page import="dao.*"%>
     <%@ page import="dto.*"%>
    

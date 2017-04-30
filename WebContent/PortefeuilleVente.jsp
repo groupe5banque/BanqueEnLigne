@@ -1,4 +1,14 @@
-
+ <%ClientDAO dao= new ClientDAO();
+    Client cl= null;
+ 
+     cl=(Client)session.getAttribute("client");
+     
+     if (cl == null)
+     {
+    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+    	 session.removeAttribute("client");
+     }
+    %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -10,17 +20,7 @@
 	<%@ page import="java.util.Date" %>
 	
 	 
-    <%ClientDAO dao= new ClientDAO();
-    Client cl= null;
- 
-     cl=(Client)session.getAttribute("client");
-     
-     if (cl == null)
-     {
-    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
-    	 session.removeAttribute("client");
-     }
-    %>
+   
 	
      <%   Bourse bourse=new Bourse();
          bourse.ActualisationBourse();

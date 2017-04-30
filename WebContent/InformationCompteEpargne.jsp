@@ -1,9 +1,4 @@
-
-<%@ page import="dao.*"%>
-    <%@ page import="dto.*"%>
-   
-   
-    <%ClientDAO dao= new ClientDAO();
+<%ClientDAO dao= new ClientDAO();
     Client cl= null;
  
      cl=(Client)session.getAttribute("client");
@@ -14,6 +9,11 @@
     	 session.removeAttribute("client");
      }
     %>
+<%@ page import="dao.*"%>
+    <%@ page import="dto.*"%>
+   
+   
+    
 
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"

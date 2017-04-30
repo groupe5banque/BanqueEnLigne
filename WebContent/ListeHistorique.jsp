@@ -224,12 +224,7 @@
       <div id="top-menu" class="container-fluid active">
           <a class="navbar-brand" href="#">BIENVENUE SUR VOTRE ESPACE MANAGER</a>
           <ul class="nav navbar-nav">        
-              <li>
-                        <a href="#portfolio">Actualités</a>
-                    </li>
-                    <li>
-                        <a href="#contact"> Nous Contacter  </a>
-                    </li>
+     
                     
               <li class="dropdown movable">
                   <a href="#" class="dropdown-toggle"
@@ -247,42 +242,28 @@
       </div>      
   </nav>
   <aside id="side-menu" class="aside" role="navigation">            
-        <ul class="nav nav-list accordion">                    
+              <ul class="nav nav-list accordion">   
+                         
           <li class="nav-header">
-            <div class="link">
-					<i class="fa fa-lg fa-user"></i>Clients<i class="fa fa-chevron-down"></i>
-				</div>
+            <div class="link"><i class="fa fa-lg fa-user"></i>Clients<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a href="InfosPersonnellesClient.jsp">Comptes</a></li>  
-              <li><a href="PageModInfPer.jsp">Modifier mes informations</a></li>  
+              <li><a href="ListeClient.jsp"> Voir la liste client</a></li>   
+              <li><a href="ChoixListeHistorique.jsp"> Voir le reporting totale</a></li> 
               
             </ul>
           </li>
           
-          <li class="nav-header">
-            <div class="link">
-					<i class="fa fa-lg fa-users"></i>Comptes<i
-						class="fa fa-chevron-down"></i>
-				</div>
+                    <li class="nav-header">
+            <div class="link"><i class="fa fa-lg fa-user"></i>Actualités<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a href="#">Voir la liste des clients</a></li>
-              <li><a href="#">Gérer les clients</a></li>
-            
+              <li><a href=""> Ajouter / Modifier</a></li>   
+              <li><a href="index.jsp#portfolio"> Consulter</a></li> 
+              
             </ul>
           </li>
           
-          <li class="nav-header">
-            <div class="link">
-					<i class="fa fa-cloud"></i>Transactions<i
-						class="fa fa-chevron-down"></i>
-				</div>
-            <ul class="submenu">
-              <li><a href="PageVirement.jsp">Voir l'historique des transactions</a></li>
-             
-            </ul>
-          </li>  
+          </ul>
           
-      </ul>
   </aside>
   
    <script src="vendor/jquery/jquery.min.js"></script>

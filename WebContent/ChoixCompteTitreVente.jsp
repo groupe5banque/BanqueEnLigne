@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%ClientDAO dao1= new ClientDAO();
+    Client cl= null;
+ 
+     cl=(Client)session.getAttribute("client");
+     
+     if (cl == null)
+     {
+    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+    	 session.removeAttribute("client");
+     }
+    %>
     
     <%@ page import="dao.*" %>
     	
@@ -21,17 +32,6 @@
      compte = dao.getCompteTitre(identifiant);   
      request.setAttribute("compte", compte);
 %>
-  <%ClientDAO dao1= new ClientDAO();
-    Client cl= null;
- 
-     cl=(Client)session.getAttribute("client");
-     
-     if (cl == null)
-     {
-    	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
-    	 session.removeAttribute("client");
-     }
-    %>
  
  
 
