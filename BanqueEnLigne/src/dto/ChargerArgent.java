@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import da.CompteDAO;
-import da.HistoriqueDAO;
+import dao.CompteDAO;
+import dao.HistoriqueDAO;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +20,7 @@ import java.time.ZoneId;
 import java.sql.Date;
 
 import dao.ClientDAO;
-import dt.Historique;
+import dto.Historique;
 
 
 /**

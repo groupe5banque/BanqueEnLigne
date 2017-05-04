@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import da.CompteDAO;
-import dt.Compte;
+import dao.CompteDAO;
+import dto.Compte;
 
 /**
  * Servlet implementation class compteTitre

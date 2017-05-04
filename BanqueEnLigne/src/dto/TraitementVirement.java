@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import da.CompteDAO;
-import da.HistoriqueDAO;
+import dao.CompteDAO;
+import dao.HistoriqueDAO;
 import dao.ClientDAO;
-import dt.Compte;
-import dt.Historique;
+import dto.Compte;
+import dto.Historique;
 
 /**
  * Servlet implementation class TraitementVirement
