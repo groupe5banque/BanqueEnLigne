@@ -10,7 +10,7 @@
 	<%
 		NewsDAO nd=new NewsDAO();
 	
-	ArrayList <News> vide = new ArrayList<News>();
+	//ArrayList <News> vide = new ArrayList<News>();
 	
 	//affichage simple
 	    ArrayList<News> PrintNews = nd.getAllNews();
@@ -178,7 +178,7 @@
                     <h3 class="section-subheading1 text-muted">Vous trouverez dans cette section toute l'actualité concernant notre banque</h3>
                   
                   <!-- COPIER A PARTIR D'ICI... -->  
-                    <form method="post" action="Actu#portfolio" id="" class="well form-horizontal">
+                    <form method="post" action="Home#portfolio" id="" class="well form-horizontal">
   						<label for="theme">Vous pouvez chercher des news par thème :</label>
 						<input type="text" id="theme" name="theme" placeholder="Entrer le thème de votre choix" title="Entrer le thème de votre choix" size="25">
 						<button class="btn btn-l" type="submit" name="boutontheme">Envoyer</button> 
@@ -188,30 +188,47 @@
 <br>
             <div class="row">
                 <% if(request.getParameter("boutontheme") == null){
-                for(int i =0; i< PrintNews.size();i++){
+                	/*for(int i =0; i< PrintNews.size();i++){
                 	vide.add(PrintNews.get(i));
-                	}
+                	}*/
+                	
+                   	for(int i =0; i< PrintNews.size();i++) {%>
+                    <div class="col-md-4 col-sm-6 portfolio-item">
+                        <div class ="portfolio-caption">
+                        	<% int indice= PrintNews.get(i).getidimg(); %>
+                            <img src="./img/actualites/<%= indice %>.jpg" class="img-responsive" alt="">
+                            <h4><%= PrintNews.get(i).getTitre() %> </h4>
+                            	<p>Thème oui : <%= PrintNews.get(i).getTheme() %></p>
+    		                    <em><%= PrintNews.get(i).gettimestamp() %></em>
+    		                
+    		                <br>
+                            <p class="text-muted"><%= PrintNews.get(i).getContenu() %></p>
+                        </div>
+                    </div>     
+    	             <% }
+    	             
                 }
                 else if(request.getParameter("boutontheme") != null){
-                    for(int i =0; i< actu.size();i++){
+                   /* for(int i =0; i< actu.size();i++){
                     	vide.add(actu.get(i));
-                    }
-                }
-                	for(int i =0; i< vide.size();i++) {%>
+                    }*/
+                           	for(int i =0; i< actu.size();i++) {%>
                 <div class="col-md-4 col-sm-6 portfolio-item">
                     <div class ="portfolio-caption">
-                    	<% int indice= vide.get(i).getidimg(); %>
+                    	<% int indice= actu.get(i).getidimg(); %>
                         <img src="./img/actualites/<%= indice %>.jpg" class="img-responsive" alt="">
-                        <h4><%= PrintNews.get(i).getTitre() %> </h4>
-                        	<p>Thème oui : <%= vide.get(i).getTheme() %></p>
-		                    <em><%= vide.get(i).gettimestamp() %></em>
+                        <h4><%= actu.get(i).getTitre() %> </h4>
+                        	<p>Thème oui : <%= actu.get(i).getTheme() %></p>
+		                    <em><%= actu.get(i).gettimestamp() %></em>
 		                
 		                <br>
-                        <p class="text-muted"><%= vide.get(i).getContenu() %></p>
+                        <p class="text-muted"><%= actu.get(i).getContenu() %></p>
                     </div>
                 </div>     
 	             <% }
-	             %>
+	             
+                }%>
+         
 	            </div>
 	            
 	            <!--  ...JUSQUE LA ET COLLER SUR LA VERSION FINALE -->

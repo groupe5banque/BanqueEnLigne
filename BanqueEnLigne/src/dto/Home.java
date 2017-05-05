@@ -38,7 +38,7 @@ public class Home extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+		//this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
 	}
 
 	/**
@@ -53,8 +53,9 @@ public class Home extends HttpServlet {
 	    ClientDAO dao1= new ClientDAO();
 	    Client cL= new Client();
 	    int r =0;
-	   
+		String sr=request.getParameter("sendNew");
 	    
+		if(sr!=null){
 		//Recuperation des donnees
 		
 	    System.out.println(" TEST");
@@ -72,6 +73,7 @@ public class Home extends HttpServlet {
 		String ville = (String) request.getParameter("ville");
 		String pays = (String) request.getParameter("pays");
 		 r= dao1.getIdClient(mail);
+		 
 	if (r==0)
 	{
 		int tel= Integer.parseInt(phone);
@@ -129,73 +131,94 @@ public class Home extends HttpServlet {
 				System.out.print("error");
 			}
 	    
-        
-	   
-	 	/**Contact form**/
-		String statut=request.getParameter("sendContact");
-		
-		String message = null;
-		String status = null;
-		
-		if(statut!= null){
-			
-			JavaEmail javaEmail = new JavaEmail();
-			javaEmail.setMailServerProperties();
-			String emailSubject = "Formulaire de contact de la plateforme Banque En Ligne S8-5";
-			
-			String emailBody = "";
-			
-			if (request.getParameter("name") != null) {
-				emailBody = "Sender Name: " + request.getParameter("name")
-						+ "<br>";
-			}
-			if (request.getParameter("email") != null) {
-				emailBody = emailBody + "Sender Email: "
-						+ request.getParameter("email") + "<br>";
-			}
-			if (request.getParameter("tel") != null) {
-				emailBody = emailBody + "Sender Phone: "
-						+ request.getParameter("tel") + "<br>";
-			}
-			if (request.getParameter("message") != null) {
-				emailBody = emailBody + "Message: " + request.getParameter("message")
-						+ "<br>";
-			}
-			
-			try {
-				javaEmail.createEmailMessage(emailSubject, emailBody);
-			} catch (MessagingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				javaEmail.sendEmail();
-				status = "success";
-				message = "Email sent Successfully!";
-
-				
-			} catch (MessagingException me) {
-				status = "error";
-				message = "Error in Sending Email!";
-			}
-			
-			
-			request.setAttribute("statut", status);
-			request.setAttribute("reponse", message);
-			
-		}
-
-	
-		this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
-		//this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
-		
 	}
-		
-	else {
+	
+	
+	else if(r!=0){
 		this.getServletContext().getRequestDispatcher( "/pageUnicitMotsPasse.jsp" ).forward( request, response);
 	}
+	
+	//this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+		}
 		
+		else {
+			
+			
+		 	/**Contact form**/
+			String statut=request.getParameter("sendContact");
+			
+			String message = null;
+			String status = null;
+			
+			if(statut!= null){
+				
+				JavaEmail javaEmail = new JavaEmail();
+				javaEmail.setMailServerProperties();
+				String emailSubject = "Formulaire de contact de la plateforme Banque En Ligne S8-5";
+				
+				String emailBody = "";
+				
+				if (request.getParameter("name") != null) {
+					emailBody = "Sender Name: " + request.getParameter("name")
+							+ "<br>";
+				}
+				if (request.getParameter("email") != null) {
+					emailBody = emailBody + "Sender Email: "
+							+ request.getParameter("email") + "<br>";
+				}
+				if (request.getParameter("tel") != null) {
+					emailBody = emailBody + "Sender Phone: "
+							+ request.getParameter("tel") + "<br>";
+				}
+				if (request.getParameter("message") != null) {
+					emailBody = emailBody + "Message: " + request.getParameter("message")
+							+ "<br>";
+				}
+				
+				try {
+					javaEmail.createEmailMessage(emailSubject, emailBody);
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					javaEmail.sendEmail();
+					status = "success";
+					message = "Email sent Successfully!";
 
-	}
+					
+				} catch (MessagingException me) {
+					status = "error";
+					message = "Error in Sending Email!";
+				}
+				
+				
+				request.setAttribute("statut", status);
+				request.setAttribute("reponse", message);
+				
+			}
+
+		
+			String m = request.getParameter("boutontheme");
+			
+			if(m!=null){
+			//Actualites
+			String themeAttr=(String)request.getParameter("theme");
+		 	request.setAttribute("themeAttr", themeAttr);
+			}
+			
+			this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+			//this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
+			
+
+			
+
+		}
+		}
+			
+		
+		
+	
+	
 
 }
