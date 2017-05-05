@@ -185,11 +185,7 @@ public class Home extends HttpServlet {
 			
 		}
 
-		//Actualites
-		String themeAttr=(String)request.getParameter("theme");
-	 	request.setAttribute("themeAttr", themeAttr);
-		
-			
+	
 		this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
 		//this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
 		

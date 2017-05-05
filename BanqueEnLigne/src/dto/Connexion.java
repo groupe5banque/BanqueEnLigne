@@ -49,9 +49,32 @@ public class Connexion extends HttpServlet {
 	    
 	    String mail = request.getParameter("email");
 	    String mdp = request.getParameter("password");
-	    
+	    String type = request.getParameter("type");
 	     
 	    c1=cldao.connexionClient(mail,mdp);
+	    
+	    if(type.equals("manager")){
+	    	
+	    if(mail.equals("manager@banques8.fr")&&mdp.equals("manager"))
+	    {
+	    	
+	  	    	
+	  	    	this.getServletContext().getRequestDispatcher( "/ListeClient.jsp" ).forward( request, response);
+	  	    
+		    
+	    }
+	    
+	    else {
+	    	response.getWriter().println("<H1 class='text-center'> Identifiants manager incorrect! </H1>");
+	    	response.getWriter().println("<BR> ");
+	    	response.getWriter().println("<H2> Veuillez réessayer</H2>");
+	    	response.getWriter().println("<BR> ");
+	    	response.getWriter().println("<a href='Connexion.jsp'> Connexion</a>");
+	    }
+	    
+	    }
+	    
+	    else{
 	    
 	    if (c1==null){
 	    	//System.out.println("Identifiants erronés");
@@ -68,7 +91,7 @@ public class Connexion extends HttpServlet {
 	    	
 	    	this.getServletContext().getRequestDispatcher( "/PageAccueilClient.jsp" ).forward( request, response);
 	    }
-	    
+	    }
 	}
 
 }

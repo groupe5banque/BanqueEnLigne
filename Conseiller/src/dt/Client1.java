@@ -53,4 +53,32 @@ public class Client1 {
 
 	}
 
+	
+	
+	public static Object client2(String message, String email, String id) throws UnknownHostException, IOException, ClassNotFoundException {
+		// 客户端请求与本机在20006端口建立TCP连接
+
+		Socket client = new Socket("127.0.0.1", 20006);
+		client.setSoTimeout(10000);
+		// 获取Socket的输出流，用来发送数据到服务端
+		PrintStream out = new PrintStream(client.getOutputStream());
+		// 获取Socket的输入流，用来接收从服务端发送过来的数据
+		ObjectInputStream get = new ObjectInputStream(client.getInputStream());
+
+		out.println(message);
+		if(message.equals("connexion"))
+		{
+			out.println(email);
+			out.println(id);
+		}
+		Object object = get.readObject();
+
+		if (client != null) {
+			// 如果构造函数建立起了连接，则关闭套接字，如果没有建立起连接，自然不用关闭
+			client.close(); // 只关闭socket，其关联的输入输出流也会被关闭
+		}
+		return object;
+	}
+
+
 }

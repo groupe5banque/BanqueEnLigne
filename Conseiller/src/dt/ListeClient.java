@@ -47,7 +47,6 @@ public class ListeClient extends Win1{
 		super();
 		initialize();
 		
-			
 	}
 
 	/**

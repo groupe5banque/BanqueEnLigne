@@ -6,6 +6,7 @@ import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
@@ -102,30 +103,80 @@ public class ConnexionCFO {
 		
 		JButton btnConnexion = new JButton("Connexion");
 		btnConnexion.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
-				textField.getText();
-				passwordField.getText();
-				ArrayList <String> con= new ArrayList <String> ();
-				con.add(textField.getText());
-				con.add(passwordField.getText());
 				
-				final String rs = null;
+				String mail= textField.getText();
+				String mdp= passwordField.getText();
+				 final BufferedReader in ;
+				 String str= null;
+				 
+				try {
+					 str =(String) Client1.client2("connexion",mail,mdp);
+				} catch (ClassNotFoundException | IOException e) {
+					JOptionPane.showMessageDialog(null, "Echec de connexion");
+					e.printStackTrace();
+				}
+				
+				// receive data from server
+				Socket socket;
+				String host = "localhost";
+				
+				try {
+					
+					socket = new Socket(host, 20006);
+					
+					 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+					 
+					 
+					 
+					if(str != null) {
+						
+						System.out.println(str);
+						
+						if (str.equals("Identifiants corrects")) {
+							getFrame().setVisible(false);
+							PageAccueil pa = new PageAccueil();
+						    pa.frame.setVisible(true);
+				
+						}
+						
+						if (str.equals("Identifiants erronés")) {
+							getFrame().setVisible(false);
+							Erreur er = new Erreur();
+						    er.frame.setVisible(true);
+				
+						}
+						
+					}
+					
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				//ArrayList <String> con= new ArrayList <String> ();
+				//con.add(textField.getText());
+				//con.add(passwordField.getText());
+				
+				/*final String rs = null;
 				Socket socket;
 				String host = "localhost";
 				 final BufferedReader in ;
 				 final PrintWriter out;
 				 final PrintWriter out1;
-				 final Scanner sc = new Scanner (System.in);// Pour lire à partir du clavier
+				 final Scanner sc = new Scanner (System.in);// Pour lire à partir du clavier */
 				 
 				 
-				 try {
+				// try {
 					 /*
 					  * Contenant les informations du serveur (port et adresse IP ou nom d'hote)
 					  * 127.0.0.1 address local
 					  */
 					
 					
-					 socket = new Socket(host, 5000);
+					 /*socket = new Socket(host, 20006);
 					 
 	
 					 
@@ -134,14 +185,14 @@ public class ConnexionCFO {
 					 out1 = new PrintWriter(socket.getOutputStream());
 					 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					 ObjectOutputStream ou = new ObjectOutputStream(socket.getOutputStream());
-					 ObjectInputStream OUT = new ObjectInputStream(socket.getInputStream());
+					 ObjectInputStream OUT = new ObjectInputStream(socket.getInputStream());*/
 					 
 
 					 /*
 					  * Il faut creer deux processus (threads) parce que l'envoi et la reception se font simultanemant cela nous permet d'envoyer 
 					  * et de recevoir des messages em meme temps
 					  */
-				Thread envoyer = new Thread (new Runnable(){
+				/*Thread envoyer = new Thread (new Runnable(){
 					
 					 Object obj;
 					  List s;
@@ -209,7 +260,7 @@ public class ConnexionCFO {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 				 
 							
 			}

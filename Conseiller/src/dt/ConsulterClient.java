@@ -59,8 +59,10 @@ public class ConsulterClient extends Win1 {
 		JButton btnNewButton = new JButton("Consulter");
 		btnNewButton.setBounds(293, 167, 93, 23);
 		btnNewButton.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 				try {
+					
 					int id = Integer.parseInt(txtIdClient.getText());
 
 					ClientDAO cd = new ClientDAO();
@@ -84,6 +86,8 @@ public class ConsulterClient extends Win1 {
 
 						}
 						frame.dispose();
+						
+						
 					} else {
 						JOptionPane.showMessageDialog(null, "Ce client n'existe pas.");
 					}

@@ -1,7 +1,8 @@
 package dt;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Date;
-public class Historique {
+public class Historique implements Serializable{
 
 		/**
 		 * identifiant du client 

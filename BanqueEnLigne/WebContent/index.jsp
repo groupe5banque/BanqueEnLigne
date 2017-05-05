@@ -10,7 +10,6 @@
 	<%
 		NewsDAO nd=new NewsDAO();
 	
-	
 	ArrayList <News> vide = new ArrayList<News>();
 	
 	//affichage simple
@@ -179,7 +178,7 @@
                     <h3 class="section-subheading1 text-muted">Vous trouverez dans cette section toute l'actualité concernant notre banque</h3>
                   
                   <!-- COPIER A PARTIR D'ICI... -->  
-                    <form method="post" action="Home#portfolio" id="" class="well form-horizontal">
+                    <form method="post" action="Actu#portfolio" id="" class="well form-horizontal">
   						<label for="theme">Vous pouvez chercher des news par thème :</label>
 						<input type="text" id="theme" name="theme" placeholder="Entrer le thème de votre choix" title="Entrer le thème de votre choix" size="25">
 						<button class="btn btn-l" type="submit" name="boutontheme">Envoyer</button> 
@@ -203,7 +202,7 @@
                     <div class ="portfolio-caption">
                     	<% int indice= vide.get(i).getidimg(); %>
                         <img src="./img/actualites/<%= indice %>.jpg" class="img-responsive" alt="">
-                        <h4><%= PrintNews.get(i).getTitre() %></h4>
+                        <h4><%= PrintNews.get(i).getTitre() %> </h4>
                         	<p>Thème oui : <%= vide.get(i).getTheme() %></p>
 		                    <em><%= vide.get(i).gettimestamp() %></em>
 		                
@@ -332,7 +331,7 @@
 	}
 %>
 
-                    <form action="" method="POST" id="" novalidate="novalidate">
+                    <form action="Home" method="POST" id="" novalidate="novalidate">
                     
 					                   <div class="row">
                             <div class="col-md-6">

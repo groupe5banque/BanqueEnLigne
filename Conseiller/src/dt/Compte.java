@@ -1,6 +1,8 @@
 package dt;
 
-public class Compte {
+import java.io.Serializable;
+
+public class Compte implements Serializable{
 	 /**
      * identifiant du client
      */

@@ -107,4 +107,13 @@ public class NewsDAO extends DAO{
 		return th;
 
 	}
+	
+/*	public static void main(String[] args)  {
+		NewsDAO nd= new NewsDAO();
+	 ArrayList<News> actu = nd.getActuByTheme("Nouvelles");
+	 
+	 System.out.println(actu);
+	 
+		}*/
+		
 }

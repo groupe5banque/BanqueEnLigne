@@ -2,14 +2,19 @@ package dt;
 import java.awt.EventQueue;
 
 public class Main {
+	
 	public static int idChoisi=0;
 	public static String typeConsultation = null;
+	public static String etat = null;
+	
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PageAccueil pa = new PageAccueil();
-					pa.frame.setVisible(true);
+					//PageAccueil pa = new PageAccueil();
+					ConnexionCFO cf = new ConnexionCFO();
+					cf.getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,9 +74,5 @@ public class Main {
 		lh.frame.setVisible(true);
 	}
 
-	
-	
-	
-	
 	
 }
