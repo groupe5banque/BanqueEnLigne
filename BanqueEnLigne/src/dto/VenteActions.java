@@ -10,11 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.CompteDAO;
-import dao.HistoriqueDAO;
 import dao.*;
-import dto.Compte;
-import dto.Historique;
 
 /**
  * Servlet implementation class VenteActions

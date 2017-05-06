@@ -31,7 +31,7 @@
      int identifiant=0; 
      identifiant=cdao.getIdClient(mail);
      List <Compte> compte = new ArrayList <Compte>();
-     compte = dao.getCompteTitre(identifiant);   
+     compte = dao.getTousCompte(identifiant);   
      request.setAttribute("compte", compte);
 %>
  

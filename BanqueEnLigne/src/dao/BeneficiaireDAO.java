@@ -1,4 +1,4 @@
-package dao;
+ package dao;
 
 import dto.*;
 import java.sql.*;
@@ -159,6 +159,54 @@ public class BeneficiaireDAO {
 
 	}
 
+	public Beneficiaire getBeneficiaire(String iban) {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Beneficiaire ben = null;
+		
+		// connexion 鑴� la base de donn鑼卐s
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT * FROM beneficiaire WHERE ibanben = ?");
+			ps.setString(1, iban);
+
+			// on ex鑼卌ute la requ閿歵e
+			// rs contient un pointeur situ鑼� juste avant la premi鐚玶e ligne
+			// retourn鑼卐
+			rs = ps.executeQuery();
+			// passe 鑴� la premi鐚玶e (et unique) ligne retourn鑼卐
+			if (rs.next())
+			ben = new Beneficiaire (rs.getInt("idClient"),
+						rs.getString("nomben"),rs.getString("prenomben"),rs.getString("ibanben"));
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du ResultSet, du PreparedStatement et de la Connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return ben;
+
+	}
+	
+	
 	
 }
 	

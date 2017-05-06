@@ -22,9 +22,7 @@
      }
     %>
 	
-     <%   Bourse bourse=new Bourse();
-         bourse.ActualisationBourse();
-     
+     <%  
 	     Date df=new java.sql.Date(System.currentTimeMillis());
          TitreDAO titredao= new TitreDAO();
          CompteDAO comptedao= new CompteDAO();
@@ -183,8 +181,8 @@
   <div class="container">
   <h2>Votre portefeuille actualisé</h2>
       <p> Solde au  <%= df %> : <%= compte.getSoldeBanque() %> Euros   </p>  
-      <p>  Votre gain: <%= gain.calculGain(identifiant, idCompte) %> Euros </p> 
-      <p> Valeur du portefeuille: <%= gain.calculValeur(identifiant, idCompte) %>Euros </p>   
+    <%--   <p>  Votre gain: <%= gain.calculGain(identifiant, idCompte) %> Euros </p> 
+      <p> Valeur du portefeuille: <%= gain.calculValeur(identifiant, idCompte) %>Euros </p>  --%>  
   <table class="table table-responsive">
     <thead>
       <tr>
@@ -198,11 +196,12 @@
     <tbody>
     <%for (int i =0; i<titres.size(); i++){ %>
       <tr>
-        <td>   <%=titres.get(i).getNomTitre()%></td>
-        <td>   <%=titres.get(i).getNombre() %>  </td>
-        <td>   <%=titres.get(i).getPrix() %></td>
-         <td>   <%= elemdao.getElement(titres.get(i).getNomTitre()).getActuel()%>  </td>
         
+          <td> <%=titres.get(i).getNomTitre() %></td>
+        <td>   <%=titres.get(i).getNombre() %>  </td>
+        <td>  <%=titres.get(i).getPrix() %></td>
+       <%--   <td>   <%= elemdao.getElement(titres.get(i).getNomTitre()).getActuel()%>  </td>
+         --%>
       </tr>
       <%} %>
     </tbody>

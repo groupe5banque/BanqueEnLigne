@@ -136,7 +136,7 @@
           				         <li class="nav-header">
             <div class="link"><i class="glyphicon glyphicon-list-alt"></i>Services<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-              <li><a href="Releves.jsp">Releves de comptes</a></li>
+              <li><a href="Releves.jsp">Rélevés de comptes</a></li>
             </ul>
           </li>
       </ul>
@@ -173,6 +173,7 @@
               </div>
             </div>
             </form>
+            
      	<div class="container">
   <form name="" method="post" action="TraitementVirement" id="form"class="well form-horizontal">
 			<div class="form-group"> 
@@ -184,10 +185,7 @@
   <c:forEach var="cmp" items = "${compte}">
        	<option  value = "${cmp.getNumeroDeCompte()}"> <c:out value="${cmp.getTypeCompte()}"/>&nbsp;&nbsp; -N°  <c:out value=" ${cmp.getNumeroDeCompte()}"/> &nbsp;&nbsp;Solde:<c:out value=" ${cmp.getSoldeBanque()}"/></option>   	
      	</c:forEach> 	
-		
-	
-		</select>
-		
+		</select>		
 		<p> </p>
 			</div>
 			</div>
@@ -203,9 +201,13 @@
     <c:forEach var="cmp" items = "${compte}">
        	<option  value = "${cmp.getNumeroDeCompte()}"> <c:out value="${cmp.getTypeCompte()}"/>&nbsp;&nbsp; - N°  <c:out value=" ${cmp.getNumeroDeCompte()}"/>&nbsp;&nbsp;  Solde:<c:out value=" ${cmp.getSoldeBanque()}"/></option>   	
      	</c:forEach> 	
+     	<% for ( int i = 0; i< benef.size() ; i++)  {%>
+     	<option  value="<%= benef.get(i).getIbanben() %>"> <%= benef.get(i).getNomben() %>  <%= benef.get(i).getPrenomben() %>  </option>
+     	<%} %> 
 			</select> 
 			</div>
 			</div>
+			<a href="BeneficiaireAajouter.jsp"> Ajouter un bénéficiaire </a>
 			</div>
 			
 			<div class="form-group">

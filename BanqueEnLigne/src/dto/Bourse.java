@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.servlet.ServletContext;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -25,7 +27,7 @@ public class Bourse {
 
 	final static String URL = "jdbc:mysql://localhost:3306/banqueenligne";
 	final static String LOGIN = "root";  //exemple BDD1
-	final static String PASS = "Mmdpne1995";  //exemple BDD1
+	final static String PASS = "root";  //exemple BDD1
 	
 	
 	
@@ -40,7 +42,7 @@ public class Bourse {
 	}
 	
 
-public void ActualisationBourse() {
+public void ActualisationBourse( ) {
 	//
 	
 	ArrayList <String> values= new ArrayList<String>();
@@ -51,7 +53,9 @@ public void ActualisationBourse() {
 	try {
 		
 		InputStream input= new FileInputStream ("bourse.xls");
+		
 		POIFSFileSystem fs= new POIFSFileSystem(input);
+		
 		HSSFWorkbook wb= new HSSFWorkbook(fs);
 		HSSFSheet sheet = wb.getSheetAt(0);
 		Iterator rows=sheet.rowIterator();
@@ -111,6 +115,7 @@ public void ActualisationBourse() {
 
 //main permettant de tester la classe
 	public static void main(String[] args) throws SQLException{
+		  
 Bourse bourse=new Bourse();
 bourse.ActualisationBourse();		
 	}

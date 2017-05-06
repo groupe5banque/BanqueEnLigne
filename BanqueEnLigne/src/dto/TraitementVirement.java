@@ -12,11 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.CompteDAO;
-import dao.HistoriqueDAO;
 import dao.ClientDAO;
-import dto.Compte;
-import dto.Historique;
 
 /**
  * Servlet implementation class TraitementVirement
@@ -72,38 +68,16 @@ public class TraitementVirement extends HttpServlet {
 	    String compteBeneficiaire = request.getParameter("compteBeneficiaire");
 	    String mont = request.getParameter("montant");
 	    String motif = request.getParameter("motif");
-	  	 double montantd=0;
+	  	double montantd=0;
 	    
 	    HttpSession session = request.getSession();
 	    
 	   client= (Client)session.getAttribute("client");
 	   
-	   // récupération des comptes
-	   compteEm=cdao.getCompteNumero(compteEmetteur);
-	   compteBe=cdao.getCompteNumero(compteBeneficiaire);
-	   
-	   // récupération des identifiants du clients et des comptes concernés
 	   identifiant= client.getIdClient();
-	   identCompteEm= cdao.getIdCompte(compteEmetteur);
-	   identCompteBen=cdao.getIdCompte(compteBeneficiaire);
-	    
-	   //System.out.println(identCompteEm);
-	   //System.out.println(identCompteBen);
-	   
-	   
-	   // nature de la transaction
-	   natureEm= "Virement émis pour le "+ compteEm.getTypeCompte() +" N° " +compteEm.getNumeroDeCompte()+ "\n Motif:" + motif;
-	   natureBen= "Virement reçu du "+ compteBe.getTypeCompte() +" N° "+ compteBe.getNumeroDeCompte()+ "\n Motif:" + motif;
-	   
-	  double montantEm = Double.parseDouble(compteEm.getSoldeBanque());
-	 double montantBe= Double.parseDouble(compteBe.getSoldeBanque());
-	  
-	  
-	  // System.out.println(natureEm);
-	  // System.out.println(natureBen);
-	  //System.out.println( compteEmetteur);
-	  // System.out.println( compteBeneficiaire);
-	   
+	 
+	   compteEm=cdao.getCompteNumero(compteEmetteur);
+	   double montantEm = Double.parseDouble(compteEm.getSoldeBanque());
       
       
       try{
@@ -129,6 +103,32 @@ public class TraitementVirement extends HttpServlet {
   		}
     
 
+  	// récupération des comptes
+		   
+		  
+		   compteBe=cdao.getCompteNumero(compteBeneficiaire);
+		   
+		   if (compteBe!=null) {
+		 //  System.out.println("	Virement entre comptes");
+		   // récupération des identifiants du clients et des comptes concernés
+		   
+		   
+		   identCompteEm= cdao.getIdCompte(compteEmetteur);
+		   identCompteBen=cdao.getIdCompte(compteBeneficiaire);
+		    
+		   System.out.println(identCompteEm);
+		   System.out.println(identCompteBen);
+		   
+		   
+		   // nature de la transaction
+		   natureEm= "Virement émis pour le "+ compteBe.getTypeCompte() +" N° " +compteBe.getNumeroDeCompte()+ "\n Motif:" + motif;
+		   natureBen= "Virement reçu du "+ compteEm.getTypeCompte() +" N° "+ compteEm.getNumeroDeCompte()+ "\n Motif:" + motif;
+		   
+		  
+		 double montantBe= Double.parseDouble(compteBe.getSoldeBanque());
+  		
+  		
+  		
       
 	 if ( compteEmetteur.equals(compteBeneficiaire)==true){
 		// System.out.println("Virement impossible entre deux comptes identiques");
@@ -143,7 +143,7 @@ public class TraitementVirement extends HttpServlet {
 		 }
 		 if (montantEm >= montantd){
 			  
-			 
+			 		 
 			// Actualisation du solde des deux comptes
 			double montantActEm=montantEm -montantd;
 			double montantActBen=montantBe + montantd;
@@ -157,7 +157,9 @@ public class TraitementVirement extends HttpServlet {
 			 // Ajout virement et historiques
 		     //Ajout dans ma table historique	   
 		      histEm= new Historique(identifiant,identCompteEm,df,natureEm,0,montantd);
-		      histBen= new Historique(identifiant,identCompteBen,df,natureBen,montantd,0);
+		      
+		      histBen= new Historique(compteBe.getIdClient(),identCompteBen,df,natureBen,montantd,0);
+		      
 			    vir=new Virement(identifiant,compteEmetteur,compteBeneficiaire,montantd,df,motif);
 			    retour= virdao.ajouter(vir);
 			    retour=histDAO.ajouter(histEm);
@@ -172,7 +174,48 @@ public class TraitementVirement extends HttpServlet {
 	 
 
 	}
-
+		   if(compteBe==null){
+			   
+			   identCompteEm= cdao.getIdCompte(compteEmetteur);
+			   
+			   
+			   if (montantEm < montantd){
+					// System.out.println("Virement impossible car le montant du virement est supérieur au solde du compte émetteur ");
+					 this.getServletContext().getRequestDispatcher( "/ErreurSoldeInferieur.jsp" ).forward( request, response);
+				 
+				 }
+				 if (montantEm >= montantd){
+			   
+			 //  System.out.println("	Virement externe");
+			   //récupération du bénéficiaire concerné
+			   Beneficiaire ben=null;
+			   BeneficiaireDAO bendao= new BeneficiaireDAO();
+			   
+			   ben= bendao.getBeneficiaire(compteBeneficiaire);
+			  // Actualisation du solde émetteur
+			   
+			   double montantActEm=montantEm -montantd;
+			   String montant1 =Double.toString(montantActEm);
+			   cdao.setSoldeCompte( compteEmetteur, montant1);
+			   
+			   //Ajout du virement
+			   vir=new Virement(identifiant,compteEmetteur,compteBeneficiaire,montantd,df,motif);
+			   retour= virdao.ajouter(vir);
+			   
+			   // Ajout de l'historique
+			  String nature= "Virement émis à" + ben.getNomben()+ " " +  ben.getPrenomben() + "\n Motif:" + motif;
+			   System.out.println(nature);
+			  Historique hist= new Historique(identifiant,identCompteEm,df,nature,0,montantd);
+			   int ret =0;
+			    ret=histDAO.ajouter(hist);
+			   
+			   System.out.println(ret);
+			   // redirection vers la page de succès
+			   
+			   this.getServletContext().getRequestDispatcher( "/SuccesVirement.jsp" ).forward( request, response);
+		   }
   	}
+  		}
+	}
 	}
 	}

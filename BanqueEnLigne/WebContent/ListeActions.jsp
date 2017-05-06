@@ -25,8 +25,11 @@
 	
 	
 	
-     <%  Bourse bourse=new Bourse();
-          bourse.ActualisationBourse();
+     <%  
+    /*  ServletContext context = request.getServletContext();
+     String path = context.getRealPath("/");
+     Bourse bourse=new Bourse();
+     bourse.ActualisationBourse(path+"bourse.xls"); */
      
 	     Date df=new java.sql.Date(System.currentTimeMillis());
          ElementBourseDAO elem=new ElementBourseDAO();                
@@ -174,6 +177,7 @@
               </div>
             </div>
             </form>
+            </div>
      	<div class="container">
   <form name="" method="post" action="TraitementActionsSelection" id="form"class="well form-horizontal">
 	

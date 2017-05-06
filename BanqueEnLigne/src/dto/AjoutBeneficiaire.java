@@ -41,53 +41,66 @@ public class AjoutBeneficiaire extends HttpServlet {
 		// TODO Auto-generated method stub
 	//	doGet(request, response);
 		
-		
-		
 		BeneficiaireDAO bendao= new BeneficiaireDAO();
+		
 		Beneficiaire ben=null;
+		
 		//récupération des éléments saisis
-		String nom = (String) request.getParameter("nom");
-		String prenom = (String) request.getParameter("prenom");
+		
+		 String nom = (String) request.getParameter("nom");
+		
+		 String prenom = (String) request.getParameter("prenom");
 			
-		HttpSession session = request.getSession();	
-		Client client=null;
+		 HttpSession session = request.getSession();	
+		
+		 Client client=null;
+		
 		 ClientDAO cdao=new ClientDAO();
+		 
 	     client= (Client)session.getAttribute("client");
+	     
 	     int identifiant=0; 
+	     
 	     String mail= client.getEmailClient();
+	     
 	     identifiant=cdao.getIdClient(mail);
 		  
-	     // Test de l'iban
+	     
 	     
 try {
+	// Test de l'iban
 	String iban = (String) request.getParameter("iban");
-	     TestIban t= new TestIban();
-	     t.test(iban);
-	     System.out.println("test réussi");
+	    
+	TestIban t= new TestIban();
+	    
+	// Ajout du bénéficiaire  dans la bdd si IBAN correct
+	
+	if(t.test(iban)){
+		
+		
+		ben= new Beneficiaire(identifiant,nom,prenom,iban);
+		
+		bendao.ajouter(ben);
+		
+		// redirection vers la page de succès
+		
+		response.sendRedirect( "SuccesAjoutBeneficiaire.jsp" );
+	} 
+	
+	else {
+		
+		// redirection vers la page d'erreur
+		
+		response.sendRedirect( "ErreurIban.jsp" );
+		
+	}
+	
+		    
 } catch (Exception e) {
 	e.printStackTrace();
 }
 	 	
-	 	
-	
-	 /*    
-				
-				try{
-					
-					ben= new Beneficiaire(identifiant,nom,prenom,iban);
-					int retour = bendao.ajouter(ben);
-					
-					}catch(Exception e)
-					{
-						System.out.print("error");
-					}
-			}
-			
-			else
-				System.out.println("Iban invalide");
-		    		
-	}
-*/
+
 }
 
 }

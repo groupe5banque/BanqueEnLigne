@@ -1,7 +1,4 @@
- <%@ page import="dao.*"%>
-    <%@ page import="dto.*"%>
-   
-    <%ClientDAO dao= new ClientDAO();
+ <%ClientDAO dao1= new ClientDAO();
     Client cl= null;
  
      cl=(Client)session.getAttribute("client");
@@ -13,10 +10,41 @@
      }
     %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+    
+    <%@ page import="dao.*" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@ page import="dto.*" %>
+	<%@ page import="java.util.ArrayList" %>
+	<%@ page import="java.util.List" %>
+	<%@ page import="java.util.HashMap" %>
+	<%@ page import="java.util.Enumeration" %>
+
+	
+     <%    
+     
+     CompteDAO dao = new CompteDAO(); 
+     Compte cmp=null;
+     Client client=null;
+     ClientDAO cdao=new ClientDAO();
+     client= (Client)session.getAttribute("client");
+     int identifiant=0; 
+     String mail= client.getEmailClient();
+     identifiant=cdao.getIdClient(mail);
+     List <Compte> compte = new ArrayList <Compte>();
+     compte = dao.getListeCompte(identifiant);
+     BeneficiaireDAO bendao= new BeneficiaireDAO();
+     List <Beneficiaire> benef=bendao.getListeBeneficiaire(identifiant);
+     request.setAttribute("compte", compte);
+   
+%>
+
+ 
+ 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<head>
 <head>
 
 <meta charset="utf-8">
@@ -24,32 +52,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Equipe5">
-    <meta name="description" content="Validates and converts your IBAN to BBAN and BBAN to IBAN">
-    <meta name="author" content="ARHS Spikeseed">
 
     <title>Bank 8-5 Of ESIGELEC</title>
-    
-     <!-- Bootstrap core CSS -->
-    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="./css/jumbotron-narrow.css" rel="stylesheet">
-
-    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="./js/ie-emulation-modes-warning.js"></script>
-
-    <script src="./bower_components/chai/chai.js"></script>
-    <script src="./bower_components/iban/iban.js"></script>
-
-    <!-- <script src="./js/countries.js"></script>-->
-   
-     <script src="./js/iban.js"></script> 
 
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/custom.css">
     <!-- Bootstrap Core CSS -->
@@ -109,11 +113,10 @@
               
             </ul>
           </li>
-          
-          <li class="nav-header">
+         <li class="nav-header">
             <div class="link"><i class="fa fa-lg fa-users"></i>Comptes<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-             <li><a  href="CreerCompteEpargne.jsp"" >Créer un compte épargne</a></li>
+              <li><a  href="CreerCompteEpargne.jsp"" >Créer un compte épargne</a></li>
               <li><a  href="CreerCompteTitre.jsp">Créer un compte titre</a></li>
               <li><a href="#">Gérer mes comptes</a></li>
                <li><a href="Consultation.jsp">Consulter les soldes de mes comptes</a></li>
@@ -148,72 +151,8 @@
         <span class='burger_inside' id='bgrThree'></span>
       </a>      
     </div>
-    
      <section class="content-inner">
-     	<div class="container">
-     	<form class="beneficiaire" method="post" action="AjoutBeneficiaire" id="" class="well form-horizontal"  novalidate>
-
-<label class="control-label" for="userInput">Veuillez entrer les informations du bénéficiaire que vous souhaitez ajouter </label>
-
-    <div class="input-group">
- <p> </p>
- 
-</div>
-
-	<div class="form-group">
- <label class="col-md-4 control-label">Nom(s)</label>
-   <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  <input name="nom" placeholder="Nom" class="form-control"  type="text" required data-validation-required-message="Please enter ">
-  <p> </p>
-    </div>
-  </div>
-</div>
-
-
-
-<div class="form-group">
-<label class="col-md-4 control-label">Prénom(s)</label>
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  <input name="prenom" placeholder="Prénom" class="form-control"  type="text" required data-validation-required-message="Please enter ">
-  <p> </p>
-    </div>
-  </div>
-</div>
-
-<div class="form-group">
-          <label class="col-md-4 control-label" for="userInput">IBAN</label>
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-          <input type="text" class="form-control" id="userInput" required data-validation-required-message="Please enter " >
-        </div>
-        </div>
-        </div>
-        <span id="erreur" style="visibility:hidden"> IBAN invalide </span>
-         <div class="form-group">
-  <label class="col-md-4 control-label"></label>
-  <div class="col-md-4">
-  
-    <button type="submit" class="btn btn-warning" id="goBtn" > Valider </button>
-    <span id="results"></span>
-    
-  </div>
-  
-</div>
-</div>
-
-</form>
-     	
-
-								
-								
-								<div class="container">
-	
-           
+    <div class="container">
      <form name=""  action="Deconnexion" method="post" id="" novalidate>        
             <!-- Modal -->
              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -234,15 +173,61 @@
               </div>
             </div>
             </form>
+     	<div class="container">
+  <form name="" method="post" action="AjoutBeneficiaire" id="form"class="well form-horizontal">
+			<div class="form-group"> 
+  <label class="col-md-4 control-label">Nom(s)</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+		 <input name="nom" placeholder="Nom*" class="form-control"  type="text" required data-validation-required-message="Please enter ">
+		<p> </p>
+			</div>
+			</div>
+			</div>
+			
+			<div class="form-group"> 
+  <label class="col-md-4 control-label"> Prénom(s) </label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  <input name="prenom" placeholder="Prénom*" class="form-control"  type="text" required data-validation-required-message="Please enter ">
+			</div>
+			</div>			
+			</div>
+			
+			<div class="form-group">
+  <label class="col-md-4 control-label"> IBAN  </label>  
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+  <input name="iban" placeholder="IBAN*" class="form-control"  type="text" required data-validation-required-message="Please enter ">
+    </div>
+  </div>
+</div>
+
+
+
+
+    <div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+    <button type="submit" class="btn btn-warning" > Valider </button>
+  </div>
+</div>
+<label id="hint"></label>
+
+			</form>
+									
 	</div>
 </div>
 	</div>
     </section>
-     </div>  
+  </div>  
   
 </div>
 
-
+    
     <script src="vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -256,4 +241,3 @@
 
 </body>
 </html>
-   

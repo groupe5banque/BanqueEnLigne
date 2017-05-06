@@ -76,7 +76,7 @@
     <div class="wrap">
   <nav class="nav-bar navbar-inverse" role="navigation">
       <div id ="top-menu" class="container-fluid active">
-          <a class="navbar-brand" href="#">BIENVENUE SUR VOTRE ESPACE CLIENT</a>
+          <a class="navbar-brand" href="#">BIENVENUE SUR VOTRE ESPACE MANAGERIAL</a>
           <ul class="nav navbar-nav">        
               <li>
                         <a  href="#portfolio">Actualités</a>

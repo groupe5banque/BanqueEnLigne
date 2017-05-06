@@ -10,17 +10,17 @@ public class TestIban {
 		
 		
 		if (ibval.isValid(iban)){
-		//	System.out.println("Iban valide");
+		
 			return true;
 		}
 		
 		else
-			//System.out.println("Iban invalide");
+			
 		return false;
 	}
 		
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String iban="FR7630003017850005002185768";
 		TestIban test= new TestIban();
@@ -32,5 +32,5 @@ public class TestIban {
   else
 		System.out.println("Iban invalide");	
 
-}*/
+}
 }

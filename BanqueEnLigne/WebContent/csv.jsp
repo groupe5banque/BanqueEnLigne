@@ -16,7 +16,7 @@
 			@param: This code expects "csv_data1" to contain the data to download as csv
 			@param: In "file_name" its an optional param for naming the .csv file
 		 */
-		String csv_string1 = request.getParameter("csv_data1");
+		//String csv_string1 = request.getParameter("csv_data1");
 		//String csv_string2 = request.getParameter("csv_data2");
 					
 		String file_name = request.getParameter("file_name");

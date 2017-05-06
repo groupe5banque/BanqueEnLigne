@@ -12,6 +12,12 @@
     	 this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response);
     	 session.removeAttribute("client");
      }
+     
+     /* ServletContext context = request.getServletContext();
+     String path = context.getRealPath("/");
+     Bourse bourse=new Bourse();
+     bourse.ActualisationBourse(path+"bourse.xls"); */
+     
     %>
 
 

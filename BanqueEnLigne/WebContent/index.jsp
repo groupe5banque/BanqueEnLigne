@@ -1086,6 +1086,7 @@
 										<div class="col-md-4"></div>
 										<div class="col-md-4">
 											<div class="form-group">
+				<!-- 							<input name="type" placeholder="client" value="client" style="visibility:hidden"> -->
 												<input type="email" class="form-control" placeholder="Your mail *" name="email" required data-validation-required-message="Please enter your mail.">
 												<p class="help-block text-danger"></p>
 												

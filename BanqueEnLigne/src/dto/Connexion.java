@@ -19,7 +19,7 @@ import dao.ClientDAO;
 public class Connexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private final String attribut_session = "sessionUtilisateur";
+	//private final String attribut_session = "sessionUtilisateur";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -43,38 +43,50 @@ public class Connexion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
-		ClientDAO cldao= new ClientDAO();
-	    Client c1= null;
 	    
 	    String mail = request.getParameter("email");
 	    String mdp = request.getParameter("password");
-	    String type = request.getParameter("type");
+	 
+
+	    //String type =(String)request.getParameter("type");
+	    
+		ClientDAO cldao= new ClientDAO();
+	    Client c1= null;
+	    
+	   // ManagerDAO mndao = new ManagerDAO();
+	    //Manager m1=null;
+
 	     
 	    c1=cldao.connexionClient(mail,mdp);
+	    //m1=mndao.connexionManager(mail, mdp);
 	    
-	    if(type.equals("manager")){
+	    
+	    //if(type.equals("manager")){
 	    	
-	    if(mail.equals("manager@banques8.fr")&&mdp.equals("manager"))
+	    /*if(m1==null)
 	    {
-	    	
-	  	    	
-	  	    	this.getServletContext().getRequestDispatcher( "/ListeClient.jsp" ).forward( request, response);
-	  	    
-		    
-	    }
-	    
-	    else {
 	    	response.getWriter().println("<H1 class='text-center'> Identifiants manager incorrect! </H1>");
 	    	response.getWriter().println("<BR> ");
 	    	response.getWriter().println("<H2> Veuillez réessayer</H2>");
 	    	response.getWriter().println("<BR> ");
 	    	response.getWriter().println("<a href='Connexion.jsp'> Connexion</a>");
+	  	    	
+	
 	    }
 	    
-	    }
+	    else if(m1!=null){
+
+
+	    	  HttpSession session = request.getSession();
+	    	 session.setAttribute( "manager",m1 );
+	    	 
+	  	    	this.getServletContext().getRequestDispatcher( "/ListeClient.jsp" ).forward( request, response);
+		  	    	 
+	    }*/
 	    
-	    else{
+	    //}
+	    
+	   // else if(type.equals("client")){
 	    
 	    if (c1==null){
 	    	//System.out.println("Identifiants erronés");
@@ -84,14 +96,14 @@ public class Connexion extends HttpServlet {
 	    	response.getWriter().println("<BR> ");
 	    	response.getWriter().println("<a href='index.jsp'> Connexion</a>");
 	    }
-	    else {
+	    else if(c1!=null) {
 
 	    	  HttpSession session = request.getSession();
 	    	 session.setAttribute( "client",c1 );
 	    	
 	    	this.getServletContext().getRequestDispatcher( "/PageAccueilClient.jsp" ).forward( request, response);
 	    }
-	    }
+	    //}
 	}
 
 }

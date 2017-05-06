@@ -11,7 +11,10 @@
 	
 	
 	
-     <%  
+     <%  ServletContext context = request.getServletContext();
+     /* String path = context.getRealPath("/");
+     Bourse bourse=new Bourse();
+     bourse.ActualisationBourse(path+"bourse.xls"); */
      
 	     Date df=new java.sql.Date(System.currentTimeMillis());
          ElementBourseDAO elem=new ElementBourseDAO();                

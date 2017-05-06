@@ -1,0 +1,23 @@
+.modal-header1 {
+  border-bottom: none;
+  position: relative;
+}
+
+.modal-footer1 {
+  border-top: none;
+  padding: 0;
+}
+.modal-body1 .color1{
+ color: #0000FF;
+}
+.modal-body1 .colorD
+{
+ color: #8A2BE2;
+}
+
+.modal-footer1 .btn-group > .btn:first-child {
+  border-bottom-left-radius: 0;
+}
+.modal-footer1 .btn-group > .btn:last-child {
+  border-top-right-radius: 0;
+}
